@@ -1,0 +1,8 @@
+export default function makeListUserByPhone({ authDb }) {
+  return async function listUserByPhone({ phone } = {}) {
+    if (!phone) throw new Error('Phone is null');
+
+    const user = await authDb.findByPhone(phone);
+    return user;
+  };
+}
