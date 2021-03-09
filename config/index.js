@@ -11,6 +11,9 @@ const config = {
   dbUri: process.env.DB_URI,
   privateKey: process.env.PRIVATE_KEY,
   awsBucketName: process.env.AWS_BUCKET_NAME,
+  twilioToken: process.env.TWILIO_AUTH_TOKEN,
+  twilioAccountSID: process.env.TWILIO_ACCOUNT_SID,
+  twilioVerifyServiceId: process.env.TWILIO_SERVICE_ID,
 };
 
 module.exports = { config };

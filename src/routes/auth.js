@@ -24,6 +24,16 @@ function getAuthRoutes() {
     makeCallback(authControllers.getUserByPhone)
   );
 
+  router.get(
+    '/send-verify-sms/:phoneNumber',
+    makeCallback(authControllers.getSendVerificationSMS)
+  );
+
+  router.get(
+    '/check-verify-code/:phoneNumber/:code',
+    makeCallback(authControllers.getCheckVerifyCode)
+  );
+
   return router;
 }
 
