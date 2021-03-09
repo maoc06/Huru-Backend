@@ -1,14 +1,8 @@
-import FileType from 'file-type';
-
-export default async function validateMimeTypeImages(filePath) {
-  let fileType = {};
-
-  await (async () => {
-    fileType = await FileType.fromFile(filePath);
-  })();
-
-  if (fileType.ext !== 'png' && fileType.ext !== 'jpg')
+export default function validateMimeTypeImages(mimetype) {
+  if (
+    mimetype !== 'image/png' &&
+    mimetype !== 'image/jpeg' &&
+    mimetype !== 'image/webp'
+  )
     throw new Error('File type is not allowed');
-
-  return fileType;
 }

@@ -8,6 +8,7 @@ import makeListMaxTrip from './list-max-trip';
 import makeListFeaturesOpts from './list-features-options';
 import makeAddCarFeatures from './add-car-features';
 import makeAddCarImage from './add-car-images';
+import makeUpdateOwnerCarImage from './update-owner-car-image';
 
 import { carBasicSettingsDb, makerDb, carDb, userDb } from '../../data-access';
 
@@ -23,7 +24,8 @@ const listMinTrip = makeListMinTrip({ carBasicSettingsDb });
 const listMaxTrip = makeListMaxTrip({ carBasicSettingsDb });
 const listFeaturesOpts = makeListFeaturesOpts({ carBasicSettingsDb });
 const addCarFeatures = makeAddCarFeatures({ carBasicSettingsDb, carDb });
-const addCarImage = makeAddCarImage({ carBasicSettingsDb, carDb, userDb });
+const addCarImage = makeAddCarImage({ carBasicSettingsDb, userDb });
+const updateOwnerCarImage = makeUpdateOwnerCarImage({ carBasicSettingsDb });
 
 export default {
   listModels,
@@ -36,4 +38,5 @@ export default {
   listFeaturesOpts,
   addCarFeatures,
   addCarImage,
+  updateOwnerCarImage,
 };

@@ -13,7 +13,7 @@ export default function buildCarImageModel({ client }) {
       },
       carId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         field: 'car_id',
         references: {
           model: 'Car', // CarImage belongsTo Car 1:1

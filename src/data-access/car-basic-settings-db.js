@@ -68,18 +68,27 @@ export default function makeCarBasicSettingsDb({ client }) {
   }
 
   async function insertCarImage(imageInfo) {
-    const { imagePath } = imageInfo;
+    const { photoFile, uid } = imageInfo;
 
-    const s3Path = await uploadFileS3(imagePath);
+    const s3 = await uploadFileS3(photoFile);
 
-    if (!s3Path.success) throw new Error('Error uploading the image');
+    if (!s3.success) throw new Error('Error uploading the image');
 
-    const imageInfoTmp = imageInfo;
-    imageInfoTmp.imagePath = s3Path.url;
+    const carImageObj = { addedBy: uid, imagePath: s3.url };
 
     const carImage = carImageModel({ client });
+    return carImage.create(carImageObj);
+  }
 
-    return carImage.create(imageInfoTmp);
+  function setOwnerCarImage(arrImages) {
+    const carImage = carImageModel({ client });
+
+    // update where carImageId = $1
+    arrImages.forEach((image) => {
+      const { carImageId } = { ...image };
+      carImage.update({ ...image }, { where: { car_image_id: carImageId } });
+    });
+    return {};
   }
 
   return Object.freeze({
@@ -95,5 +104,6 @@ export default function makeCarBasicSettingsDb({ client }) {
     findFeatureByCarId,
     insertCarFeatures,
     insertCarImage,
+    setOwnerCarImage,
   });
 }

@@ -1,19 +1,13 @@
-export default function makeAddCarImage({ carBasicSettingsDb, carDb, userDb }) {
+export default function makeAddCarImage({ carBasicSettingsDb, userDb }) {
   return async function addCarImage(imageInfo) {
-    await validate(imageInfo);
+    const { uid } = imageInfo;
+    await validate(uid);
 
     return carBasicSettingsDb.insertCarImage(imageInfo);
   };
 
-  async function validate(imageInfo) {
-    const { carId, addedBy } = imageInfo;
-
-    // Verificar que el Carro exista
-    let existing = await carDb.findById(carId);
-    if (!existing) throw new Error(`car-not-found`);
-
-    // Verificar que el usuario exista
-    existing = await userDb.findByUUID(addedBy);
+  async function validate(uid) {
+    const existing = await userDb.findByUUID(uid);
     if (!existing) throw new Error(`user-not-found`);
   }
 }

@@ -10,6 +10,7 @@ import makeGetMaxTrip from './get-max-trip';
 import makeGetFeaturesOpts from './get-features-options';
 import makePostCarFeatures from './post-car-features';
 import makePostCarImage from './post-car-image';
+import makePutOwnerCarImage from './put-owner-car-image';
 
 const {
   listModels,
@@ -22,6 +23,7 @@ const {
   listFeaturesOpts,
   addCarFeatures,
   addCarImage,
+  updateOwnerCarImage,
 } = carBasicSettingsUseCases;
 
 const getModels = makeGetModels({ listModels });
@@ -34,6 +36,7 @@ const getMaxTrip = makeGetMaxTrip({ listMaxTrip });
 const getFeaturesOpts = makeGetFeaturesOpts({ listFeaturesOpts });
 const postCarFeatures = makePostCarFeatures({ addCarFeatures });
 const postCarImage = makePostCarImage({ addCarImage });
+const putOwnerCarImage = makePutOwnerCarImage({ updateOwnerCarImage });
 
 export default {
   getModels,
@@ -46,4 +49,5 @@ export default {
   getFeaturesOpts,
   postCarFeatures,
   postCarImage,
+  putOwnerCarImage,
 };

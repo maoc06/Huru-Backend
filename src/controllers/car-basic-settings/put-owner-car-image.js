@@ -1,21 +1,20 @@
-export default function makePostCarImage({ addCarImage }) {
-  return async function postCarImage(httpRequest) {
+export default function makePutOwnerCarImage({ updateOwnerCarImage }) {
+  return async function putOwnerCarImage(httpRequest) {
     const headers = {
       'Content-Type': 'application/json',
     };
 
     try {
-      const photoFile = httpRequest.file;
-      const { uid } = httpRequest.body;
+      const arrImages = httpRequest.body;
 
-      const carImage = await addCarImage({ photoFile, uid });
+      const ownerCarImage = await updateOwnerCarImage(arrImages);
 
       return {
         headers,
         statusCode: 201,
         body: {
-          message: 'Car image successfully added',
-          data: carImage,
+          message: 'Owner car image successfully updated',
+          data: ownerCarImage,
         },
       };
     } catch (e) {

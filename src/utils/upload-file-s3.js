@@ -1,22 +1,17 @@
-import fs from 'fs';
-import path from 'path';
 import AWS from 'aws-sdk';
 
 import { config } from '../../config';
 import validateMimeTypeImages from './validate-mime-type-images';
 import validateFileSize from './validate-file-size';
 
-export default async function uploadFileS3(filePath) {
+export default async function uploadFileS3(file) {
   const stateObj = { success: false, url: '' };
+  const { originalname, mimetype, buffer } = file;
 
-  if (!fs.existsSync(filePath)) throw new Error('File does not exist');
+  if (!file) throw new Error('File null');
 
-  await validateMimeTypeImages(filePath);
-
-  validateFileSize(2000000, filePath);
-
-  const fileContent = fs.readFileSync(filePath);
-  const fileName = path.basename(filePath);
+  validateMimeTypeImages(mimetype);
+  validateFileSize(6000000, buffer);
 
   AWS.config.getCredentials((err) => {
     if (err) throw new Error('Error with the storage server');
@@ -28,15 +23,16 @@ export default async function uploadFileS3(filePath) {
   // setting up S3 upload parameters
   const params = {
     Bucket: config.awsBucketName,
-    Key: fileName,
-    Body: fileContent,
+    Key: originalname,
+    Body: buffer,
+    ContentType: mimetype,
   };
 
   await (async () => {
     try {
-      const file = await s3.upload(params).promise();
+      const uploadedFile = await s3.upload(params).promise();
       stateObj.success = true;
-      stateObj.url = file.Location;
+      stateObj.url = uploadedFile.Location;
     } catch (err) {
       throw new Error(err);
     }

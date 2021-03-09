@@ -7,6 +7,7 @@ module.exports = function makeExpressCallback(controller) {
       ip: req.ip,
       method: req.method,
       path: req.path,
+      ...(req.file && { file: req.file }),
       headers: {
         'Content-Type': req.get('Content-Type'),
         Referer: req.get('referer'),

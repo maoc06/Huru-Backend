@@ -1,9 +1,13 @@
 import express from 'express';
+import multer from 'multer';
 import makeCallback from '../express-callback';
 import authorize from '../utils/middlewares/authorization';
 import { Normal, Admin } from '../utils/role';
 
 import { carBasicsSettingsControllers } from '../controllers';
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
 function getCarBasicsRoutes() {
   const router = express.Router();
@@ -64,8 +68,15 @@ function getCarBasicsRoutes() {
 
   router.post(
     '/set-car-image',
+    upload.single('file'),
     authorize([Normal]),
     makeCallback(carBasicsSettingsControllers.postCarImage)
+  );
+
+  router.put(
+    '/set-owner-car-image',
+    authorize([Normal]),
+    makeCallback(carBasicsSettingsControllers.putOwnerCarImage)
   );
 
   return router;
