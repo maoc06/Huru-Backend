@@ -1,7 +1,8 @@
 import bcrypt from 'bcryptjs';
 import { makeUser } from '../../entities';
+import { config } from '../../../config';
 
-export default function makeRegister({ authDb }) {
+export default function makeRegister({ authDb, handleToken, sendWelcomeMail }) {
   return async function register(userInfo) {
     await validate(userInfo);
 
@@ -13,6 +14,18 @@ export default function makeRegister({ authDb }) {
 
     const userTmp = { ...user };
     userTmp.password = hashPassword;
+
+    const verifyEmailToken = handleToken(
+      { email: userTmp.email },
+      config.emailPrivateKey,
+      '1d'
+    );
+
+    sendWelcomeMail({
+      emailToSend: userTmp.email,
+      firstname: userTmp.firstName,
+      url: `http://192.168.0.14:3000/verify-email/${verifyEmailToken}`,
+    });
 
     return authDb.insert(userTmp);
   };

@@ -14,6 +14,9 @@ const config = {
   twilioToken: process.env.TWILIO_AUTH_TOKEN,
   twilioAccountSID: process.env.TWILIO_ACCOUNT_SID,
   twilioVerifyServiceId: process.env.TWILIO_SERVICE_ID,
+  mailUser: process.env.MAIL_USER,
+  mailPassword: process.env.MAIL_PASSWORD,
+  emailPrivateKey: process.env.EMAIL_PRIVATE_KEY,
 };
 
 module.exports = { config };

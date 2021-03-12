@@ -15,8 +15,13 @@ export default function makeUserDb({ client }) {
     return res[0].dataValues;
   }
 
+  function updateEmailVerification(email, verification) {
+    user.update({ isEmailVerified: verification }, { where: { email } });
+  }
+
   return Object.freeze({
     findByUUID,
     findByEmail,
+    updateEmailVerification,
   });
 }

@@ -10,6 +10,7 @@ export default function buildMakeUser() {
       phone,
       identityDocument,
       dateOfBirth,
+      isPhoneVerified,
     } = { ...entity };
 
     if (!firstName) throw new Error('User must have a first name');
@@ -25,6 +26,8 @@ export default function buildMakeUser() {
     // Validete minimum age (19 year old)
     if (!validateMinimumAge(dateOfBirth))
       throw new Error('User must be at least 19 years old to register');
+    if (isPhoneVerified === null || isPhoneVerified === undefined)
+      throw new Error('User must have phone verification property');
 
     const user = Object.freeze({ ...entity });
 

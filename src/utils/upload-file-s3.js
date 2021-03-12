@@ -1,4 +1,7 @@
 import AWS from 'aws-sdk';
+import imagemin from 'imagemin';
+import imageminPngquant from 'imagemin-pngquant';
+import imageminMozjpeg from 'imagemin-mozjpeg';
 
 import { config } from '../../config';
 import validateMimeTypeImages from './validate-mime-type-images';
@@ -6,12 +9,23 @@ import validateFileSize from './validate-file-size';
 
 export default async function uploadFileS3(file) {
   const stateObj = { success: false, url: '' };
-  const { originalname, mimetype, buffer } = file;
+  const { originalname, mimetype } = file;
+  let { buffer } = file;
 
   if (!file) throw new Error('File null');
 
   validateMimeTypeImages(mimetype);
-  validateFileSize(6000000, buffer);
+  if (validateFileSize(2000000, buffer)) {
+    // Si el tamaño sobre pasa el limite:
+    // Comprimir con imagemin
+    const compressFile = await imagemin.buffer(buffer, {
+      plugins: [
+        imageminPngquant({ quality: [0.65, 0.7] }),
+        imageminMozjpeg({ quality: 70 }),
+      ],
+    });
+    buffer = compressFile;
+  }
 
   AWS.config.getCredentials((err) => {
     if (err) throw new Error('Error with the storage server');

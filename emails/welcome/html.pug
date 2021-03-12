@@ -1,0 +1,32 @@
+doctype transitional
+html(xmlns='http://www.w3.org/1999/xhtml')
+  head
+    meta(name='viewport', content='width=device-width')
+    meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
+    title Bienvenido a Huru
+    link(rel="stylesheet", href="/css/welcome.css", data-inline)
+  body
+    main
+      .wrapper
+        img(src='../assets/images/slack.svg')
+        h1 Verifica tu Email
+        br
+        p Hola, 
+          strong #{firstname} 👋
+        p.
+          Nos complace darte la bienvenida a la familia Huru 😁
+        br
+        p.
+          Para completar tu perfil y empezar a disfrutar de los beneficios que te ofrece Huru,
+          necesitas verificar tu dirección de correo electrónico.
+        br
+        br
+        .verify-btn
+          a(href=url)
+            button(type='button') Verificar Email
+        .bottom-container  
+          p. 
+            &copy; 2021 Huru 
+          p.
+            Usted ha recibido este correo porque
+            se ha registrado en nuestro sitio web.

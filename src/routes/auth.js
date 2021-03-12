@@ -34,6 +34,11 @@ function getAuthRoutes() {
     makeCallback(authControllers.getCheckVerifyCode)
   );
 
+  router.get(
+    '/check-verify-email/:token',
+    makeCallback(authControllers.getCheckEmail)
+  );
+
   return router;
 }
 

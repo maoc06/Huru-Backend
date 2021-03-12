@@ -7,6 +7,7 @@ import makeGetUserByDocument from './get-user-by-document';
 import makeGetUserByPhone from './get-user-by-phone';
 import makeGetSendVerificationSMS from './get-send-verification-sms';
 import makeGetCheckVerifyCode from './get-check-verify-code';
+import makeGetCheckEmail from './get-check-email';
 
 const {
   authRegister,
@@ -16,6 +17,7 @@ const {
   listUserByPhone,
   sendVerificationSms,
   checkVerifyCode,
+  checkEmail,
 } = authUseCases;
 
 const signUp = makeSignUp({ authRegister });
@@ -29,6 +31,7 @@ const getSendVerificationSMS = makeGetSendVerificationSMS({
 const getCheckVerifyCode = makeGetCheckVerifyCode({
   checkVerifyCode,
 });
+const getCheckEmail = makeGetCheckEmail({ checkEmail });
 
 export default {
   signUp,
@@ -38,4 +41,5 @@ export default {
   getUserByPhone,
   getSendVerificationSMS,
   getCheckVerifyCode,
+  getCheckEmail,
 };
