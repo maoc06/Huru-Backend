@@ -2,6 +2,7 @@ import { carBasicSettingsUseCases } from '../../use-cases';
 
 import makeGetModels from './get-models';
 import makeGetCarModelsByMaker from './get-car-models-by-makers';
+import makeGetCarCategories from './get-car-categories';
 import makeGetOdometer from './get-odometer';
 import makeGetTrasmission from './get-transmission';
 import makeGetAdvanceNotice from './get-advance-notice';
@@ -15,6 +16,7 @@ import makePutOwnerCarImage from './put-owner-car-image';
 const {
   listModels,
   listCarModelsByMaker,
+  listCarCategories,
   listOdometer,
   listTransmissions,
   listAdvanceNotice,
@@ -28,6 +30,7 @@ const {
 
 const getModels = makeGetModels({ listModels });
 const getCarModelsByMaker = makeGetCarModelsByMaker({ listCarModelsByMaker });
+const getCarCategories = makeGetCarCategories({ listCarCategories });
 const getOdometer = makeGetOdometer({ listOdometer });
 const getTrasmission = makeGetTrasmission({ listTransmissions });
 const getAdvanceNotice = makeGetAdvanceNotice({ listAdvanceNotice });
@@ -41,6 +44,7 @@ const putOwnerCarImage = makePutOwnerCarImage({ updateOwnerCarImage });
 export default {
   getModels,
   getCarModelsByMaker,
+  getCarCategories,
   getOdometer,
   getTrasmission,
   getAdvanceNotice,

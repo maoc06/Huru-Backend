@@ -1,4 +1,5 @@
 import makeListModels from './list-models';
+import makeListCarCategories from './list-car-categories';
 import makeListCarModelsByMaker from './list-car-models-by-maker';
 import makeListOdometer from './list-odometers';
 import makeListTransmissions from './list-transmissions';
@@ -17,6 +18,7 @@ const listCarModelsByMaker = makeListCarModelsByMaker({
   carBasicSettingsDb,
   makerDb,
 });
+const listCarCategories = makeListCarCategories({ carBasicSettingsDb });
 const listOdometer = makeListOdometer({ carBasicSettingsDb });
 const listTransmissions = makeListTransmissions({ carBasicSettingsDb });
 const listAdvanceNotice = makeListAdvanceNotice({ carBasicSettingsDb });
@@ -30,6 +32,7 @@ const updateOwnerCarImage = makeUpdateOwnerCarImage({ carBasicSettingsDb });
 export default {
   listModels,
   listCarModelsByMaker,
+  listCarCategories,
   listOdometer,
   listTransmissions,
   listAdvanceNotice,

@@ -1,5 +1,6 @@
 import {
   carModel,
+  categoryModel,
   odometerRangeModel,
   trasmissionModel,
   advanceNoticeModel,
@@ -15,6 +16,11 @@ export default function makeCarBasicSettingsDb({ client }) {
   function findAllModels() {
     const car = carModel({ client });
     return car.findAll();
+  }
+
+  function findAllCarCategories() {
+    const category = categoryModel({ client });
+    return category.findAll();
   }
 
   function findModelsByMaker(makerId) {
@@ -93,6 +99,7 @@ export default function makeCarBasicSettingsDb({ client }) {
 
   return Object.freeze({
     findAllModels,
+    findAllCarCategories,
     findModelsByMaker,
     findAllOdometerRange,
     findAllTransmissions,

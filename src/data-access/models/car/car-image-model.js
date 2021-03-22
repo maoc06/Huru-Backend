@@ -25,7 +25,7 @@ export default function buildCarImageModel({ client }) {
         allowNull: false,
         field: 'added_by_user',
         references: {
-          model: 'UserType', // CarImage belongsTo User 1:1
+          model: 'User', // CarImage belongsTo User 1:1
           key: 'uuid',
         },
       },
@@ -34,6 +34,10 @@ export default function buildCarImageModel({ client }) {
         allowNull: false,
         field: 'image',
         validate: { isUrl: true },
+      },
+      isMain: {
+        type: DataTypes.BOOLEAN,
+        field: 'is_main_image',
       },
     },
     { tableName: 'car_image', timestamps: false }

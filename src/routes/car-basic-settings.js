@@ -60,6 +60,12 @@ function getCarBasicsRoutes() {
     makeCallback(carBasicsSettingsControllers.getFeaturesOpts)
   );
 
+  router.get(
+    '/car-category',
+    authorize([Normal, Admin]),
+    makeCallback(carBasicsSettingsControllers.getCarCategories)
+  );
+
   router.post(
     '/set-car-features',
     authorize([Normal]),

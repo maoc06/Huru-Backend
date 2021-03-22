@@ -20,7 +20,7 @@ export default function buildCarModelModel({ client }) {
           key: 'makerId',
         },
       },
-      name: { type: DataTypes.STRING(150), allowNull: false },
+      name: { type: DataTypes.STRING(150), allowNull: false, field: 'model' },
       categoryId: {
         type: DataTypes.INTEGER,
         allowNull: false,

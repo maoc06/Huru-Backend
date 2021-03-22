@@ -11,7 +11,7 @@ export default function buildCityModel({ client }) {
         allowNull: false,
         field: 'city_id',
       },
-      name: { type: DataTypes.STRING(150), allowNull: false },
+      name: { type: DataTypes.STRING(150), allowNull: false, field: 'city' },
     },
     { tableName: 'city', timestamps: false }
   );

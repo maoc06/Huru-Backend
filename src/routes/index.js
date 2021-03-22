@@ -8,6 +8,7 @@ import getCarRoutes from './car';
 import getMakerRoutes from './maker';
 import getCarBasicsRoutes from './car-basic-settings';
 import getCityRoutes from './city';
+import getSearchRoutes from './search';
 
 function getRoutes() {
   const router = express.Router();
@@ -16,13 +17,15 @@ function getRoutes() {
 
   router.use('/user', verifyToken, getUserRoutes());
 
-  router.use('/car', verifyToken, getCarRoutes());
+  router.use('/car', getCarRoutes());
 
   router.use('/city', verifyToken, getCityRoutes());
 
   router.use('/maker', verifyToken, getMakerRoutes());
 
   router.use('/car-basics', verifyToken, getCarBasicsRoutes());
+
+  router.use('/search', getSearchRoutes());
 
   return router;
 }

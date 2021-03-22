@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize';
 import twilio from 'twilio';
+
 import { config } from '../../config';
 
 import makeVerificationApi from './verification-api';
