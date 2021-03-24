@@ -17,6 +17,13 @@ const config = {
   mailUser: process.env.MAIL_USER,
   mailPassword: process.env.MAIL_PASSWORD,
   emailPrivateKey: process.env.EMAIL_PRIVATE_KEY,
+  payBaseUrl:
+    process.env.NODE_ENV !== 'production'
+      ? process.env.PAY_BASE_URL_DEV
+      : process.env.PAY_BASE_URL_PROD,
+  payPublicKey: process.env.PAY_PUBLIC_KEY,
+  payPrivateKey: process.env.PAY_PRIVATE_KEY,
+  payEventsPrivateKey: process.env.PAY_EVENTS_PRIVATE_KEY,
 };
 
 module.exports = { config };

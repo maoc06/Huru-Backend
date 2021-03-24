@@ -4,6 +4,7 @@ import carControllers from './car';
 import makerControllers from './maker';
 import carBasicsSettingsControllers from './car-basic-settings';
 import cityControllers from './city';
+import paymentControllers from './payment-gateway';
 
 export {
   authControllers,
@@ -12,4 +13,5 @@ export {
   makerControllers,
   carBasicsSettingsControllers,
   cityControllers,
+  paymentControllers,
 };

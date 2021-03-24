@@ -9,6 +9,7 @@ import getMakerRoutes from './maker';
 import getCarBasicsRoutes from './car-basic-settings';
 import getCityRoutes from './city';
 import getSearchRoutes from './search';
+import getPaymentGatewaysRoutes from './payment-gateway';
 
 function getRoutes() {
   const router = express.Router();
@@ -26,6 +27,8 @@ function getRoutes() {
   router.use('/car-basics', verifyToken, getCarBasicsRoutes());
 
   router.use('/search', getSearchRoutes());
+
+  router.use('/payment', getPaymentGatewaysRoutes());
 
   return router;
 }

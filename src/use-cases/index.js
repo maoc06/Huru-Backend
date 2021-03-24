@@ -4,6 +4,7 @@ import carUseCases from './car';
 import makerUseCases from './maker';
 import carBasicSettingsUseCases from './car-basic-settings';
 import cityUseCases from './city';
+import paymentUseCases from './payment-gateway';
 
 export {
   authUseCases,
@@ -12,4 +13,5 @@ export {
   makerUseCases,
   carBasicSettingsUseCases,
   cityUseCases,
+  paymentUseCases,
 };
