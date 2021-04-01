@@ -10,6 +10,9 @@ import makeCarDb from './car-db';
 import makeMakerDb from './maker-db';
 import makeCarBasicSettingsDb from './car-basic-settings-db';
 import makeCityDb from './city-db';
+import makeBookingDb from './booking-db';
+import makeTransactionDb from './transaction-db';
+import makePaymentUserDb from './payment-user';
 import makePaymentGateway from './payment-gateway';
 
 const client = new Sequelize(config.dbUri);
@@ -34,6 +37,9 @@ const carDb = makeCarDb({ client });
 const makerDb = makeMakerDb({ client });
 const carBasicSettingsDb = makeCarBasicSettingsDb({ client });
 const cityDb = makeCityDb({ client });
+const bookingDb = makeBookingDb({ client });
+const transactionDb = makeTransactionDb({ client });
+const paymentUserDb = makePaymentUserDb({ client });
 const paymentGateway = makePaymentGateway({ client });
 
 export {
@@ -44,5 +50,8 @@ export {
   makerDb,
   carBasicSettingsDb,
   cityDb,
+  bookingDb,
+  transactionDb,
+  paymentUserDb,
   paymentGateway,
 };

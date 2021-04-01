@@ -45,6 +45,11 @@ export default function buildPaymentUserModel({ client }) {
         allowNull: true,
         field: 'phone_number',
       },
+      isDefault: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        field: 'is_default',
+      },
       status: {
         type: DataTypes.INTEGER,
         allowNull: false,

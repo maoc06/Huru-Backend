@@ -8,6 +8,8 @@ import { userControllers } from '../controllers';
 function getUserRoutes() {
   const router = express.Router();
 
+  router.get('/:uuid', makeCallback(userControllers.getUser));
+
   return router;
 }
 

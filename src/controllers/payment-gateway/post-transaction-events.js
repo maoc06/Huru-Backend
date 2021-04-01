@@ -16,6 +16,7 @@ export default function makePostTransactionEvents({ listenTransactionEvents }) {
         },
       };
     } catch (e) {
+      console.log(e);
       return {
         headers,
         statusCode: 400,

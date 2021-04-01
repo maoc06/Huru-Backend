@@ -106,11 +106,15 @@ export default function makeCarDb({ client }) {
           SELECT car_id
           FROM booking
           WHERE
-            (check_in_date <= :checkInSelected and check_out_date >= :checkInSelected) 
-            OR
-            (check_in_date < :checkOutSelected and check_out_date >= :checkOutSelected)
-            OR
-            (check_in_date >= :checkInSelected and check_out_date < :checkOutSelected)
+            (
+              (check_in_date <= :checkInSelected and check_out_date >= :checkInSelected) 
+              OR
+              (check_in_date < :checkOutSelected and check_out_date >= :checkOutSelected)
+              OR
+              (check_in_date >= :checkInSelected and check_out_date < :checkOutSelected)
+            )
+            AND
+            booking_status_id != 1
         )`,
       {
         replacements: {
@@ -130,7 +134,8 @@ export default function makeCarDb({ client }) {
   async function findCar(carId) {
     const carInfo = await client.query(
       `SELECT 
-        car.car_id,  
+        car.car_id,
+        car.user_id,
         maker.name, 
         model.model, 
         car.year, 
@@ -151,7 +156,8 @@ export default function makeCarDb({ client }) {
     );
 
     carInfo[0].reviews = await findCarReviews(carId);
-    const res = await findImages(carInfo, findCarImages, true);
+    const resImages = await findImages(carInfo, findCarImages, true);
+    const res = await findFeatures(resImages, findCarFeatures);
     return res[0];
   }
 

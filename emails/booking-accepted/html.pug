@@ -1,0 +1,123 @@
+doctype transitional
+html(xmlns='http://www.w3.org/1999/xhtml')
+  head
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
+    title Solicitud de reserva aceptada
+  body(style='background-color: #f8f8f8; margin: 0;')
+    table(width='100%', cellpadding='0', cellspacing='0', border="0")
+      tr 
+        td(align='center', valing='top')
+          table(width='600', cellpadding='20', cellspacing='0', border="0", style='font-family: Arial, Helvética, sans-serif; color: #282828; background-color: #e7ecf3;')
+            tr 
+              td(align='center' valign='top')
+                h1 Tu reserva fue aceptada
+            tr 
+              td(align='center' valign='top') 
+                p(style='color: #7c7c7c') Código de la reserva: #{bookingNumber}
+            tr
+              td(align='center' valign='top')
+                img(src=carImage style='max-width: 320px; height: auto; width: 100%;')
+                p(style='font-weight: bold; text-transform: capitalize;') #{carInfo}
+            tr
+              td
+                table(align='center' border="0" cellpadding="0" cellspacing="0" width="65%" style='margin-bottom: 32px; max-width: 325px;')
+                  tr
+                    td(width="50%" valign="top")
+                      p(style='font-size: 12px; color: #828282;') Fecha y hora de inicio
+                      span(style='font-size: 14px; color: #4f4f4f; text-transform: capitalize;') #{startDate}
+                    td(width="50%" valign="top" align='right' style='border-left: 1px solid #ccccccaf;')
+                      p(style='font-size: 12px; color: #828282; ') Fecha y hora de fin
+                      span(style='font-size: 14px; color: #4f4f4f; text-transform: capitalize;') #{endDate}
+            tr
+              td(align='center' valign='center')
+                div(width='100%' style='border-top: 1px solid #ccccccaf;')
+            tr
+              td 
+                table(align='center' border="0" cellpadding="0" cellspacing="0" width="100%" style='margin-bottom: 32px;')
+                    tr
+                      td(valign="top")
+                        h4 #{owner} es tu Huru Amigo
+                    tr 
+                      td(width='60%')
+                        p(style='margin-right: 16px;') Contacta a #{owner} para coordinar la entrega del vehículo y otros detalles.
+                      td(align='right')
+                        p(style='color: #070D9A') #{phone}
+            tr
+              td(align='center' valign='center')
+                div(width='100%' style='border-top: 1px solid #ccccccaf;')
+            tr
+              td 
+                table(align='center' border="0" cellpadding="0" cellspacing="0" width="100%" style='margin-bottom: 32px;')
+                    tr
+                      td(valign="top")
+                        h4 Pago
+                    tr 
+                      td
+                        if typePayment === 'CARD'
+                          div(style='display: flex; align-items: center;')
+                            img(src=brandLogo style='width: auto; max-height: 20px; margin-right: 16px;')
+                            p **** **** **** #{lastFour}
+                        else if typePayment === 'NEQUI'
+                          div(style='display: flex; align-items: center;')
+                            img(src=brandLogo style='width: auto; max-height: 20px; margin-right: 16px;')
+                            p #{nequiPhone}
+                      td(align='right' valign='top')
+                        p(style='font-weight: bold') #{`$${new Intl.NumberFormat().format(paid)} COP`} 
+                    tr
+                      td
+                        p(style='color: #828282') Mar 5, 2021 - 10:05PM
+            tr
+              td(align='center' valign='center')
+                div(width='100%' style='border-top: 1px solid #ccccccaf;')
+            tr
+              td 
+                table(align='center' border="0" cellpadding="0" cellspacing="0" width="100%" style='margin-bottom: 32px;')
+                    tr
+                      td(valign="top")
+                        h4 Políticas de cancelación
+                    tr 
+                      td 
+                        p
+                          | Cancela antes de las 10:30 AM del 6 Mar y obten un reembolso completo. 
+                          | Pasado este plazo, cancela antes de las 10:30 AM del 7 de Mar y obten un 
+                          | reembolso parcial. 
+                          a(href='https://www.notion.so/Pol-ticas-de-cancelaci-n-f09dae6913d44386b4ef9cc6c6a14b27' target='_blank' style='color: #070D9A') Más información.            
+            tr
+              td(align='center' valign='center')
+                div(width='100%' style='border-top: 1px solid #ccccccaf;')
+            tr
+              td 
+                table(align='center' border="0" cellpadding="0" cellspacing="0" width="100%" style='margin-bottom: 32px;')
+                    tr
+                      td(valign="top")
+                        h4 Recomendaciones
+                    tr
+                      td(align='center' style='margin-left: 16px;')
+                        img(src='../assets/images/driving-license.png')
+                      td(style='padding: 16px 0;')
+                        p.
+                          No olvides llevar siempre contigo 
+                          tu licensia de conducción durante 
+                          todo el viaje y al momento de realizar el 
+                          intercambio de llave con el dueño.
+                    tr
+                      td(align='center' style='margin-left: 16px;')
+                        img(src='../assets/images/chauffer.png')
+                      td(style='padding: 16px 0;')
+                        p. 
+                          Recuerda que el unico responsable por el vehículo 
+                          eres tu, por lo que te recomendamos que seas el unico 
+                          que maneje durante el viaje.
+                    tr
+                      td(align='center' style='margin-left: 16px;')
+                        img(src='../assets/images/car-clean.png')
+                      td(style='padding: 16px 0;') 
+                        p. 
+                          Antes de entregar el vehículo al dueño, asegurate de 
+                          limpiarlo y entregarlo en las mismas condiciones en 
+                          que lo recibiste.
+            tr
+              td(align='center' valign='top' style='color: #7c7c7c; font-size: 16px; padding: 32px')
+                div(style='border-top: 1px solid #ccccccaf; margin-bottom: 32px;')
+                p &copy; 2021 Huru

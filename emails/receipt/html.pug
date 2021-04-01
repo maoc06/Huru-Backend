@@ -1,0 +1,81 @@
+doctype transitional
+html(xmlns='http://www.w3.org/1999/xhtml')
+  head
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
+    title Solicitud de reserva aceptada
+  body(style='background-color: #f8f8f8; margin: 0;')
+    table(width='100%', cellpadding='0', cellspacing='0', border="0")
+      tr 
+        td(align='center', valing='top')
+          table(width='600', cellpadding='20', cellspacing='0', border="0", style='font-family: Arial, Helvética, sans-serif; color: #282828; background-color: #e7ecf3;')
+            tr 
+              td(align='center' valign='top')
+                h1 Tu recibo de Huru
+            tr 
+              td(align='center' valign='top')
+                p(style='color: #7c7c7c') Referencia del pago: #{reference}
+            tr
+              td(align='center' valign='top')
+                img(src=carImage style='max-width: 320px; height: auto; width: 100%;')
+                p(style='font-weight: bold; text-transform: capitalize;') #{carInfo}
+            tr
+              td
+                table(align='center' border="0" cellpadding="0" cellspacing="0" width="65%" style='margin-bottom: 32px; max-width: 325px;')
+                  tr
+                    td(width="50%" valign="top")
+                      p(style='font-size: 12px; color: #828282;') Fecha y hora de inicio
+                      span(style='font-size: 14px; color: #4f4f4f; text-transform: capitalize;') #{startDate}
+                    td(width="50%" valign="top" align='right' style='border-left: 1px solid #ccccccaf;')
+                      p(style='font-size: 12px; color: #828282; ') Fecha y hora de fin
+                      span(style='font-size: 14px; color: #4f4f4f; text-transform: capitalize;') #{endDate}
+            tr
+              td(align='center' valign='center')
+                div(width='100%' style='border-top: 1px solid #ccccccaf;')
+            tr
+              td 
+                table(align='center' border="0" cellpadding="0" cellspacing="0" width="100%" style='margin-bottom: 32px;')
+                    tr
+                      td(valign="top")
+                        h4 Desglose del precio
+                    tr
+                      td(width='50%')
+                        p(style='margin-right: 16px;') #{`$${new Intl.NumberFormat().format(pricePerDay)}`} x #{countDays} dias
+                      td(align='right')
+                        p #{`$${new Intl.NumberFormat().format(pricePerDay * countDays)} COP`}
+                    tr 
+                      td(width='50%')
+                        p(style='margin-right: 16px;') Tarifa de servicio
+                      td(align='right')
+                        p #{`$${new Intl.NumberFormat().format(serviceFee)} COP`}
+                    tr 
+                      td(width='50%')
+                        p(style='margin-right: 16px; font-weight: bold; font-size: 20px;') Total
+                      td(align='right' style='font-weight: bold; font-size: 20px;')
+                        p #{`$${new Intl.NumberFormat().format((pricePerDay * countDays) + serviceFee)} COP`}
+            tr
+              td(align='center' valign='center')
+                div(width='100%' style='border-top: 1px solid #ccccccaf;')
+            tr
+              td 
+                table(align='center' border="0" cellpadding="0" cellspacing="0" width="100%" style='margin-bottom: 32px;')
+                    tr
+                      td(valign="top")
+                        h4 Pago
+                    tr 
+                      td
+                        div(style='display: flex; align-items: center;')
+                          img(src=brandLogo style='width: auto; max-height: 20px; margin-right: 16px;')
+                          if typePayment === 'CARD'
+                              p **** **** **** #{lastFour}
+                          else if typePayment === 'NEQUI'
+                              p #{nequiPhone}
+                      td(align='right' valign='top')
+                        p(style='font-weight: bold') #{`$${new Intl.NumberFormat().format((pricePerDay * countDays) + serviceFee)} COP`}
+                    tr
+                      td
+                        p(style='color: #828282') Pagado en Mar 5, 2021 - 10:05PM
+            tr
+              td(align='center' valign='top' style='color: #7c7c7c; font-size: 16px; padding: 32px')
+                div(style='border-top: 1px solid #ccccccaf; margin-bottom: 32px;')
+                p &copy; 2021 Huru

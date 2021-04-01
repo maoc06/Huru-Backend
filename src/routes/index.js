@@ -9,6 +9,8 @@ import getMakerRoutes from './maker';
 import getCarBasicsRoutes from './car-basic-settings';
 import getCityRoutes from './city';
 import getSearchRoutes from './search';
+import getBookingRoutes from './booking';
+import getPaymentUserRoutes from './payment-user';
 import getPaymentGatewaysRoutes from './payment-gateway';
 
 function getRoutes() {
@@ -16,7 +18,7 @@ function getRoutes() {
 
   router.use('/auth', getAuthRoutes());
 
-  router.use('/user', verifyToken, getUserRoutes());
+  router.use('/user', getUserRoutes());
 
   router.use('/car', getCarRoutes());
 
@@ -27,6 +29,10 @@ function getRoutes() {
   router.use('/car-basics', verifyToken, getCarBasicsRoutes());
 
   router.use('/search', getSearchRoutes());
+
+  router.use('/booking', verifyToken, getBookingRoutes());
+
+  router.use('/payment-user', verifyToken, getPaymentUserRoutes());
 
   router.use('/payment', getPaymentGatewaysRoutes());
 

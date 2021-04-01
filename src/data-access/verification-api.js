@@ -2,7 +2,6 @@ import { config } from '../../config';
 
 export default function makeVerifySmsApi(client) {
   function sendVerificationSms(phoneNumber) {
-    console.log('param', phoneNumber);
     return client.verify
       .services(config.twilioVerifyServiceId)
       .verifications.create({

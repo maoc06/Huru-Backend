@@ -1,0 +1,142 @@
+* {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    color: #282828;
+}
+
+body {
+    background-color: #f8f8f8;
+}
+
+main .wrapper {
+    max-width: 550px;
+    padding: 2.5rem;
+    padding-bottom: 0;
+    margin: 0 auto;
+    background-color: #e7ecf3;
+}
+
+section {
+    align-items: center;
+    display: flex;
+    margin-bottom: 32px;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+h4 {
+    color: #828282;
+}
+
+.divider {
+    border-top: 1px solid #ccccccaf;
+    margin-bottom: 32px;
+}
+
+.car-image {
+    margin: 32px 0px 8px;
+    max-width: 320px;
+    height: auto;
+    width: 100%;
+}
+
+.car-info {
+    text-align: center;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.date-info {
+    display: flex;
+    justify-content: space-between;
+    width: 350px;
+    margin: 16px 0 0;
+    padding: 0 16px;
+}
+
+.date-info div {
+    flex: 1;
+    text-transform: capitalize;
+}
+
+.date-info div p:nth-child(1) {
+    font-size: 12px;
+    color: #828282;
+    margin-top: 6px;
+    height: 22px;
+}
+
+.date-info div p:nth-child(2) {
+    font-size: 14px;
+    color: #4f4f4f;
+    margin-bottom: 6px;
+}
+
+.date-info .end-date {
+    border-left: 1px solid #ccccccaf;
+    text-align: right;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-info .avatar {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 16px 0;
+}
+
+.user-info .avatar img {
+    width: 100%;
+}
+
+.user-info p {
+    font-weight: bold;
+    margin-left: 8px;
+}
+
+.btn {
+    min-width: 275px;
+    max-width: 275px;
+    margin: auto;
+}
+
+button {
+    width: 100%;
+    height: 55px;
+    border-radius: 4px;
+    background-color: #070d9a;
+    color: #e7ecf3;
+    font-size: 18px;
+    border: 0;
+    cursor: pointer;
+}
+
+.bottom-container {
+    margin-top: 2.5rem;
+    padding: 1rem;
+    border-top: 1px solid #ccccccaf;
+}
+
+.bottom-container p {
+    color: #7c7c7c;
+    font-size: 16px;
+    text-align: center;
+}
+
+.bottom-container p:nth-child(2) {
+    font-size: 12px;
+}
+
+@media (min-width: 600px) {
+    h1 {
+        font-size: 3rem;
+    }
+}
