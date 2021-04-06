@@ -8,6 +8,18 @@ import { bookingControllers } from '../controllers';
 function getBookingRoutes() {
   const router = express.Router();
 
+  router.get(
+    '/:id',
+    authorize([Normal, Admin]),
+    makeCallback(bookingControllers.getBooking)
+  );
+
+  router.get(
+    '/by-owner/:uuid',
+    authorize([Normal, Admin]),
+    makeCallback(bookingControllers.getByUserOwner)
+  );
+
   router.post(
     '/',
     authorize([Normal, Admin]),

@@ -17,6 +17,7 @@ export default function makePostBooking({ addBooking }) {
         },
       };
     } catch (e) {
+      console.log(e);
       return {
         headers,
         statusCode: 400,

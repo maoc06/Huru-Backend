@@ -6,6 +6,8 @@ import { paymentUserControllers } from '../controllers';
 function getPaymentUserRoutes() {
   const router = express.Router();
 
+  router.get('/:id', makeCallback(paymentUserControllers.getPaymentById));
+
   router.get(
     '/by-user/:id',
     makeCallback(paymentUserControllers.getPaymentByUser)

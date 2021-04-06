@@ -100,10 +100,15 @@ export default function makeUpdateConfirmBooking({
       }
       case 6: {
         // Booking rejected
-        const { transactionId } = await bookingDb.confirmBooking(
-          bookingId,
-          confirm
-        );
+        const {
+          transactionId,
+          bookingCar,
+          checkin,
+          checkout,
+        } = await bookingDb.confirmBooking(bookingId, confirm);
+
+        // Obtener la informacion del carro
+        const { name, model, year, images } = await carDb.findCar(bookingCar);
 
         const response = await transactionDb.updateRejectBooking(transactionId);
 
@@ -111,10 +116,10 @@ export default function makeUpdateConfirmBooking({
 
         sendBookingRejectedMail({
           emailToSend: email,
-          carInfo: '',
-          carImage: '',
-          startDate: '',
-          endDate: '',
+          carInfo: `${name} ${model} ${year}`,
+          carImage: images[0].imagePath,
+          startDate: formatBookingDate(checkin),
+          endDate: formatBookingDate(checkout),
         });
 
         return response;

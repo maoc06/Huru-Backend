@@ -17,6 +17,7 @@ export default function makeGetPaymentByUser({ listPaymentByUser }) {
         },
       };
     } catch (e) {
+      console.log('uid', e);
       return {
         headers,
         statusCode: 400,

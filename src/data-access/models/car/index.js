@@ -1,3 +1,4 @@
+import buildCarModel from './car-model';
 import buildCarModelModel from './car-model-model';
 import buildCategoryModel from './category-model';
 import buildOdometerRangeModel from './odometer-range-model';
@@ -11,6 +12,7 @@ import buildCarImageModel from './car-image-model';
 import buildCarReviewModel from './car-review-model';
 
 export {
+  buildCarModel as car,
   buildCarModelModel as carModel,
   buildCategoryModel as categoryModel,
   buildOdometerRangeModel as odometerRangeModel,

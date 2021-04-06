@@ -1,3 +1,5 @@
+import makeListByUserOwner from './list-by-user-owner';
+import makeListBooking from './list-booking';
 import makeAddBooking from './add-booking';
 import makeUpdateConfirmBooking from './update-confirm-booking';
 
@@ -18,12 +20,17 @@ const {
   sendBookingRejectedMail,
 } = mailer;
 
+const listByUserOwner = makeListByUserOwner({ bookingDb, userDb, carDb });
+
+const listBooking = makeListBooking({ bookingDb });
+
 const addBooking = makeAddBooking({
   bookingDb,
   userDb,
   carDb,
   sendBookingRequestMail,
 });
+
 const updateConfirmBooking = makeUpdateConfirmBooking({
   bookingDb,
   transactionDb,
@@ -36,6 +43,8 @@ const updateConfirmBooking = makeUpdateConfirmBooking({
 });
 
 export default {
+  listByUserOwner,
+  listBooking,
   addBooking,
   updateConfirmBooking,
 };

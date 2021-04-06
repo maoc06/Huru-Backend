@@ -10,6 +10,40 @@ export default function makeBookingDb({ client }) {
     return bookingModel.findOne({ where: { transactionId } });
   }
 
+  function findById(bookingId) {
+    return bookingModel.findByPk(bookingId);
+  }
+
+  async function findByUser(uuid) {
+    const bookingRequests = await client.query(
+      `SELECT 
+        booking.booking_id,
+        booking.car_id,
+        booking.user_id,
+        booking.check_in_date,
+        booking.check_out_date
+      FROM 
+        booking
+      WHERE
+        car_id in 
+        (
+          SELECT
+            car_id
+          FROM
+            car
+          WHERE
+            user_id=:uuid
+        )`,
+      {
+        replacements: {
+          uuid,
+        },
+        type: QueryTypes.SELECT,
+      }
+    );
+    return bookingRequests;
+  }
+
   async function insert(bookingInfo) {
     const transactionModel = transaction({ client });
     const {
@@ -19,7 +53,7 @@ export default function makeBookingDb({ client }) {
       status: 'PENDING',
     });
 
-    const bookingRecord = { ...bookingInfo };
+    const bookingRecord = { ...bookingInfo, bookingStatus: 1 };
     delete bookingRecord.paymentId;
     bookingRecord.transactionId = transactionId;
 
@@ -65,6 +99,8 @@ export default function makeBookingDb({ client }) {
 
   return Object.freeze({
     findByTransaction,
+    findByUser,
+    findById,
     insert,
     confirmBooking,
     updateBookingStatus,

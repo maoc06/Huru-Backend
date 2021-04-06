@@ -6,6 +6,9 @@ export default function makePutConfirmBooking({ updateConfirmBooking }) {
 
     try {
       const { ...bookingConfirmInfo } = httpRequest.body;
+
+      console.log(bookingConfirmInfo);
+
       const bookingConfirm = await updateConfirmBooking({
         ...bookingConfirmInfo,
       });
