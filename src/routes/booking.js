@@ -15,6 +15,18 @@ function getBookingRoutes() {
   );
 
   router.get(
+    '/upcoming/:uuid',
+    authorize([Normal, Admin]),
+    makeCallback(bookingControllers.getUpcomingBookings)
+  );
+
+  router.get(
+    '/history/:uuid',
+    authorize([Normal, Admin]),
+    makeCallback(bookingControllers.getBookingsHistory)
+  );
+
+  router.get(
     '/by-owner/:uuid',
     authorize([Normal, Admin]),
     makeCallback(bookingControllers.getByUserOwner)
@@ -30,6 +42,12 @@ function getBookingRoutes() {
     '/confirm',
     authorize([Normal, Admin]),
     makeCallback(bookingControllers.putConfirmBooking)
+  );
+
+  router.put(
+    '/cancel',
+    authorize([Normal, Admin]),
+    makeCallback(bookingControllers.putCancelBooking)
   );
 
   return router;

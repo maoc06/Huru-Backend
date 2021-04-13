@@ -25,13 +25,13 @@ export default function makeAuthCredentials({ authDb, handleToken }) {
 
     // SI las validaciones son ejecutadas con exito:
     // Entonces => generar el token y retornarlo
-    // const userAuth = makeUser(validatedUser);
     const info = {
       uid: validatedUser.uuid,
       firstName: validatedUser.firstName,
       lastName: validatedUser.lastName,
       email: validatedUser.email,
       userType: validatedUser.userType,
+      profilePicture: validatedUser.profilePhoto,
       createdAt: validatedUser.createdAt,
       modifiedAt: validatedUser.modifiedAt,
       status: validatedUser.status,
@@ -52,6 +52,6 @@ export default function makeAuthCredentials({ authDb, handleToken }) {
 
     const user = await authDb.getInfoUser(email);
 
-    return user[0].dataValues;
+    return user.dataValues;
   }
 }

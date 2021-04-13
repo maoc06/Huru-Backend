@@ -1,7 +1,12 @@
-import { QueryTypes } from 'sequelize';
+import { QueryTypes, Op } from 'sequelize';
 
 import { booking } from './models/booking';
 import { transaction } from './models/payment';
+
+const PENDING_APPROVAL_BOOKING_ID = 1;
+const COMPLETED_BOOKING_ID = 4;
+const APPROVED_BOOKING_ID = 5;
+const CANCELED_BOOKING_ID = 7;
 
 export default function makeBookingDb({ client }) {
   const bookingModel = booking({ client });
@@ -12,6 +17,46 @@ export default function makeBookingDb({ client }) {
 
   function findById(bookingId) {
     return bookingModel.findByPk(bookingId);
+  }
+
+  function findUpcomingBookings(uuid) {
+    return bookingModel.findAll({
+      attributes: [
+        'id',
+        'bookingCar',
+        'bookingBy',
+        'checkin',
+        'checkout',
+        'bookingStatus',
+      ],
+      where: {
+        bookingBy: uuid,
+        bookingStatus: {
+          [Op.or]: [PENDING_APPROVAL_BOOKING_ID, APPROVED_BOOKING_ID],
+        },
+      },
+      order: [['id', 'DESC']],
+    });
+  }
+
+  function findBookingsHistory(uuid) {
+    return bookingModel.findAll({
+      attributes: [
+        'id',
+        'bookingCar',
+        'bookingBy',
+        'checkin',
+        'checkout',
+        'bookingStatus',
+      ],
+      where: {
+        bookingBy: uuid,
+        bookingStatus: {
+          [Op.or]: [COMPLETED_BOOKING_ID, CANCELED_BOOKING_ID],
+        },
+      },
+      order: [['id', 'DESC']],
+    });
   }
 
   async function findByUser(uuid) {
@@ -33,7 +78,8 @@ export default function makeBookingDb({ client }) {
             car
           WHERE
             user_id=:uuid
-        )`,
+        )
+      ORDER BY booking.booking_id DESC`,
       {
         replacements: {
           uuid,
@@ -65,6 +111,18 @@ export default function makeBookingDb({ client }) {
       { bookingStatus: status },
       { where: { id: bookingId }, returning: true, plain: true }
     );
+    return res[1].dataValues;
+  }
+
+  async function update(bookingInfo) {
+    const { bookingId: id } = bookingInfo;
+
+    const res = await bookingModel.update(bookingInfo, {
+      where: { id },
+      returning: true,
+      plain: true,
+    });
+
     return res[1].dataValues;
   }
 
@@ -101,8 +159,11 @@ export default function makeBookingDb({ client }) {
     findByTransaction,
     findByUser,
     findById,
+    findUpcomingBookings,
+    findBookingsHistory,
     insert,
     confirmBooking,
+    update,
     updateBookingStatus,
   });
 }

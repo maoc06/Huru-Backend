@@ -34,7 +34,7 @@ export default function makeAuthDb({ client }) {
   }
 
   function getInfoUser(email) {
-    return user.findAll({ where: { email } });
+    return user.findOne({ where: { email } });
   }
 
   async function findByPhone(phone) {

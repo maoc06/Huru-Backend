@@ -18,6 +18,8 @@ function getPaymentUserRoutes() {
     makeCallback(paymentUserControllers.getDefaultPaymentByUser)
   );
 
+  router.put('/', makeCallback(paymentUserControllers.putDefaultPayment));
+
   return router;
 }
 

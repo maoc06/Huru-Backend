@@ -8,6 +8,7 @@ export default function makeSendBookingRequestMail() {
     startDate,
     endDate,
     applicant,
+    url,
   } = {}) {
     email
       .send({
@@ -22,6 +23,7 @@ export default function makeSendBookingRequestMail() {
           startDate,
           endDate,
           applicant,
+          url,
         },
       })
       .then(() => console.log('Booking request has been send to', emailToSend));

@@ -4,7 +4,6 @@ export default function makePaymentUserDb({ client }) {
   const paymentUserModel = paymentUser({ client });
 
   function findById(paymentId) {
-    console.log('PAYMENTID', paymentId);
     return paymentUserModel.findByPk(paymentId);
   }
 
@@ -18,9 +17,19 @@ export default function makePaymentUserDb({ client }) {
     });
   }
 
+  async function updatePayment(paymentId, paymentData) {
+    const res = await paymentUserModel.update(paymentData, {
+      where: { id: paymentId },
+      returning: true,
+      plain: true,
+    });
+    return res[1].dataValues;
+  }
+
   return Object.freeze({
     findById,
     findByUser,
     findDefaultByUser,
+    updatePayment,
   });
 }

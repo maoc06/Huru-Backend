@@ -64,6 +64,11 @@ export default function buildBookingModel({ client }) {
         allowNull: true,
         field: 'is_refund',
       },
+      isCancel: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        field: 'is_cancel',
+      },
       cancelDate: {
         type: DataTypes.DATE,
         allowNull: true,

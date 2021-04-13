@@ -1,6 +1,9 @@
 import makeListByUserOwner from './list-by-user-owner';
 import makeListBooking from './list-booking';
+import makeListUpcomingBookings from './list-upcoming-bookings';
+import makeListBookingsHistory from './list-history-bookings';
 import makeAddBooking from './add-booking';
+import makeCancelBooking from './cancel-booking';
 import makeUpdateConfirmBooking from './update-confirm-booking';
 
 import mailer from '../../mails';
@@ -24,6 +27,20 @@ const listByUserOwner = makeListByUserOwner({ bookingDb, userDb, carDb });
 
 const listBooking = makeListBooking({ bookingDb });
 
+const listUpcomingBookings = makeListUpcomingBookings({
+  bookingDb,
+  userDb,
+  carDb,
+});
+
+const listBookingsHistory = makeListBookingsHistory({
+  bookingDb,
+  userDb,
+  carDb,
+});
+
+const cancelBooking = makeCancelBooking({ bookingDb });
+
 const addBooking = makeAddBooking({
   bookingDb,
   userDb,
@@ -45,6 +62,9 @@ const updateConfirmBooking = makeUpdateConfirmBooking({
 export default {
   listByUserOwner,
   listBooking,
+  listUpcomingBookings,
+  listBookingsHistory,
+  cancelBooking,
   addBooking,
   updateConfirmBooking,
 };

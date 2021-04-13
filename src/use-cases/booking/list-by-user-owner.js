@@ -13,9 +13,10 @@ export default function makeListByUserOwner({ bookingDb, userDb, carDb }) {
           firstName,
           lastName,
           email,
+          profilePhoto,
         } = await userDb.findByUUID(bookingBy);
         delete request.user_id;
-        request.bookingBy = { uid, firstName, lastName, email };
+        request.bookingBy = { uid, firstName, lastName, email, profilePhoto };
 
         const { car_id: id, name, model, year, images } = await carDb.findCar(
           carId

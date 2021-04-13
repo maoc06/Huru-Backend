@@ -30,13 +30,18 @@ export default function makeAddBooking({
 
     const response = await bookingDb.insert(bookingInfo);
 
+    console.log('Booking', booking);
+
     sendBookingRequestMail({
       emailToSend: carOwner.email,
       carInfo: `${car.name} ${car.model} ${car.year}`,
       carImage: car.images[0].imagePath,
-      startDate: formatBookingDate(booking.checkin),
-      endDate: formatBookingDate(booking.checkout),
+      startDate: booking.checkin,
+      endDate: booking.checkout,
+      // startDate: formatBookingDate(booking.checkin),
+      // endDate: formatBookingDate(booking.checkout),
       applicant: `${applicantUser.firstName} ${applicantUser.lastName}`,
+      url: `http://192.168.0.14:3000/host/request-details/${19}`,
     });
 
     return response;
