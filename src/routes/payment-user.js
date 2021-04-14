@@ -18,7 +18,15 @@ function getPaymentUserRoutes() {
     makeCallback(paymentUserControllers.getDefaultPaymentByUser)
   );
 
-  router.put('/', makeCallback(paymentUserControllers.putDefaultPayment));
+  router.put(
+    '/default',
+    makeCallback(paymentUserControllers.putDefaultPayment)
+  );
+
+  router.patch(
+    '/disable',
+    makeCallback(paymentUserControllers.patchDisablePayment)
+  );
 
   return router;
 }
