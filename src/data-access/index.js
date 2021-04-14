@@ -14,6 +14,7 @@ import makeBookingDb from './booking-db';
 import makeTransactionDb from './transaction-db';
 import makePaymentUserDb from './payment-user';
 import makePaymentGateway from './payment-gateway';
+import makeCarReviewDb from './car-review-db';
 
 const client = new Sequelize(config.dbUri);
 
@@ -41,6 +42,7 @@ const bookingDb = makeBookingDb({ client });
 const transactionDb = makeTransactionDb({ client });
 const paymentUserDb = makePaymentUserDb({ client });
 const paymentGateway = makePaymentGateway({ client });
+const carReviewDb = makeCarReviewDb({ client });
 
 export {
   verificationApi,
@@ -54,4 +56,5 @@ export {
   transactionDb,
   paymentUserDb,
   paymentGateway,
+  carReviewDb,
 };

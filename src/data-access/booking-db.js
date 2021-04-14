@@ -6,6 +6,7 @@ import { transaction } from './models/payment';
 const PENDING_APPROVAL_BOOKING_ID = 1;
 const COMPLETED_BOOKING_ID = 4;
 const APPROVED_BOOKING_ID = 5;
+const REJECTED_BOOKING_ID = 6;
 const CANCELED_BOOKING_ID = 7;
 
 export default function makeBookingDb({ client }) {
@@ -52,7 +53,11 @@ export default function makeBookingDb({ client }) {
       where: {
         bookingBy: uuid,
         bookingStatus: {
-          [Op.or]: [COMPLETED_BOOKING_ID, CANCELED_BOOKING_ID],
+          [Op.or]: [
+            COMPLETED_BOOKING_ID,
+            REJECTED_BOOKING_ID,
+            CANCELED_BOOKING_ID,
+          ],
         },
       },
       order: [['id', 'DESC']],

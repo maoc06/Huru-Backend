@@ -8,7 +8,10 @@ export default function makePaymentUserDb({ client }) {
   }
 
   function findByUser(uuid) {
-    return paymentUserModel.findAll({ where: { addedBy: uuid } });
+    return paymentUserModel.findAll({
+      where: { addedBy: uuid },
+      order: [['id', 'DESC']],
+    });
   }
 
   function findDefaultByUser(uuid) {

@@ -7,6 +7,7 @@ import cityUseCases from './city';
 import bookingUseCases from './booking';
 import paymentUserUseCases from './payment-user';
 import paymentUseCases from './payment-gateway';
+import carReviewUseCases from './car-review';
 
 export {
   authUseCases,
@@ -18,4 +19,5 @@ export {
   bookingUseCases,
   paymentUserUseCases,
   paymentUseCases,
+  carReviewUseCases,
 };

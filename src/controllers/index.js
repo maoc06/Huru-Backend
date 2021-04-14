@@ -7,6 +7,7 @@ import cityControllers from './city';
 import bookingControllers from './booking';
 import paymentUserControllers from './payment-user';
 import paymentControllers from './payment-gateway';
+import carReviewControllers from './car-review';
 
 export {
   authControllers,
@@ -18,4 +19,5 @@ export {
   bookingControllers,
   paymentUserControllers,
   paymentControllers,
+  carReviewControllers,
 };

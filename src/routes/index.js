@@ -12,6 +12,7 @@ import getSearchRoutes from './search';
 import getBookingRoutes from './booking';
 import getPaymentUserRoutes from './payment-user';
 import getPaymentGatewaysRoutes from './payment-gateway';
+import getCarReviewRoutes from './car-review';
 
 function getRoutes() {
   const router = express.Router();
@@ -35,6 +36,8 @@ function getRoutes() {
   router.use('/payment-user', verifyToken, getPaymentUserRoutes());
 
   router.use('/payment', getPaymentGatewaysRoutes());
+
+  router.use('/car-review', getCarReviewRoutes());
 
   return router;
 }

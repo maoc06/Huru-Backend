@@ -13,6 +13,7 @@ import {
   transactionDb,
   userDb,
   carDb,
+  carReviewDb,
   paymentUserDb,
   paymentGateway,
 } from '../../data-access';
@@ -37,6 +38,7 @@ const listBookingsHistory = makeListBookingsHistory({
   bookingDb,
   userDb,
   carDb,
+  carReviewDb,
 });
 
 const cancelBooking = makeCancelBooking({ bookingDb });

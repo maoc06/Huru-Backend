@@ -29,7 +29,7 @@ export default function buildCarReviewModel({ client }) {
           key: 'uuid',
         },
       },
-      booking: {
+      bookingId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         field: 'booking_id',
@@ -39,7 +39,7 @@ export default function buildCarReviewModel({ client }) {
         allowNull: false,
       },
       rating: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.REAL,
         allowNull: false,
       },
       createdAt: {
