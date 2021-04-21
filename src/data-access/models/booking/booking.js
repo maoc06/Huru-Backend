@@ -1,8 +1,8 @@
 import { DataTypes } from 'sequelize';
 
 export default function buildBookingModel({ client }) {
-  const Booking = client.define(
-    'Booking',
+  return client.define(
+    'booking',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -16,19 +16,11 @@ export default function buildBookingModel({ client }) {
         primaryKey: true,
         allowNull: false,
         field: 'car_id',
-        references: {
-          model: 'Car',
-          key: 'carId',
-        },
       },
       bookingBy: {
         type: DataTypes.UUIDV4,
         allowNull: false,
         field: 'user_id',
-        references: {
-          model: 'User',
-          key: 'uuid',
-        },
       },
       checkin: {
         type: DataTypes.DATE,
@@ -44,10 +36,6 @@ export default function buildBookingModel({ client }) {
         type: DataTypes.INTEGER,
         allowNull: false,
         field: 'transaction_id',
-        references: {
-          model: 'Transaction',
-          key: 'transactionId',
-        },
       },
       pricePerDay: {
         type: DataTypes.DOUBLE,
@@ -106,14 +94,8 @@ export default function buildBookingModel({ client }) {
         type: DataTypes.INTEGER,
         allowNull: false,
         field: 'booking_status_id',
-        references: {
-          model: 'BookingStatus',
-          key: 'statusId',
-        },
       },
     },
-    { tableName: 'booking', timestamps: false }
+    { timestamps: false, freezeTableName: true }
   );
-
-  return Booking;
 }

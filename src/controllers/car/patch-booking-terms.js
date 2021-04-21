@@ -1,19 +1,19 @@
-export default function makeGetCarsByCity({ listCarsByCity }) {
-  return async function getCarsByCity(httpRequest) {
+export default function makePatchBookingTerms({ updateBookingTerms }) {
+  return async function patchBookingTerms(httpRequest) {
     const headers = {
       'Content-Type': 'application/json',
     };
 
-    const { city, checkIn, checkOut } = httpRequest.params;
+    const carData = httpRequest.body;
 
     try {
-      const cars = await listCarsByCity({ city, checkIn, checkOut });
+      const car = await updateBookingTerms({ carData });
       return {
         headers,
         statusCode: 200,
         body: {
-          message: 'List Cars by city',
-          data: cars,
+          message: 'Update booking terms successfully',
+          data: car,
         },
       };
     } catch (e) {

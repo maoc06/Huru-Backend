@@ -1,20 +1,30 @@
-/* eslint-disable no-param-reassign */
-export default function findImages(arr, funcSeeker, isMultiple) {
+export default function findImages({
+  arr,
+  funcSeeker,
+  attr = 'car_id',
+  isMultiple = false,
+}) {
   return Promise.all(
     arr.map(async (item) => {
-      const images = await funcSeeker(item.car_id, isMultiple);
+      let data = item;
+      const images = await funcSeeker(data[attr], isMultiple);
+
+      if (data.dataValues) {
+        data = data.dataValues;
+      }
+
+      if (images === null) {
+        data.image = '';
+        return data;
+      }
 
       if (isMultiple) {
-        item.images = images;
-        return item;
-      }
-      if (images === null) {
-        item.image = '';
-        return item;
+        data.images = images;
+        return data;
       }
 
-      item.image = images.imagePath;
-      return item;
+      data.image = images.imagePath;
+      return data;
     })
   );
 }

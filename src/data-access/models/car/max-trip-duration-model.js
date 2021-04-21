@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 
 export default function buildMaxTripDurationModel({ client }) {
-  const MaxTripDuration = client.define(
+  return client.define(
     'MaxTripDuration',
     {
       id: {
@@ -15,10 +15,4 @@ export default function buildMaxTripDurationModel({ client }) {
     },
     { tableName: 'max_trip_duration', timestamps: false }
   );
-
-  MaxTripDuration.associate = (models) => {
-    MaxTripDuration.hasMany(models.Car);
-  };
-
-  return MaxTripDuration;
 }

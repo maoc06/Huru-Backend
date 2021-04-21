@@ -24,20 +24,18 @@ const {
   sendBookingRejectedMail,
 } = mailer;
 
-const listByUserOwner = makeListByUserOwner({ bookingDb, userDb, carDb });
+const listByUserOwner = makeListByUserOwner({ bookingDb });
 
 const listBooking = makeListBooking({ bookingDb });
 
 const listUpcomingBookings = makeListUpcomingBookings({
   bookingDb,
   userDb,
-  carDb,
 });
 
 const listBookingsHistory = makeListBookingsHistory({
   bookingDb,
   userDb,
-  carDb,
   carReviewDb,
 });
 

@@ -12,6 +12,7 @@ import makeGetFeaturesOpts from './get-features-options';
 import makePostCarFeatures from './post-car-features';
 import makePostCarImage from './post-car-image';
 import makePutOwnerCarImage from './put-owner-car-image';
+import makeDeleteCarImage from './delete-car-image';
 
 const {
   listModels,
@@ -26,6 +27,7 @@ const {
   addCarFeatures,
   addCarImage,
   updateOwnerCarImage,
+  removeCarImage,
 } = carBasicSettingsUseCases;
 
 const getModels = makeGetModels({ listModels });
@@ -40,6 +42,7 @@ const getFeaturesOpts = makeGetFeaturesOpts({ listFeaturesOpts });
 const postCarFeatures = makePostCarFeatures({ addCarFeatures });
 const postCarImage = makePostCarImage({ addCarImage });
 const putOwnerCarImage = makePutOwnerCarImage({ updateOwnerCarImage });
+const deleteCarImage = makeDeleteCarImage({ removeCarImage });
 
 export default {
   getModels,
@@ -54,4 +57,5 @@ export default {
   postCarFeatures,
   postCarImage,
   putOwnerCarImage,
+  deleteCarImage,
 };

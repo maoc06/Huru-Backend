@@ -45,6 +45,7 @@ const paymentGateway = makePaymentGateway({ client });
 const carReviewDb = makeCarReviewDb({ client });
 
 export {
+  client,
   verificationApi,
   authDb,
   userDb,

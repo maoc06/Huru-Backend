@@ -66,7 +66,7 @@ export default function makeUpdateConfirmBooking({
           model,
           year,
           images,
-        } = await carDb.findCar(bookingCar);
+        } = await carDb.findById(bookingCar);
         // 10. Obtener la informacion del dueño del carro
         const { dataValues: owner } = await userDb.findByUUID(ownerId);
         // 11. Obtener la informacion del metodo de pago
@@ -108,7 +108,7 @@ export default function makeUpdateConfirmBooking({
         } = await bookingDb.confirmBooking(bookingId, confirm);
 
         // Obtener la informacion del carro
-        const { name, model, year, images } = await carDb.findCar(bookingCar);
+        const { name, model, year, images } = await carDb.findById(bookingCar);
 
         const response = await transactionDb.updateRejectBooking(transactionId);
 

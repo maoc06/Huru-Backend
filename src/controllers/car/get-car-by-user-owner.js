@@ -17,6 +17,7 @@ export default function makeGetCarByUserOwner({ listByUserOwner }) {
         },
       };
     } catch (e) {
+      console.log(e);
       return {
         headers,
         statusCode: 400,

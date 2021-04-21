@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 
 export default function buildCarReviewModel({ client }) {
-  const CarReview = client.define(
+  return client.define(
     'CarReview',
     {
       id: {
@@ -15,19 +15,11 @@ export default function buildCarReviewModel({ client }) {
         type: DataTypes.INTEGER,
         allowNull: false,
         field: 'car_id',
-        references: {
-          model: 'Car',
-          key: 'carId',
-        },
       },
       addedBy: {
         type: DataTypes.UUIDV4,
         allowNull: false,
         field: 'review_by_user',
-        references: {
-          model: 'User',
-          key: 'uuid',
-        },
       },
       bookingId: {
         type: DataTypes.INTEGER,
@@ -49,6 +41,4 @@ export default function buildCarReviewModel({ client }) {
     },
     { tableName: 'car_review', timestamps: false }
   );
-
-  return CarReview;
 }

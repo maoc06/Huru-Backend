@@ -41,7 +41,7 @@ export default function makeListenTransactionEvents({
         const user = await userDb.findByUUID(bookingBy);
 
         // 3. Obtener la informacion del carro reservado
-        const car = await carDb.findCar(bookingCar);
+        const car = await carDb.findById(bookingCar);
 
         // 4. Obtener la informacion del metodo de pago
         const paymentMethod = await paymentUserDb.findById(

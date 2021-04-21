@@ -1,8 +1,8 @@
 import { DataTypes } from 'sequelize';
 
 export default function buildFeatureModel({ client }) {
-  const Feature = client.define(
-    'Feature',
+  return client.define(
+    'feature',
     {
       featureId: {
         type: DataTypes.INTEGER,
@@ -21,12 +21,6 @@ export default function buildFeatureModel({ client }) {
         field: 'icon_image',
       },
     },
-    { tableName: 'feature', timestamps: false }
+    { timestamps: false, tableName: 'feature', freezeTableName: true }
   );
-
-  Feature.associate = (models) => {
-    Feature.hasMany(models.CarFeature);
-  };
-
-  return Feature;
 }

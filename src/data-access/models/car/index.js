@@ -1,5 +1,8 @@
+import client from '../../client';
+
 import buildCarModel from './car-model';
 import buildCarModelModel from './car-model-model';
+import buildMakerModel from './maker-model';
 import buildCategoryModel from './category-model';
 import buildOdometerRangeModel from './odometer-range-model';
 import buildTransmissionModel from './transmission-model';
@@ -11,9 +14,64 @@ import buildCarFeatureModel from './car-feature-model';
 import buildCarImageModel from './car-image-model';
 import buildCarReviewModel from './car-review-model';
 
+const AdvanceNotice = buildAdvanceNoticeModel(client);
+const Car = buildCarModel(client);
+const CarFeature = buildCarFeatureModel(client);
+const Feature = buildFeatureModel(client);
+const Image = buildCarImageModel(client);
+const Maker = buildMakerModel(client);
+const MaxTrip = buildMaxTripDurationModel(client);
+const MinTrip = buildMinTripDurationModel(client);
+const Model = buildCarModelModel(client);
+const Review = buildCarReviewModel(client);
+
+// Associations start
+AdvanceNotice.hasMany(Car, { foreignKey: 'advanceNoticeId' });
+
+Car.belongsTo(AdvanceNotice, {
+  as: 'advanceNotice',
+  foreignKey: 'advanceNoticeId',
+});
+Car.belongsTo(Maker, { foreignKey: 'makerId' });
+Car.belongsTo(Model, { foreignKey: 'modelId' });
+Car.belongsTo(MaxTrip, { as: 'maxTrip', foreignKey: 'maxTripDurationId' });
+Car.belongsTo(MinTrip, { as: 'minTrip', foreignKey: 'minTripDurationId' });
+Car.hasMany(CarFeature, { as: 'features', foreignKey: 'carId' });
+Car.hasMany(Image, { as: 'images', foreignKey: 'carId' });
+Car.hasMany(Review, { as: 'reviews', foreignKey: 'carId' });
+
+CarFeature.belongsTo(Car, { foreignKey: 'carId' });
+CarFeature.belongsTo(Feature, { foreignKey: 'featureId' });
+
+Feature.hasMany(CarFeature, { foreignKey: 'featureId' });
+
+Image.belongsTo(Car, { foreignKey: 'carId' });
+
+Maker.hasMany(Car, { foreignKey: 'makerId' });
+Maker.hasMany(Model, { foreignKey: 'makerId' });
+
+Model.belongsTo(Maker, { foreignKey: 'makerId' });
+Model.hasMany(Car, { foreignKey: 'modelId' });
+
+Review.belongsTo(Car, { foreignKey: 'carId' });
+// Associations end
+
+export default {
+  AdvanceNotice,
+  Car,
+  CarFeature,
+  Feature,
+  Image,
+  Maker,
+  MaxTrip,
+  MinTrip,
+  Model,
+  Review,
+};
+
 export {
-  buildCarModel as car,
-  buildCarModelModel as carModel,
+  buildCarModel as carModel,
+  buildCarModelModel as carModelModel,
   buildCategoryModel as categoryModel,
   buildOdometerRangeModel as odometerRangeModel,
   buildTransmissionModel as trasmissionModel,

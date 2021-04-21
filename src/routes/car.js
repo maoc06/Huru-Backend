@@ -47,6 +47,34 @@ function getCarRoutes() {
     makeCallback(carControllers.postCar)
   );
 
+  router.patch(
+    '/visibility',
+    verifyToken,
+    authorize([Normal, Admin]),
+    makeCallback(carControllers.patchVisibility)
+  );
+
+  router.patch(
+    '/disable',
+    verifyToken,
+    authorize([Normal, Admin]),
+    makeCallback(carControllers.patchDisable)
+  );
+
+  router.patch(
+    '/booking-terms',
+    verifyToken,
+    authorize([Normal, Admin]),
+    makeCallback(carControllers.patchBookingTerms)
+  );
+
+  router.put(
+    '/features',
+    verifyToken,
+    authorize([Normal, Admin]),
+    makeCallback(carControllers.putFeatures)
+  );
+
   return router;
 }
 

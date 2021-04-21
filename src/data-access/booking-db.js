@@ -1,7 +1,12 @@
 import { QueryTypes, Op } from 'sequelize';
 
-import { booking } from './models/booking';
+import { BookingModels, CarModels, UserModels } from './models';
+
 import { transaction } from './models/payment';
+
+const { Booking } = BookingModels;
+const { Car, Image, Maker, Model } = CarModels;
+const { User } = UserModels;
 
 const PENDING_APPROVAL_BOOKING_ID = 1;
 const COMPLETED_BOOKING_ID = 4;
@@ -10,46 +15,76 @@ const REJECTED_BOOKING_ID = 6;
 const CANCELED_BOOKING_ID = 7;
 
 export default function makeBookingDb({ client }) {
-  const bookingModel = booking({ client });
-
   function findByTransaction(transactionId) {
-    return bookingModel.findOne({ where: { transactionId } });
+    return Booking.findOne({ where: { transactionId } });
   }
 
   function findById(bookingId) {
-    return bookingModel.findByPk(bookingId);
+    return Booking.findOne({
+      attributes: { exclude: ['bookingCar', 'bookingBy'] },
+      where: { id: bookingId },
+      include: [
+        {
+          model: Car,
+          as: 'bookedCar',
+          attributes: ['carId', 'year'],
+          include: [
+            {
+              model: Image,
+              as: 'images',
+              attributes: ['carImageId', 'imagePath'],
+            },
+            { model: Maker, attributes: ['name'] },
+            { model: Model, attributes: ['name'] },
+          ],
+        },
+        {
+          model: User,
+          as: 'bookedBy',
+          attributes: [
+            'uuid',
+            'firstName',
+            'lastName',
+            'email',
+            'profilePhoto',
+            'createdAt',
+          ],
+        },
+      ],
+    });
   }
 
   function findUpcomingBookings(uuid) {
-    return bookingModel.findAll({
-      attributes: [
-        'id',
-        'bookingCar',
-        'bookingBy',
-        'checkin',
-        'checkout',
-        'bookingStatus',
-      ],
+    return Booking.findAll({
+      attributes: ['id', 'checkin', 'checkout', 'bookingStatus'],
       where: {
         bookingBy: uuid,
         bookingStatus: {
           [Op.or]: [PENDING_APPROVAL_BOOKING_ID, APPROVED_BOOKING_ID],
         },
       },
+      include: {
+        model: Car,
+        as: 'bookedCar',
+        attributes: ['carId', 'year'],
+        include: [
+          {
+            model: Image,
+            as: 'images',
+            attributes: ['imagePath'],
+            where: { isMain: true },
+          },
+          { model: Maker, attributes: ['name'] },
+          { model: Model, attributes: ['name'] },
+        ],
+      },
       order: [['id', 'DESC']],
     });
   }
 
   function findBookingsHistory(uuid) {
-    return bookingModel.findAll({
-      attributes: [
-        'id',
-        'bookingCar',
-        'bookingBy',
-        'checkin',
-        'checkout',
-        'bookingStatus',
-      ],
+    return Booking.findAll({
+      attributes: ['id', 'checkin', 'checkout', 'bookingStatus'],
       where: {
         bookingBy: uuid,
         bookingStatus: {
@@ -60,39 +95,53 @@ export default function makeBookingDb({ client }) {
           ],
         },
       },
+      include: {
+        model: Car,
+        as: 'bookedCar',
+        attributes: ['carId', 'year'],
+        include: [
+          {
+            model: Image,
+            as: 'images',
+            attributes: ['imagePath'],
+            where: { isMain: true },
+          },
+          { model: Maker, attributes: ['name'] },
+          { model: Model, attributes: ['name'] },
+        ],
+      },
       order: [['id', 'DESC']],
     });
   }
 
   async function findByUser(uuid) {
-    const bookingRequests = await client.query(
-      `SELECT 
-        booking.booking_id,
-        booking.car_id,
-        booking.user_id,
-        booking.check_in_date,
-        booking.check_out_date
-      FROM 
-        booking
-      WHERE
-        car_id in 
-        (
-          SELECT
-            car_id
-          FROM
-            car
-          WHERE
-            user_id=:uuid
-        )
-      ORDER BY booking.booking_id DESC`,
-      {
-        replacements: {
-          uuid,
+    return Booking.findAll({
+      attributes: ['id', 'checkin', 'checkout', 'bookingStatus'],
+      include: [
+        {
+          model: Car,
+          as: 'bookedCar',
+          attributes: ['carId', 'year'],
+          where: { owner: uuid },
+          include: [
+            {
+              model: Image,
+              as: 'images',
+              attributes: ['imagePath'],
+              where: { isMain: true },
+            },
+            { model: Maker, attributes: ['name'] },
+            { model: Model, attributes: ['name'] },
+          ],
         },
-        type: QueryTypes.SELECT,
-      }
-    );
-    return bookingRequests;
+        {
+          model: User,
+          as: 'bookedBy',
+          attributes: ['uuid', 'firstName', 'lastName', 'profilePhoto'],
+        },
+      ],
+      order: [['id', 'DESC']],
+    });
   }
 
   async function insert(bookingInfo) {
@@ -108,11 +157,11 @@ export default function makeBookingDb({ client }) {
     delete bookingRecord.paymentId;
     bookingRecord.transactionId = transactionId;
 
-    return bookingModel.create(bookingRecord);
+    return Booking.create(bookingRecord);
   }
 
   async function confirmBooking(bookingId, status) {
-    const res = await bookingModel.update(
+    const res = await Booking.update(
       { bookingStatus: status },
       { where: { id: bookingId }, returning: true, plain: true }
     );
@@ -122,7 +171,7 @@ export default function makeBookingDb({ client }) {
   async function update(bookingInfo) {
     const { bookingId: id } = bookingInfo;
 
-    const res = await bookingModel.update(bookingInfo, {
+    const res = await Booking.update(bookingInfo, {
       where: { id },
       returning: true,
       plain: true,
@@ -157,7 +206,7 @@ export default function makeBookingDb({ client }) {
 
     const id = transactionUpdate[0].booking_id;
 
-    return bookingModel.update({ bookingStatus }, { where: { id } });
+    return Booking.update({ bookingStatus }, { where: { id } });
   }
 
   return Object.freeze({

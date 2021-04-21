@@ -7,7 +7,7 @@ import { config } from '../../config';
 import validateMimeTypeImages from './validate-mime-type-images';
 import validateFileSize from './validate-file-size';
 
-export default async function uploadFileS3(file) {
+export default async function uploadFileS3(file, subfolder) {
   const stateObj = { success: false, url: '' };
   const { originalname, mimetype } = file;
   let { buffer } = file;
@@ -37,9 +37,10 @@ export default async function uploadFileS3(file) {
   // setting up S3 upload parameters
   const params = {
     Bucket: config.awsBucketName,
-    Key: originalname,
+    Key: `${subfolder}/${originalname}`,
     Body: buffer,
     ContentType: mimetype,
+    ACL: 'public-read',
   };
 
   await (async () => {

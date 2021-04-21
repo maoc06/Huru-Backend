@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 
 export default function buildAdvanceNoticeModel({ client }) {
-  const AdvanceNotice = client.define(
+  return client.define(
     'AdvanceNotice',
     {
       id: {
@@ -15,10 +15,4 @@ export default function buildAdvanceNoticeModel({ client }) {
     },
     { tableName: 'advance_notice', timestamps: false }
   );
-
-  AdvanceNotice.associate = (models) => {
-    AdvanceNotice.hasMany(models.Car);
-  };
-
-  return AdvanceNotice;
 }

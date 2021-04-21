@@ -1,20 +1,19 @@
-export default function makePostCarImage({ addCarImage }) {
-  return async function postCarImage(httpRequest) {
+export default function makeDeleteCarImage({ removeCarImage }) {
+  return async function deleteCarImage(httpRequest) {
     const headers = {
       'Content-Type': 'application/json',
     };
 
     try {
-      const photoFile = httpRequest.file;
-      const { uid, carId } = httpRequest.body;
+      const { carImageId } = httpRequest.params;
 
-      const carImage = await addCarImage({ photoFile, uid, carId });
+      const carImage = await removeCarImage(carImageId);
 
       return {
         headers,
         statusCode: 201,
         body: {
-          message: 'Car image successfully added',
+          message: 'Car image successfully deleted',
           data: carImage,
         },
       };

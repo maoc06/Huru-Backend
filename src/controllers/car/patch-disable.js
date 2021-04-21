@@ -1,19 +1,19 @@
-export default function makeGetCarsByCity({ listCarsByCity }) {
-  return async function getCarsByCity(httpRequest) {
+export default function makePatchDisable({ updateDisable }) {
+  return async function patchDisable(httpRequest) {
     const headers = {
       'Content-Type': 'application/json',
     };
 
-    const { city, checkIn, checkOut } = httpRequest.params;
+    const carData = httpRequest.body;
 
     try {
-      const cars = await listCarsByCity({ city, checkIn, checkOut });
+      const car = await updateDisable({ carData });
       return {
         headers,
         statusCode: 200,
         body: {
-          message: 'List Cars by city',
-          data: cars,
+          message: 'Update disabled car successfully',
+          data: car,
         },
       };
     } catch (e) {

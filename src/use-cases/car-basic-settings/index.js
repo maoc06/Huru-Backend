@@ -10,6 +10,7 @@ import makeListFeaturesOpts from './list-features-options';
 import makeAddCarFeatures from './add-car-features';
 import makeAddCarImage from './add-car-images';
 import makeUpdateOwnerCarImage from './update-owner-car-image';
+import makeRemoveCarImage from './remove-car-image';
 
 import { carBasicSettingsDb, makerDb, carDb, userDb } from '../../data-access';
 
@@ -28,6 +29,7 @@ const listFeaturesOpts = makeListFeaturesOpts({ carBasicSettingsDb });
 const addCarFeatures = makeAddCarFeatures({ carBasicSettingsDb, carDb });
 const addCarImage = makeAddCarImage({ carBasicSettingsDb, userDb });
 const updateOwnerCarImage = makeUpdateOwnerCarImage({ carBasicSettingsDb });
+const removeCarImage = makeRemoveCarImage({ carBasicSettingsDb });
 
 export default {
   listModels,
@@ -42,4 +44,5 @@ export default {
   addCarFeatures,
   addCarImage,
   updateOwnerCarImage,
+  removeCarImage,
 };

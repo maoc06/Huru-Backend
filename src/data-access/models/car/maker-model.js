@@ -1,8 +1,8 @@
 import { DataTypes } from 'sequelize';
 
 export default function buildMakerModel({ client }) {
-  const Maker = client.define(
-    'Maker',
+  return client.define(
+    'maker',
     {
       makerId: {
         type: DataTypes.INTEGER,
@@ -13,13 +13,6 @@ export default function buildMakerModel({ client }) {
       },
       name: { type: DataTypes.STRING(75), allowNull: false },
     },
-    { tableName: 'maker', timestamps: false }
+    { timestamps: false, freezeTableName: true }
   );
-
-  Maker.associate = (models) => {
-    Maker.hasMany(models.Car);
-    Maker.hasMany(models.CarModel);
-  };
-
-  return Maker;
 }

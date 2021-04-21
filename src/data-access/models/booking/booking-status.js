@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 
 export default function buildBookingStatusModel({ client }) {
-  const BookingStatus = client.define(
+  return client.define(
     'BookingStatus',
     {
       statusId: {
@@ -15,6 +15,4 @@ export default function buildBookingStatusModel({ client }) {
     },
     { tableName: 'booking_status', timestamps: false }
   );
-
-  return BookingStatus;
 }
