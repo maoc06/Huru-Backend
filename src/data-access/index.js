@@ -33,7 +33,7 @@ const twilioClient = twilio(config.twilioAccountSID, config.twilioToken);
 
 const verificationApi = makeVerificationApi(twilioClient);
 const authDb = makeAuthDb({ client });
-const userDb = makeUserDb({ client });
+const userDb = makeUserDb();
 const carDb = makeCarDb({ client });
 const makerDb = makeMakerDb({ client });
 const carBasicSettingsDb = makeCarBasicSettingsDb({ client });

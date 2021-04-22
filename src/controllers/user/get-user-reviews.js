@@ -1,23 +1,22 @@
-export default function makeGetCar({ listCar }) {
-  return async function getCar(httpRequest) {
+export default function makeGetUserReviews({ listReviews }) {
+  return async function getUserReviews(httpRequest) {
     const headers = {
       'Content-Type': 'application/json',
     };
 
-    const { carId } = httpRequest.params;
+    const { userId } = httpRequest.params;
 
     try {
-      const car = await listCar({ carId });
+      const reviews = await listReviews({ userId });
       return {
         headers,
         statusCode: 200,
         body: {
-          message: 'Retrieve Car by ID',
-          data: car,
+          message: 'List user reviews',
+          data: reviews,
         },
       };
     } catch (e) {
-      console.log(e);
       return {
         headers,
         statusCode: 400,

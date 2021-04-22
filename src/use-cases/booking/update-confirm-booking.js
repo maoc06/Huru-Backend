@@ -61,13 +61,19 @@ export default function makeUpdateConfirmBooking({
         );
         // 9. Obtener la informacion del carro
         const {
-          user_id: ownerId,
+          userOwner: {
+            dataValues: { uuid: ownerId },
+          },
           name,
           model,
           year,
           images,
         } = await carDb.findById(bookingCar);
         // 10. Obtener la informacion del dueño del carro
+
+        // const userOwner = await carDb.findById(bookingCar);
+        console.log(ownerId);
+
         const { dataValues: owner } = await userDb.findByUUID(ownerId);
         // 11. Obtener la informacion del metodo de pago
         const {

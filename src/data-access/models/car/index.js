@@ -23,7 +23,7 @@ const Maker = buildMakerModel(client);
 const MaxTrip = buildMaxTripDurationModel(client);
 const MinTrip = buildMinTripDurationModel(client);
 const Model = buildCarModelModel(client);
-const Review = buildCarReviewModel(client);
+const CarReview = buildCarReviewModel(client);
 
 // Associations start
 AdvanceNotice.hasMany(Car, { foreignKey: 'advanceNoticeId' });
@@ -38,7 +38,7 @@ Car.belongsTo(MaxTrip, { as: 'maxTrip', foreignKey: 'maxTripDurationId' });
 Car.belongsTo(MinTrip, { as: 'minTrip', foreignKey: 'minTripDurationId' });
 Car.hasMany(CarFeature, { as: 'features', foreignKey: 'carId' });
 Car.hasMany(Image, { as: 'images', foreignKey: 'carId' });
-Car.hasMany(Review, { as: 'reviews', foreignKey: 'carId' });
+Car.hasMany(CarReview, { as: 'reviews', foreignKey: 'carId' });
 
 CarFeature.belongsTo(Car, { foreignKey: 'carId' });
 CarFeature.belongsTo(Feature, { foreignKey: 'featureId' });
@@ -53,7 +53,7 @@ Maker.hasMany(Model, { foreignKey: 'makerId' });
 Model.belongsTo(Maker, { foreignKey: 'makerId' });
 Model.hasMany(Car, { foreignKey: 'modelId' });
 
-Review.belongsTo(Car, { foreignKey: 'carId' });
+CarReview.belongsTo(Car, { foreignKey: 'carId' });
 // Associations end
 
 export default {
@@ -66,7 +66,7 @@ export default {
   MaxTrip,
   MinTrip,
   Model,
-  Review,
+  CarReview,
 };
 
 export {

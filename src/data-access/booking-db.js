@@ -36,6 +36,12 @@ export default function makeBookingDb({ client }) {
             },
             { model: Maker, attributes: ['name'] },
             { model: Model, attributes: ['name'] },
+            // {
+            //   model: CarReview,
+            //   as: 'reviews',
+            //   attributes: { exclude: ['bookingId'] },
+            //   where: { bookingId },
+            // },
           ],
         },
         {
@@ -49,6 +55,7 @@ export default function makeBookingDb({ client }) {
             'profilePhoto',
             'createdAt',
           ],
+          // include: { model: UserReview, where: { bookingId } },
         },
       ],
     });
@@ -56,17 +63,12 @@ export default function makeBookingDb({ client }) {
 
   function findUpcomingBookings(uuid) {
     return Booking.findAll({
-      attributes: ['id', 'checkin', 'checkout', 'bookingStatus'],
-      where: {
-        bookingBy: uuid,
-        bookingStatus: {
-          [Op.or]: [PENDING_APPROVAL_BOOKING_ID, APPROVED_BOOKING_ID],
-        },
-      },
+      attributes: ['id', 'checkin', 'checkout', 'bookingStatus', 'bookingCar'],
       include: {
         model: Car,
         as: 'bookedCar',
         attributes: ['carId', 'year'],
+        // where: { carId: 7 },
         include: [
           {
             model: Image,
@@ -77,6 +79,12 @@ export default function makeBookingDb({ client }) {
           { model: Maker, attributes: ['name'] },
           { model: Model, attributes: ['name'] },
         ],
+      },
+      where: {
+        bookingBy: uuid,
+        bookingStatus: {
+          [Op.or]: [PENDING_APPROVAL_BOOKING_ID, APPROVED_BOOKING_ID],
+        },
       },
       order: [['id', 'DESC']],
     });

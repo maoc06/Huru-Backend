@@ -24,7 +24,7 @@ const {
   sendBookingRejectedMail,
 } = mailer;
 
-const listByUserOwner = makeListByUserOwner({ bookingDb });
+const listByUserOwner = makeListByUserOwner({ bookingDb, userDb });
 
 const listBooking = makeListBooking({ bookingDb });
 

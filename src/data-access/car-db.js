@@ -17,7 +17,7 @@ const {
   MaxTrip,
   MinTrip,
   Model,
-  Review,
+  CarReview,
 } = CarModels;
 const { User } = UserModels;
 
@@ -84,7 +84,7 @@ export default function makeCarDb({ client }) {
           ],
         },
         {
-          model: Review,
+          model: CarReview,
           as: 'reviews',
           attributes: { exclude: ['carId', 'addedBy'] },
           include: {
