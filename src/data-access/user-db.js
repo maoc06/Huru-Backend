@@ -31,6 +31,14 @@ export default function makeUserDb() {
     return UserReview.findOne({ where: { bookingId } });
   }
 
+  function updateProfile(profileData) {
+    const { uuid } = profileData;
+
+    return User.update(profileData, {
+      where: { uuid },
+    });
+  }
+
   function updateEmailVerification(email, verification) {
     User.update({ isEmailVerified: verification }, { where: { email } });
   }
@@ -44,6 +52,7 @@ export default function makeUserDb() {
     findByEmail,
     findUserReviews,
     findUserReviewsByBooking,
+    updateProfile,
     updateEmailVerification,
     insertReview,
   });

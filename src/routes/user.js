@@ -32,6 +32,27 @@ function getUserRoutes() {
     makeCallback(userControllers.postUserReview)
   );
 
+  router.patch(
+    '/password',
+    verifyToken,
+    authorize([Normal]),
+    makeCallback(userControllers.patchPassword)
+  );
+
+  router.patch(
+    '/phone',
+    verifyToken,
+    authorize([Normal]),
+    makeCallback(userControllers.patchPhone)
+  );
+
+  router.patch(
+    '/pic',
+    verifyToken,
+    authorize([Normal]),
+    makeCallback(userControllers.patchProfilePic)
+  );
+
   return router;
 }
 
