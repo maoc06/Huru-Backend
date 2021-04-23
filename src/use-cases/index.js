@@ -8,6 +8,7 @@ import bookingUseCases from './booking';
 import paymentUserUseCases from './payment-user';
 import paymentUseCases from './payment-gateway';
 import carReviewUseCases from './car-review';
+import favoriteUseCases from './favorite';
 
 export {
   authUseCases,
@@ -20,4 +21,5 @@ export {
   paymentUserUseCases,
   paymentUseCases,
   carReviewUseCases,
+  favoriteUseCases,
 };

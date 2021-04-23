@@ -15,6 +15,7 @@ import makeTransactionDb from './transaction-db';
 import makePaymentUserDb from './payment-user';
 import makePaymentGateway from './payment-gateway';
 import makeCarReviewDb from './car-review-db';
+import makeFavoriteDb from './favorite-db';
 
 const client = new Sequelize(config.dbUri);
 
@@ -43,6 +44,7 @@ const transactionDb = makeTransactionDb({ client });
 const paymentUserDb = makePaymentUserDb({ client });
 const paymentGateway = makePaymentGateway({ client });
 const carReviewDb = makeCarReviewDb({ client });
+const favoriteDb = makeFavoriteDb();
 
 export {
   client,
@@ -58,4 +60,5 @@ export {
   paymentUserDb,
   paymentGateway,
   carReviewDb,
+  favoriteDb,
 };

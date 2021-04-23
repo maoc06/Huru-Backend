@@ -8,6 +8,7 @@ import bookingControllers from './booking';
 import paymentUserControllers from './payment-user';
 import paymentControllers from './payment-gateway';
 import carReviewControllers from './car-review';
+import favoriteControllers from './favorite';
 
 export {
   authControllers,
@@ -20,4 +21,5 @@ export {
   paymentUserControllers,
   paymentControllers,
   carReviewControllers,
+  favoriteControllers,
 };
