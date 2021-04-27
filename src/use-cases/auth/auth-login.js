@@ -32,6 +32,7 @@ export default function makeAuthCredentials({ authDb, handleToken }) {
       email: validatedUser.email,
       userType: validatedUser.userType,
       profilePicture: validatedUser.profilePhoto,
+      phone: validatedUser.phone,
       createdAt: validatedUser.createdAt,
       modifiedAt: validatedUser.modifiedAt,
       status: validatedUser.status,

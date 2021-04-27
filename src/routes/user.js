@@ -53,6 +53,13 @@ function getUserRoutes() {
     makeCallback(userControllers.patchProfilePic)
   );
 
+  router.put(
+    '/',
+    verifyToken,
+    authorize([Normal]),
+    makeCallback(userControllers.putUserData)
+  );
+
   return router;
 }
 

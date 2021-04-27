@@ -7,12 +7,14 @@ import makePostUserReview from './post-user-review';
 import makePatchPassword from './patch-password';
 import makePatchPhone from './patch-phone';
 import makePatchProfilePic from './patch-profile-pic';
+import makePutUserData from './put-user-data';
 
 const {
   addUserReview,
   listUser,
   listReviews,
   listIfAlreadyReviewed,
+  updateData,
   updatePassword,
   updatePhone,
   updateProfilePic,
@@ -27,6 +29,7 @@ const postUserReview = makePostUserReview({ addUserReview });
 const patchPassword = makePatchPassword({ updatePassword });
 const patchPhone = makePatchPhone({ updatePhone });
 const patchProfilePic = makePatchProfilePic({ updateProfilePic });
+const putUserData = makePutUserData({ updateData });
 
 export default {
   getUser,
@@ -36,4 +39,5 @@ export default {
   patchPassword,
   patchPhone,
   patchProfilePic,
+  putUserData,
 };
