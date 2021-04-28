@@ -20,6 +20,12 @@ function getFavoriteRoutes() {
     makeCallback(favoriteControllers.postFavorite)
   );
 
+  router.delete(
+    '/:addedBy/:carId',
+    authorize([Normal]),
+    makeCallback(favoriteControllers.deleteFavorite)
+  );
+
   return router;
 }
 

@@ -24,8 +24,13 @@ export default function makeFavoriteDb() {
     return Favorite.create(favorite);
   }
 
+  function remove({ addedBy, carId }) {
+    return Favorite.destroy({ where: { addedBy, carId } });
+  }
+
   return Object.freeze({
     findByUser,
     insert,
+    remove,
   });
 }
