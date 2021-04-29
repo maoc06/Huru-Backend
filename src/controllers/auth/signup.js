@@ -2,7 +2,7 @@ export default function makeSignUp({ authRegister }) {
   return async function signUp(httpRequest) {
     try {
       const { ...userInfo } = httpRequest.body;
-      const user = await authRegister({ ...userInfo });
+      const accessToken = await authRegister({ ...userInfo });
       return {
         headers: {
           'Content-Type': 'application/json',
@@ -10,10 +10,11 @@ export default function makeSignUp({ authRegister }) {
         statusCode: 201,
         body: {
           message: 'User successfully register',
-          data: user,
+          accessToken,
         },
       };
     } catch (e) {
+      console.log(e);
       return {
         headers: {
           'Content-Type': 'application/json',

@@ -1,4 +1,5 @@
 import express from 'express';
+
 import makeCallback from '../express-callback';
 import { authControllers } from '../controllers';
 
@@ -8,6 +9,10 @@ function getAuthRoutes() {
   router.post('/signup', makeCallback(authControllers.signUp));
 
   router.post('/signin', makeCallback(authControllers.singIn));
+
+  router.post('/signup-google', makeCallback(authControllers.signUpGoogle));
+
+  router.post('/signin-google', makeCallback(authControllers.signInGoogle));
 
   router.get(
     '/check-email/:email',

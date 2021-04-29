@@ -7,13 +7,15 @@ export default function makeRegister({ authDb, handleToken, sendWelcomeMail }) {
     await validate(userInfo);
 
     const user = makeUser(userInfo);
+    const userTmp = { ...user };
 
     // Hash password
-    const salt = await bcrypt.genSalt(10);
-    const hashPassword = await bcrypt.hash(userInfo.password, salt);
+    if (userInfo.password) {
+      const salt = await bcrypt.genSalt(10);
+      const hashPassword = await bcrypt.hash(userInfo.password, salt);
 
-    const userTmp = { ...user };
-    userTmp.password = hashPassword;
+      userTmp.password = hashPassword;
+    }
 
     const verifyEmailToken = handleToken(
       { email: userTmp.email },
@@ -27,7 +29,11 @@ export default function makeRegister({ authDb, handleToken, sendWelcomeMail }) {
       url: `http://192.168.0.14:3000/verify-email/${verifyEmailToken}`,
     });
 
-    return authDb.insert(userTmp);
+    await authDb.insert(userTmp);
+
+    const accessToken = initialAccessToken(userTmp.email);
+
+    return accessToken;
   };
 
   async function validate(user) {
@@ -47,5 +53,26 @@ export default function makeRegister({ authDb, handleToken, sendWelcomeMail }) {
     existing = await authDb.findByDocumetID(identityDocument);
     if (existing.document_id)
       throw new Error('auth/user-document-already-exists');
+  }
+
+  async function initialAccessToken(email) {
+    const { dataValues: user } = await authDb.getInfoUser(email);
+
+    const info = {
+      uid: user.uuid,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      userType: user.userType,
+      profilePicture: user.profilePhoto,
+      phone: user.phone,
+      createdAt: user.createdAt,
+      modifiedAt: user.modifiedAt,
+      status: user.status,
+      isEmailVerified: user.isEmailVerified,
+      isPhoneVerified: user.isPhoneVerified,
+    };
+
+    return handleToken(info, config.privateKey);
   }
 }

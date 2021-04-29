@@ -17,6 +17,9 @@ import makePaymentGateway from './payment-gateway';
 import makeCarReviewDb from './car-review-db';
 import makeFavoriteDb from './favorite-db';
 
+import google from './auth-google-client';
+
+const authGoogleClient = google.oAuth2Client;
 const client = new Sequelize(config.dbUri);
 
 client
@@ -48,6 +51,7 @@ const favoriteDb = makeFavoriteDb();
 
 export {
   client,
+  authGoogleClient,
   verificationApi,
   authDb,
   userDb,

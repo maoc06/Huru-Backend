@@ -10,6 +10,7 @@ const config = {
   cors: process.env.CORS,
   dbUri: process.env.DB_URI,
   privateKey: process.env.PRIVATE_KEY,
+  googleClientId: process.env.GOOGLE_CLIENT_ID,
   awsBucketName: process.env.AWS_BUCKET_NAME,
   twilioToken: process.env.TWILIO_AUTH_TOKEN,
   twilioAccountSID: process.env.TWILIO_ACCOUNT_SID,
