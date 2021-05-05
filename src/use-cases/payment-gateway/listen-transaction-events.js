@@ -1,5 +1,4 @@
-import diffDays from '../../utils/diff-days';
-import formatBookingDate from '../../utils/formatBookingDate';
+import { diffDays, formatFullDate, nowFormatDate } from '../../utils/dates';
 import { paymentMethodsIcons } from '../../utils/enums';
 import validateTransactionEvent from '../../utils/validate-transaction-event';
 
@@ -49,14 +48,18 @@ export default function makeListenTransactionEvents({
         );
 
         // 5. Calular los dias
-        const days = diffDays(checkin, checkout);
+        const days = diffDays({
+          dateOne: checkin,
+          dateTwo: checkout,
+          type: 'JS',
+        });
 
         const emailInfo = {
           emailToSend: user.email,
-          carInfo: `${car.name} ${car.model} ${car.year}`,
+          carInfo: `${car.maker.name} ${car.model.name} ${car.year}`,
           carImage: car.images[0].imagePath,
-          startDate: formatBookingDate(checkin),
-          endDate: formatBookingDate(checkout),
+          startDate: formatFullDate({ date: checkin, type: 'JS' }),
+          endDate: formatFullDate({ date: checkout, type: 'JS' }),
           typePayment: paymentMethod.type,
           brandLogo: paymentMethod.brand
             ? paymentMethodsIcons[paymentMethod.brand]
@@ -67,6 +70,7 @@ export default function makeListenTransactionEvents({
           pricePerDay,
           countDays: days,
           serviceFee: pricePerDay * days * 0.17,
+          paidOn: nowFormatDate({ withYear: true }),
         };
 
         switch (transactionEvent.status) {

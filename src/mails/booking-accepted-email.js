@@ -15,6 +15,7 @@ export default function makeSendBookingAcceptedtMail() {
     lastFour,
     nequiPhone,
     paid,
+    paidOn,
   } = {}) {
     email
       .send({
@@ -36,6 +37,7 @@ export default function makeSendBookingAcceptedtMail() {
           lastFour,
           nequiPhone,
           paid,
+          paidOn,
         },
       })
       .then(() =>

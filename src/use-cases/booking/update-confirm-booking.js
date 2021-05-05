@@ -1,6 +1,5 @@
-import diffDays from '../../utils/diff-days';
 import generateReference from '../../utils/generate-reference';
-import formatBookingDate from '../../utils/formatBookingDate';
+import { diffDays, formatFullDate, nowFormatDate } from '../../utils/dates';
 import { paymentMethodsIcons } from '../../utils/enums';
 
 export default function makeUpdateConfirmBooking({
@@ -33,7 +32,11 @@ export default function makeUpdateConfirmBooking({
         } = await transactionDb.findById(transactionId);
 
         // 3. calcular los dias de reserva
-        const days = diffDays(checkin, checkout);
+        const days = diffDays({
+          dateOne: checkin,
+          dateTwo: checkout,
+          type: 'JS',
+        });
         // 4. calcular el precio en centavos
         const amountInCents = pricePerDay * 100 * days;
         const serviceFee = (amountInCents / 100) * 0.17;
@@ -64,7 +67,7 @@ export default function makeUpdateConfirmBooking({
           userOwner: {
             dataValues: { uuid: ownerId },
           },
-          name,
+          maker,
           model,
           year,
           images,
@@ -82,10 +85,10 @@ export default function makeUpdateConfirmBooking({
         // 12. Prepara la informacion basica para enviar los emails
         const basicInfo = {
           emailToSend: email,
-          carInfo: `${name} ${model} ${year}`,
+          carInfo: `${maker.name} ${model.name} ${year}`,
           carImage: images[0].imagePath,
-          startDate: formatBookingDate(checkin),
-          endDate: formatBookingDate(checkout),
+          startDate: formatFullDate({ date: checkin, type: 'JS' }),
+          endDate: formatFullDate({ date: checkout, type: 'JS' }),
           typePayment: type,
           brandLogo: brand
             ? paymentMethodsIcons[brand]
@@ -100,6 +103,7 @@ export default function makeUpdateConfirmBooking({
           owner: `${owner.firstName}`,
           phone: owner.phone,
           paid: totalPaidInCents / 100,
+          paidOn: nowFormatDate({ withYear: true }),
         });
 
         return response;
@@ -124,8 +128,8 @@ export default function makeUpdateConfirmBooking({
           emailToSend: email,
           carInfo: `${name} ${model} ${year}`,
           carImage: images[0].imagePath,
-          startDate: formatBookingDate(checkin),
-          endDate: formatBookingDate(checkout),
+          startDate: formatFullDate(checkin),
+          endDate: formatFullDate(checkout),
         });
 
         return response;

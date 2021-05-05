@@ -1,4 +1,4 @@
-import validateMaxCarAge from '../utils/validate-max-car-age';
+import { validateMax } from '../utils/dates';
 
 export default function buildMakeCar() {
   return function makeCar({ ...entity }) {
@@ -10,7 +10,7 @@ export default function buildMakeCar() {
       odometerRangeId,
       licensePlate,
       cityId,
-      ownerUUID,
+      owner,
       price,
       advanceNoticeId,
       minTripDurationId,
@@ -21,7 +21,7 @@ export default function buildMakeCar() {
     if (!modelId) throw new Error('Car must have a model');
     if (!year) throw new Error('Car must have a year age');
     // Validate the age of the car (max 11 year)
-    if (!validateMaxCarAge(year))
+    if (!validateMax(year, 11))
       throw new Error('Car cannot be more than 11 years seniority');
     if (!vin) throw new Error('Car must have a VIN');
     if (vin.length !== 17) throw new Error('Car VIN must have 17 characters');
@@ -30,7 +30,7 @@ export default function buildMakeCar() {
     if (odometerRangeId === 4) throw new Error('Maximum mileage of 130k Km');
     if (!licensePlate) throw new Error('Car must have a license plate');
     if (!cityId) throw new Error('Car must be located within a city');
-    if (!ownerUUID) throw new Error('Car must belong to a user');
+    if (!owner) throw new Error('Car must belong to a user');
     if (!price) throw new Error('Car must have a price');
     if (!advanceNoticeId) throw new Error('Car must have an advance notice');
     if (!minTripDurationId)

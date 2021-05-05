@@ -3,7 +3,7 @@ import { Sequelize } from 'sequelize';
 
 import { config } from '../../config';
 
-const client = new Sequelize(config.dbUri);
+const client = new Sequelize(config.dbUri, { timezone: '-5:00' });
 
 // client
 //   .authenticate()

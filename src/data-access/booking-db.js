@@ -36,12 +36,6 @@ export default function makeBookingDb({ client }) {
             },
             { model: Maker, attributes: ['name'] },
             { model: Model, attributes: ['name'] },
-            // {
-            //   model: CarReview,
-            //   as: 'reviews',
-            //   attributes: { exclude: ['bookingId'] },
-            //   where: { bookingId },
-            // },
           ],
         },
         {
@@ -55,7 +49,6 @@ export default function makeBookingDb({ client }) {
             'profilePhoto',
             'createdAt',
           ],
-          // include: { model: UserReview, where: { bookingId } },
         },
       ],
     });
@@ -68,7 +61,6 @@ export default function makeBookingDb({ client }) {
         model: Car,
         as: 'bookedCar',
         attributes: ['carId', 'year'],
-        // where: { carId: 7 },
         include: [
           {
             model: Image,

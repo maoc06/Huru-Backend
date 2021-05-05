@@ -15,6 +15,7 @@ export default function makeSendReceiptMail() {
     brandLogo,
     lastFour,
     nequiPhone,
+    paidOn,
   } = {}) {
     email
       .send({
@@ -36,6 +37,7 @@ export default function makeSendReceiptMail() {
           brandLogo,
           lastFour,
           nequiPhone,
+          paidOn,
         },
       })
       .then(() => console.log('Receipt has been send to', emailToSend));

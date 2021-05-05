@@ -4,7 +4,7 @@ export default function buildUserReviewModel({ client }) {
   return client.define(
     'UserReview',
     {
-      userReview: {
+      id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,

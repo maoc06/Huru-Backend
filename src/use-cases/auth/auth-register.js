@@ -26,7 +26,7 @@ export default function makeRegister({ authDb, handleToken, sendWelcomeMail }) {
     sendWelcomeMail({
       emailToSend: userTmp.email,
       firstname: userTmp.firstName,
-      url: `http://192.168.0.14:3000/verify-email/${verifyEmailToken}`,
+      url: `http://${config.webAppServerBaseUrl}/verify-email/${verifyEmailToken}`,
     });
 
     await authDb.insert(userTmp);

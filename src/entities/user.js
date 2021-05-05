@@ -1,4 +1,4 @@
-import validateMinimumAge from '../utils/validate-minimum-age';
+import { validateMin } from '../utils/dates';
 
 export default function buildMakeUser() {
   return function makeUser({ ...entity }) {
@@ -24,7 +24,7 @@ export default function buildMakeUser() {
     if (!identityDocument)
       throw new Error('User must have a identity document number');
     // Validete minimum age (19 year old)
-    if (!validateMinimumAge(dateOfBirth))
+    if (!validateMin(dateOfBirth, 19))
       throw new Error('User must be at least 19 years old to register');
     if (isPhoneVerified === null || isPhoneVerified === undefined)
       throw new Error('User must have phone verification property');

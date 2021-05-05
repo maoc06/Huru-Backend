@@ -210,6 +210,7 @@ export default function makeCarDb({ client }) {
       funcSeeker: findCarImages,
     });
     const res = await findFeatures(resImages, findCarFeatures);
+
     return res;
   }
 

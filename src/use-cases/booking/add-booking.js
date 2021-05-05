@@ -1,5 +1,6 @@
+import { config } from '../../../config';
 import { makeBooking } from '../../entities';
-import formatBookingDate from '../../utils/formatBookingDate';
+import { formatFullDate } from '../../utils/dates';
 
 export default function makeAddBooking({
   bookingDb,
@@ -39,12 +40,10 @@ export default function makeAddBooking({
       emailToSend: carOwner.email,
       carInfo: `${car.maker.name} ${car.model.name} ${car.year}`,
       carImage: car.images[0].imagePath,
-      startDate: booking.checkin,
-      endDate: booking.checkout,
-      // startDate: formatBookingDate(booking.checkin),
-      // endDate: formatBookingDate(booking.checkout),
+      startDate: formatFullDate({ date: booking.checkin, type: 'ISO' }),
+      endDate: formatFullDate({ date: booking.checkout, type: 'ISO' }),
       applicant: `${applicantUser.firstName} ${applicantUser.lastName}`,
-      url: `http://192.168.0.14:3000/host/request-details/${19}`,
+      url: `http://${config.webAppServerBaseUrl}/host/request-details/${19}`,
     });
 
     return response;
