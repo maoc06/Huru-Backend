@@ -2,7 +2,7 @@ import { QueryTypes, Op } from 'sequelize';
 
 import { CarModels, UserModels } from './models';
 
-import { carModel, carImageModel, carFeatureModel } from './models/car';
+import { carModel, carImageModel } from './models/car';
 
 import findImages from '../utils/findImages';
 import findFeatures from '../utils/findFeatures';
@@ -147,16 +147,25 @@ export default function makeCarDb({ client }) {
     return res;
   }
 
-  async function findCarFeatures(carId) {
-    const carFeatures = carFeatureModel({ client });
-    const res = await carFeatures
-      .findAll({
-        attributes: ['featureId'],
-        where: { carId },
-        raw: true,
-      })
-      .then((features) => features.map((feature) => feature.featureId));
-    return res;
+  function findCarFeatures(carId) {
+    // const carFeatures = carFeatureModel({ client });
+    return CarFeature.findAll({
+      attributes: ['featureId'],
+      where: { carId },
+      include: { model: Feature, attributes: ['name'] },
+      // raw: true,
+    });
+
+    // features.forEach(async (feature) => {
+    //   Feature.findOne({ where: { featureId: feature.featureId } });
+    // });
+
+    // return CarFeature.findAll({
+    //   // attributes: ['featureId'],
+    //   where: { carId },
+    //   raw: true,
+    // }).then((features) => features.map((feature) => feature.featureId));
+    // return res;
   }
 
   async function findByAvailability(city, checkIn, checkOut) {
@@ -237,6 +246,7 @@ export default function makeCarDb({ client }) {
 
   return Object.freeze({
     findAll,
+    findCarFeatures,
     findByAvailability,
     findById,
     findByLicensePlate,

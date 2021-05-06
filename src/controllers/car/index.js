@@ -6,6 +6,7 @@ import makeGetCarByUserOwner from './get-car-by-user-owner';
 import makeGetCarByVin from './get-car-by-vin';
 import makeGetCarByLicensePlate from './get-car-by-license-plate';
 import makeGetCarsByCity from './get-cars-by-city';
+import makeGetFeaturesByCar from './get-features-by-car';
 import makePatchVisibility from './patch-visibility';
 import makePatchDisable from './patch-disable';
 import makePatchBookingTerms from './patch-booking-terms';
@@ -18,6 +19,7 @@ const {
   listByVin,
   listByLicensePlate,
   listCarsByCity,
+  listFeaturesByCar,
   updateVisibility,
   updateDisable,
   updateBookingTerms,
@@ -30,6 +32,7 @@ const getCarByUserOwner = makeGetCarByUserOwner({ listByUserOwner });
 const getCarByVin = makeGetCarByVin({ listByVin });
 const getCarByLicensePlate = makeGetCarByLicensePlate({ listByLicensePlate });
 const getCarsByCity = makeGetCarsByCity({ listCarsByCity });
+const getFeaturesByCar = makeGetFeaturesByCar({ listFeaturesByCar });
 const patchVisibility = makePatchVisibility({ updateVisibility });
 const patchDisable = makePatchDisable({ updateDisable });
 const patchBookingTerms = makePatchBookingTerms({ updateBookingTerms });
@@ -42,6 +45,7 @@ export default {
   getCarByVin,
   getCarByLicensePlate,
   getCarsByCity,
+  getFeaturesByCar,
   patchVisibility,
   patchDisable,
   patchBookingTerms,

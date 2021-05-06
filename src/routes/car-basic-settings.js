@@ -3,7 +3,7 @@ import multer from 'multer';
 import makeCallback from '../express-callback';
 import authorize from '../utils/middlewares/authorization';
 import verifyToken from '../utils/middlewares/verify-token';
-import { Normal, Admin } from '../utils/role';
+import { Normal } from '../utils/role';
 
 import { carBasicsSettingsControllers } from '../controllers';
 

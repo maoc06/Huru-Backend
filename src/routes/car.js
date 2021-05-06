@@ -12,12 +12,7 @@ function getCarRoutes() {
 
   router.get('/:carId', makeCallback(carControllers.getCar));
 
-  router.get(
-    '/by-user/:id',
-    verifyToken,
-    authorize([Normal, Admin]),
-    makeCallback(carControllers.getCarByUserOwner)
-  );
+  router.get('/by-user/:id', makeCallback(carControllers.getCarByUserOwner));
 
   router.get(
     '/by-vin/:vin',
@@ -33,12 +28,7 @@ function getCarRoutes() {
     makeCallback(carControllers.getCarByLicensePlate)
   );
 
-  // router.get(
-  //   '/by-city/:city',
-  //   verifyToken,
-  //   authorize([Normal, Admin]),
-  //   makeCallback(carControllers.getCarsByCity)
-  // );
+  router.get('/features/:carId', makeCallback(carControllers.getFeaturesByCar));
 
   router.post(
     '/',

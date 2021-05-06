@@ -4,6 +4,7 @@ import makeListByUserOwner from './list-cars-by-user-owner';
 import makeListByVin from './list-by-vin';
 import makeListByLicensePlate from './list-by-license-plate';
 import makeListCarsByCity from './list-cars-by-city';
+import makeListFeaturesByCar from './list-features-by-car';
 import makeUpdateVisibility from './update-visibility';
 import makeUpdateDisable from './update-disable';
 import makeUpdateBookingTerms from './update-booking-terms';
@@ -17,6 +18,7 @@ const listByUserOwner = makeListByUserOwner({ carDb, userDb });
 const listByVin = makeListByVin({ carDb });
 const listByLicensePlate = makeListByLicensePlate({ carDb });
 const listCarsByCity = makeListCarsByCity({ carDb });
+const listFeaturesByCar = makeListFeaturesByCar({ carDb });
 const updateVisibility = makeUpdateVisibility({ carDb });
 const updateDisable = makeUpdateDisable({ carDb });
 const updateBookingTerms = makeUpdateBookingTerms({ carDb });
@@ -29,6 +31,7 @@ export default {
   listByVin,
   listByLicensePlate,
   listCarsByCity,
+  listFeaturesByCar,
   updateVisibility,
   updateDisable,
   updateBookingTerms,
