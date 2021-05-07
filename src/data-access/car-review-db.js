@@ -1,28 +1,36 @@
-import { carReview } from './models/car';
+import { CarModels } from './models';
 
-export default function makeCarReviewDb({ client }) {
-  const reviewModel = carReview({ client });
+const { Car, CarReview } = CarModels;
 
+export default function makeCarReviewDb() {
   function findById(reviewId) {
-    return reviewModel.findByPk(reviewId);
+    return CarReview.findByPk(reviewId);
   }
 
   function findByCar(carId) {
-    return reviewModel.findAll({ where: { carId } });
+    return CarReview.findAll({ where: { carId } });
   }
 
   function findByBooking(bookingId) {
-    return reviewModel.findOne({ where: { bookingId } });
+    return CarReview.findOne({ where: { bookingId } });
+  }
+
+  function findByUser(userId) {
+    return CarReview.findAll({
+      attributes: { exclude: ['carId'] },
+      include: { model: Car, attributes: ['carId'], where: { owner: userId } },
+    });
   }
 
   function insert({ ...review }) {
-    return reviewModel.create(review);
+    return CarReview.create(review);
   }
 
   return Object.freeze({
     findById,
     findByCar,
     findByBooking,
+    findByUser,
     insert,
   });
 }

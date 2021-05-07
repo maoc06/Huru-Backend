@@ -4,7 +4,10 @@ const { User, UserReview } = UserModels;
 
 export default function makeUserDb() {
   function findByUUID(userId) {
-    return User.findByPk(userId);
+    return User.findOne({
+      where: { uuid: userId },
+      attributes: { exclude: ['password'] },
+    });
   }
 
   async function findByEmail(email) {

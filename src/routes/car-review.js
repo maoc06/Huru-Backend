@@ -16,6 +16,11 @@ function getCarReviewRoutes() {
     makeCallback(carReviewControllers.getIfAlreadyReviewed)
   );
 
+  router.get(
+    '/all-by-user/:userId',
+    makeCallback(carReviewControllers.getAllReviewsByCar)
+  );
+
   router.post(
     '/',
     verifyToken,

@@ -46,7 +46,7 @@ const bookingDb = makeBookingDb({ client });
 const transactionDb = makeTransactionDb({ client });
 const paymentUserDb = makePaymentUserDb({ client });
 const paymentGateway = makePaymentGateway({ client });
-const carReviewDb = makeCarReviewDb({ client });
+const carReviewDb = makeCarReviewDb();
 const favoriteDb = makeFavoriteDb();
 
 export {

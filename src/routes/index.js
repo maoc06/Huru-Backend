@@ -32,7 +32,7 @@ function getRoutes() {
 
   router.use('/search', getSearchRoutes());
 
-  router.use('/booking', verifyToken, getBookingRoutes());
+  router.use('/booking', getBookingRoutes());
 
   router.use('/payment-user', verifyToken, getPaymentUserRoutes());
 

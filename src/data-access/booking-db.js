@@ -144,6 +144,17 @@ export default function makeBookingDb({ client }) {
     });
   }
 
+  function countCompletedTrips(userId) {
+    return Booking.count({
+      where: { bookingStatus: COMPLETED_BOOKING_ID },
+      include: {
+        model: Car,
+        as: 'bookedCar',
+        where: { owner: userId },
+      },
+    });
+  }
+
   async function insert(bookingInfo) {
     const transactionModel = transaction({ client });
     const {
@@ -215,6 +226,7 @@ export default function makeBookingDb({ client }) {
     findById,
     findUpcomingBookings,
     findBookingsHistory,
+    countCompletedTrips,
     insert,
     confirmBooking,
     update,

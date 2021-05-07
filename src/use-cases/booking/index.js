@@ -2,6 +2,7 @@ import makeListByUserOwner from './list-by-user-owner';
 import makeListBooking from './list-booking';
 import makeListUpcomingBookings from './list-upcoming-bookings';
 import makeListBookingsHistory from './list-history-bookings';
+import makeCountCompletedTrips from './count-completed-trips';
 import makeAddBooking from './add-booking';
 import makeCancelBooking from './cancel-booking';
 import makeUpdateConfirmBooking from './update-confirm-booking';
@@ -39,6 +40,11 @@ const listBookingsHistory = makeListBookingsHistory({
   carReviewDb,
 });
 
+const countCompletedTrips = makeCountCompletedTrips({
+  bookingDb,
+  userDb,
+});
+
 const cancelBooking = makeCancelBooking({ bookingDb });
 
 const addBooking = makeAddBooking({
@@ -64,6 +70,7 @@ export default {
   listBooking,
   listUpcomingBookings,
   listBookingsHistory,
+  countCompletedTrips,
   cancelBooking,
   addBooking,
   updateConfirmBooking,
