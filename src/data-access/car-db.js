@@ -180,6 +180,9 @@ export default function makeCarDb({ client }) {
 	      model.transmission_id,
         car.description, 
         car.price,
+        car.advance_notice_id,
+        car.min_trip_duration_id,
+        car.max_trip_duration_id,
         city.city
       FROM 
         car 
