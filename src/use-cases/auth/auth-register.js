@@ -29,6 +29,10 @@ export default function makeRegister({ authDb, handleToken, sendWelcomeMail }) {
       url: `http://${config.webAppServerBaseUrl}/verify-email/${verifyEmailToken}`,
     });
 
+    if (userTmp.phone) {
+      userTmp.phone = `+${userTmp.phone.replace(/\D/g, '')}`;
+    }
+
     await authDb.insert(userTmp);
 
     const accessToken = initialAccessToken(userTmp.email);

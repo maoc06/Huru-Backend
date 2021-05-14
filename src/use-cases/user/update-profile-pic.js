@@ -1,15 +1,28 @@
-export default function makeUpdateProfilePic({ userDb }) {
-  return async function updateProfilePic({ profilePicData } = {}) {
-    const { uuid } = profilePicData;
+import { deletFileS3 } from '../../utils/actions-s3';
 
-    const existing = await userDb.findByUUID(uuid);
+export default function makeUpdateProfilePic({ userDb }) {
+  return async function updateProfilePic(profilePicData) {
+    const { uid, originalUrl } = profilePicData;
+
+    const existing = await userDb.findByUUID(uid);
     if (!existing) {
-      throw new RangeError(`User with id ${uuid} not found`);
+      throw new RangeError(`User with id ${uid} not found`);
     }
 
-    console.log(profilePicData);
+    const newPicUrl = await userDb.insertProfileImage(profilePicData);
+    const updateData = { uuid: uid, profilePhoto: newPicUrl };
+    await userDb.updateProfile(updateData);
 
-    // return userDb.updateProfile(profilePicData);
-    return {};
+    if (originalUrl !== '/') {
+      // remove image from bucket
+      const key = originalUrl.substring(
+        originalUrl.lastIndexOf('/') + 1,
+        originalUrl.length
+      );
+
+      deletFileS3({ key });
+    }
+
+    return newPicUrl;
   };
 }

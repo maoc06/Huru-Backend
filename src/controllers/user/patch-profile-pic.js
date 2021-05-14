@@ -5,21 +5,20 @@ export default function makePatchProfilePic({ updateProfilePic }) {
     };
 
     const photoFile = httpRequest.file;
-    const { uuid } = httpRequest.body;
-
-    console.log(httpRequest);
+    const { uid, originalUrl } = httpRequest.body;
 
     try {
-      const user = await updateProfilePic({ uuid, photoFile });
+      const url = await updateProfilePic({ uid, photoFile, originalUrl });
       return {
         headers,
         statusCode: 200,
         body: {
           message: 'Update user profile pic successfully',
-          data: user,
+          url,
         },
       };
     } catch (e) {
+      console.log(e);
       return {
         headers,
         statusCode: 400,

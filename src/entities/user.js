@@ -6,7 +6,6 @@ export default function buildMakeUser() {
       firstName,
       lastName,
       email,
-      // password,
       phone,
       identityDocument,
       dateOfBirth,
@@ -16,9 +15,6 @@ export default function buildMakeUser() {
     if (!firstName) throw new Error('User must have a first name');
     if (!lastName) throw new Error('User must have a last name');
     if (!email) throw new Error('User must have an email');
-    // if (!password) throw new Error('User must have a password');
-    // if (password.length < 8)
-    //   throw new Error('The password must be at least 8 characters long');
     if (!phone) throw new Error('User must have a phone number');
     if (!dateOfBirth) throw new Error('User must have a date of birth');
     if (!identityDocument)

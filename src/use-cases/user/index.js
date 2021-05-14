@@ -5,6 +5,7 @@ import makeAddUserReview from './add-review';
 import makeUpdateData from './update-data';
 import makeUpdatePassword from './update-password';
 import makeUpdatePhone from './update-phone';
+import makeUploadProfilePic from './upload-profile-pic';
 import makeUpdateProfilePic from './update-profile-pic';
 
 import { userDb, bookingDb } from '../../data-access';
@@ -16,6 +17,7 @@ const listReviews = makeListReviews({ userDb });
 const updateData = makeUpdateData({ userDb });
 const updatePassword = makeUpdatePassword({ userDb });
 const updatePhone = makeUpdatePhone({ userDb });
+const uploadProfilePic = makeUploadProfilePic({ userDb });
 const updateProfilePic = makeUpdateProfilePic({ userDb });
 
 export default {
@@ -26,5 +28,6 @@ export default {
   updateData,
   updatePassword,
   updatePhone,
+  uploadProfilePic,
   updateProfilePic,
 };

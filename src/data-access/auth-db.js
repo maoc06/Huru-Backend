@@ -13,9 +13,11 @@ export default function makeAuthDb({ client }) {
           'email',
           'password',
           'phone',
+          'about',
           'identityDocument',
           'dateOfBirth',
           'isPhoneVerified',
+          'profilePhoto',
         ],
       }
     );

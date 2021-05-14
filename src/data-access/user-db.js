@@ -1,4 +1,5 @@
 import { UserModels } from './models';
+import { uploadFileS3 } from '../utils/actions-s3';
 
 const { User, UserReview } = UserModels;
 
@@ -6,7 +7,7 @@ export default function makeUserDb() {
   function findByUUID(userId) {
     return User.findOne({
       where: { uuid: userId },
-      attributes: { exclude: ['password'] },
+      // attributes: { exclude: ['password'] },
     });
   }
 
@@ -50,6 +51,15 @@ export default function makeUserDb() {
     return UserReview.create(review);
   }
 
+  async function insertProfileImage(imageInfo) {
+    const { photoFile } = imageInfo;
+
+    const s3 = await uploadFileS3(photoFile, 'users');
+    if (!s3.success) throw new Error('Error uploading the profile user image');
+
+    return s3.url;
+  }
+
   return Object.freeze({
     findByUUID,
     findByEmail,
@@ -58,5 +68,6 @@ export default function makeUserDb() {
     updateProfile,
     updateEmailVerification,
     insertReview,
+    insertProfileImage,
   });
 }

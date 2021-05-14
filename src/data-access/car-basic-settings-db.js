@@ -10,7 +10,7 @@ import {
   carFeatureModel,
   carImageModel,
 } from './models/car';
-import uploadFileS3 from '../utils/upload-file-s3';
+import { uploadFileS3 } from '../utils/actions-s3';
 
 export default function makeCarBasicSettingsDb({ client }) {
   function findAllModels() {

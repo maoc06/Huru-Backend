@@ -9,6 +9,8 @@ export default function makeUpdatePassword({ userDb }) {
       throw new RangeError(`User with id ${uuid} not found`);
     }
 
+    console.log(existing);
+
     const {
       dataValues: { password: passwordDb },
     } = existing;

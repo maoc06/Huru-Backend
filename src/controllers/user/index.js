@@ -4,6 +4,7 @@ import makeGetUser from './get-user';
 import makeGetUserReviews from './get-user-reviews';
 import makeGetIfAlreadyReviewed from './get-if-already-reviewed';
 import makePostUserReview from './post-user-review';
+import makePostProfilePic from './post-profile-pic';
 import makePatchPassword from './patch-password';
 import makePatchPhone from './patch-phone';
 import makePatchProfilePic from './patch-profile-pic';
@@ -18,6 +19,7 @@ const {
   updatePassword,
   updatePhone,
   updateProfilePic,
+  uploadProfilePic,
 } = userUseCases;
 
 const getUser = makeGetUser({ listUser });
@@ -26,6 +28,7 @@ const getIfAlreadyReviewed = makeGetIfAlreadyReviewed({
   listIfAlreadyReviewed,
 });
 const postUserReview = makePostUserReview({ addUserReview });
+const postProfilePic = makePostProfilePic({ uploadProfilePic });
 const patchPassword = makePatchPassword({ updatePassword });
 const patchPhone = makePatchPhone({ updatePhone });
 const patchProfilePic = makePatchProfilePic({ updateProfilePic });
@@ -36,6 +39,7 @@ export default {
   getUserReviews,
   getIfAlreadyReviewed,
   postUserReview,
+  postProfilePic,
   patchPassword,
   patchPhone,
   patchProfilePic,

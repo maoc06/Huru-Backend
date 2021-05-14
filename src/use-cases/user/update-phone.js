@@ -7,6 +7,9 @@ export default function makeUpdatePhone({ userDb }) {
       throw new RangeError(`User with id ${uuid} not found`);
     }
 
-    return userDb.updateProfile(phoneData);
+    const updateData = { ...phoneData };
+    updateData.isPhoneVerified = false;
+
+    return userDb.updateProfile(updateData);
   };
 }

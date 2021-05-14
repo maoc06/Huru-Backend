@@ -1,10 +1,14 @@
 import express from 'express';
+import multer from 'multer';
 import makeCallback from '../express-callback';
 import authorize from '../utils/middlewares/authorization';
 import { Normal } from '../utils/role';
 import verifyToken from '../utils/middlewares/verify-token';
 
 import { userControllers } from '../controllers';
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
 function getUserRoutes() {
   const router = express.Router();
@@ -32,6 +36,12 @@ function getUserRoutes() {
     makeCallback(userControllers.postUserReview)
   );
 
+  router.post(
+    '/profile-pic',
+    upload.single('file'),
+    makeCallback(userControllers.postProfilePic)
+  );
+
   router.patch(
     '/password',
     verifyToken,
@@ -50,6 +60,7 @@ function getUserRoutes() {
     '/pic',
     verifyToken,
     authorize([Normal]),
+    upload.single('file'),
     makeCallback(userControllers.patchProfilePic)
   );
 
