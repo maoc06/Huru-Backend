@@ -1,6 +1,7 @@
 import makeRegister from './auth-register';
 import makeAuthLogin from './auth-login';
 import makeAuthRegisterGoogle from './auth-register-google';
+import makeAuthLoginFacebook from './auth-login-facebook';
 import makeAuthLoginGoogle from './auth-login-google';
 import makeListUserByEmail from './list-user-by-email';
 import makeListUserByPhone from './list-user-by-phone';
@@ -24,6 +25,7 @@ const { sendWelcomeMail } = mailer;
 const authRegister = makeRegister({ authDb, handleToken, sendWelcomeMail });
 const authLogin = makeAuthLogin({ authDb, handleToken });
 const authRegisterGoogle = makeAuthRegisterGoogle({ authGoogleClient });
+const authLoginFacebook = makeAuthLoginFacebook({ authDb, handleToken });
 const authLoginGoogle = makeAuthLoginGoogle({
   authGoogleClient,
   authDb,
@@ -40,6 +42,7 @@ export default {
   authRegister,
   authLogin,
   authRegisterGoogle,
+  authLoginFacebook,
   authLoginGoogle,
   listUserByEmail,
   listUserByDocument,

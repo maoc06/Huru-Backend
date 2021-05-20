@@ -12,6 +12,8 @@ function getAuthRoutes() {
 
   router.post('/signup-google', makeCallback(authControllers.signUpGoogle));
 
+  router.post('/signin-facebook', makeCallback(authControllers.signInFacebook));
+
   router.post('/signin-google', makeCallback(authControllers.signInGoogle));
 
   router.get(

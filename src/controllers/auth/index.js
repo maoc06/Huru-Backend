@@ -4,6 +4,7 @@ import makeSignUp from './signup';
 import makeSignIn from './signin';
 import makeSignUpGoogle from './signup-google';
 import makeSignInGoogle from './signin-google';
+import makeSignInFacebook from './singin-facebook';
 import makeGetUserByEmail from './get-user-by-email';
 import makeGetUserByDocument from './get-user-by-document';
 import makeGetUserByPhone from './get-user-by-phone';
@@ -16,6 +17,7 @@ const {
   authLogin,
   authRegisterGoogle,
   authLoginGoogle,
+  authLoginFacebook,
   listUserByEmail,
   listUserByDocument,
   listUserByPhone,
@@ -28,6 +30,7 @@ const signUp = makeSignUp({ authRegister });
 const singIn = makeSignIn({ authLogin });
 const signUpGoogle = makeSignUpGoogle({ authRegisterGoogle });
 const signInGoogle = makeSignInGoogle({ authLoginGoogle });
+const signInFacebook = makeSignInFacebook({ authLoginFacebook });
 const getUserByEmail = makeGetUserByEmail({ listUserByEmail });
 const getUserByDocument = makeGetUserByDocument({ listUserByDocument });
 const getUserByPhone = makeGetUserByPhone({ listUserByPhone });
@@ -44,6 +47,7 @@ export default {
   singIn,
   signUpGoogle,
   signInGoogle,
+  signInFacebook,
   getUserByEmail,
   getUserByDocument,
   getUserByPhone,
