@@ -6,6 +6,7 @@ import buildMakeCity from './city';
 import buildMakeBooking from './booking';
 import buildMakeCarReview from './car-review';
 import buildMakeFavorite from './favorite';
+import buildMakeDisableDay from './disable-day';
 
 const makeUser = buildMakeUser({});
 const makeUserReview = buildMakeUserReview({});
@@ -15,6 +16,7 @@ const makeCity = buildMakeCity({});
 const makeBooking = buildMakeBooking({});
 const makeCarReview = buildMakeCarReview({});
 const makeFavorite = buildMakeFavorite({});
+const makeDisableDay = buildMakeDisableDay({});
 
 export {
   makeUser,
@@ -25,4 +27,5 @@ export {
   makeBooking,
   makeCarReview,
   makeFavorite,
+  makeDisableDay,
 };

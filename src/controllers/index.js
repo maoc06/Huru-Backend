@@ -9,6 +9,7 @@ import paymentUserControllers from './payment-user';
 import paymentControllers from './payment-gateway';
 import carReviewControllers from './car-review';
 import favoriteControllers from './favorite';
+import disableDayControllers from './disable-day';
 
 export {
   authControllers,
@@ -22,4 +23,5 @@ export {
   paymentControllers,
   carReviewControllers,
   favoriteControllers,
+  disableDayControllers,
 };

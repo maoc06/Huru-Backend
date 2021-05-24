@@ -16,6 +16,7 @@ import makePaymentUserDb from './payment-user';
 import makePaymentGateway from './payment-gateway';
 import makeCarReviewDb from './car-review-db';
 import makeFavoriteDb from './favorite-db';
+import makeDisableDayDb from './disable-day-db';
 
 import google from './auth-google-client';
 
@@ -48,6 +49,7 @@ const paymentUserDb = makePaymentUserDb({ client });
 const paymentGateway = makePaymentGateway({ client });
 const carReviewDb = makeCarReviewDb();
 const favoriteDb = makeFavoriteDb();
+const disableDayDb = makeDisableDayDb();
 
 export {
   client,
@@ -65,4 +67,5 @@ export {
   paymentGateway,
   carReviewDb,
   favoriteDb,
+  disableDayDb,
 };

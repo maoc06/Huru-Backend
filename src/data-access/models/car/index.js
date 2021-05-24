@@ -17,6 +17,7 @@ import buildCarReviewModel from './car-review-model';
 const AdvanceNotice = buildAdvanceNoticeModel(client);
 const Car = buildCarModel(client);
 const CarFeature = buildCarFeatureModel(client);
+const Category = buildCategoryModel(client);
 const Feature = buildFeatureModel(client);
 const Image = buildCarImageModel(client);
 const Maker = buildMakerModel(client);
@@ -24,6 +25,8 @@ const MaxTrip = buildMaxTripDurationModel(client);
 const MinTrip = buildMinTripDurationModel(client);
 const Model = buildCarModelModel(client);
 const CarReview = buildCarReviewModel(client);
+const Odometer = buildOdometerRangeModel(client);
+const Transmission = buildTransmissionModel(client);
 
 // Associations start
 AdvanceNotice.hasMany(Car, { foreignKey: 'advanceNoticeId' });
@@ -60,6 +63,7 @@ export default {
   AdvanceNotice,
   Car,
   CarFeature,
+  Category,
   Feature,
   Image,
   Maker,
@@ -67,6 +71,8 @@ export default {
   MinTrip,
   Model,
   CarReview,
+  Odometer,
+  Transmission,
 };
 
 export {

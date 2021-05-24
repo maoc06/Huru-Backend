@@ -6,9 +6,9 @@ export default function makePostCarImage({ addCarImage }) {
 
     try {
       const photoFile = httpRequest.file;
-      const { uid, carId } = httpRequest.body;
+      const { uid, carId, isMain } = httpRequest.body;
 
-      const carImage = await addCarImage({ photoFile, uid, carId });
+      const carImage = await addCarImage({ photoFile, uid, carId, isMain });
 
       return {
         headers,

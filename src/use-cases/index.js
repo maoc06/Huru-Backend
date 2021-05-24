@@ -9,6 +9,7 @@ import paymentUserUseCases from './payment-user';
 import paymentUseCases from './payment-gateway';
 import carReviewUseCases from './car-review';
 import favoriteUseCases from './favorite';
+import disableDayUseCases from './disable-day';
 
 export {
   authUseCases,
@@ -22,4 +23,5 @@ export {
   paymentUseCases,
   carReviewUseCases,
   favoriteUseCases,
+  disableDayUseCases,
 };

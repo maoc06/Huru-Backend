@@ -2,6 +2,7 @@ import CarModels from './car';
 import BookingModels from './booking';
 import UserModels from './user';
 import FavoriteModels from './favorite';
+import OtherModels from './others';
 
 const { Car, CarReview } = CarModels;
 const { Booking } = BookingModels;
@@ -45,4 +46,4 @@ Favorite.belongsTo(Car, {
 });
 // Associations between modules end
 
-export { CarModels, BookingModels, UserModels, FavoriteModels };
+export { CarModels, BookingModels, UserModels, FavoriteModels, OtherModels };

@@ -1,19 +1,19 @@
-export default function makePostCar({ addCar }) {
-  return async function postCar(httpRequest) {
+export default function makeDeleteDisableDay({ removeDisableDay }) {
+  return async function deleteDisableDay(httpRequest) {
     const headers = {
       'Content-Type': 'application/json',
     };
 
     try {
-      const { ...carInfo } = httpRequest.body;
-      const car = await addCar({ ...carInfo });
+      const { carId, disableDay } = httpRequest.params;
+      const removed = await removeDisableDay({ carId, disableDay });
 
       return {
         headers,
         statusCode: 201,
         body: {
-          message: 'Car successfully added',
-          data: car,
+          message: 'Disable day successfully removed',
+          data: removed,
         },
       };
     } catch (e) {

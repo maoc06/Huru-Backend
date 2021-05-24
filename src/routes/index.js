@@ -14,6 +14,7 @@ import getPaymentUserRoutes from './payment-user';
 import getPaymentGatewaysRoutes from './payment-gateway';
 import getCarReviewRoutes from './car-review';
 import getFavoriteRoutes from './favorite';
+import getDisableDayRoutes from './disable-day';
 
 function getRoutes() {
   const router = express.Router();
@@ -41,6 +42,8 @@ function getRoutes() {
   router.use('/car-review', getCarReviewRoutes());
 
   router.use('/favorite', verifyToken, getFavoriteRoutes());
+
+  router.use('/disable-day', verifyToken, getDisableDayRoutes());
 
   return router;
 }

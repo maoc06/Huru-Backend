@@ -31,6 +31,14 @@ export default function makeCarDb({ client }) {
     return car.findAll();
   }
 
+  function findByIdSimple(carId) {
+    return Car.findOne({
+      where: {
+        carId,
+      },
+    });
+  }
+
   function findById(carId) {
     return Car.findOne({
       where: {
@@ -206,6 +214,17 @@ export default function makeCarDb({ client }) {
             )
             AND
             booking_status_id != 1
+        )
+        AND car.car_id NOT IN
+        (
+          SELECT car_id
+          FROM disable_day
+          WHERE
+            (
+              disable_day >= :checkInSelected
+              AND
+              disable_day <= :checkOutSelected
+            )
         )`,
       {
         replacements: {
@@ -252,6 +271,7 @@ export default function makeCarDb({ client }) {
     findCarFeatures,
     findByAvailability,
     findById,
+    findByIdSimple,
     findByLicensePlate,
     findByOwner,
     findByVin,

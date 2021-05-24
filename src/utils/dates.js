@@ -90,6 +90,7 @@ const validateMin = (date, min) => {
 };
 
 export {
+  convertTo,
   diffDays,
   formatDate,
   formatFullDate,

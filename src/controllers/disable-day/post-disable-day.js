@@ -1,23 +1,22 @@
-export default function makePostCar({ addCar }) {
-  return async function postCar(httpRequest) {
+export default function makePostDisableDay({ addDisableDay }) {
+  return async function postDisableDay(httpRequest) {
     const headers = {
       'Content-Type': 'application/json',
     };
 
     try {
-      const { ...carInfo } = httpRequest.body;
-      const car = await addCar({ ...carInfo });
+      const disableDayInfo = httpRequest.body;
+      const disableDay = await addDisableDay({ disableDayInfo });
 
       return {
         headers,
         statusCode: 201,
         body: {
-          message: 'Car successfully added',
-          data: car,
+          message: 'Disable day successfully added',
+          data: disableDay,
         },
       };
     } catch (e) {
-      console.log(e);
       return {
         headers,
         statusCode: 400,

@@ -1,56 +1,67 @@
 import {
-  carModel,
-  categoryModel,
-  odometerRangeModel,
-  trasmissionModel,
-  advanceNoticeModel,
-  minTripModel,
-  maxTripModel,
+  // carModel,
+  // categoryModel,
+  // odometerRangeModel,
+  // trasmissionModel,
+  // advanceNoticeModel,
+  // minTripModel,
+  // maxTripModel,
   featureOptsModel,
   carFeatureModel,
   carImageModel,
 } from './models/car';
+
+import { CarModels } from './models';
+
 import { uploadFileS3 } from '../utils/actions-s3';
+
+const {
+  Category,
+  Model,
+  AdvanceNotice,
+  MaxTrip,
+  MinTrip,
+  Odometer,
+  Transmission,
+} = CarModels;
 
 export default function makeCarBasicSettingsDb({ client }) {
   function findAllModels() {
-    const car = carModel({ client });
-    return car.findAll();
+    return Model.findAll();
   }
 
   function findAllCarCategories() {
-    const category = categoryModel({ client });
-    return category.findAll();
+    // const category = categoryModel({ client });
+    return Category.findAll();
   }
 
   function findModelsByMaker(makerId) {
-    const car = carModel({ client });
-    return car.findAll({ where: { makerId } });
+    return Model.findAll({ where: { makerId } });
   }
 
   function findAllOdometerRange() {
-    const odometer = odometerRangeModel({ client });
-    return odometer.findAll();
+    // const odometer = odometerRangeModel({ client });
+    return Odometer.findAll();
   }
 
   function findAllTransmissions() {
-    const transmission = trasmissionModel({ client });
-    return transmission.findAll();
+    // const transmission = trasmissionModel({ client });
+    return Transmission.findAll();
   }
 
   function findAllAdvanceNotice() {
-    const advanceNotice = advanceNoticeModel({ client });
-    return advanceNotice.findAll();
+    // const advanceNotice = advanceNoticeModel({ client });
+    return AdvanceNotice.findAll();
   }
 
   function findAllMinTripDurations() {
-    const minTrip = minTripModel({ client });
-    return minTrip.findAll();
+    // const minTrip = minTripModel({ client });
+    return MinTrip.findAll();
   }
 
   function findAllMaxTripDurations() {
-    const maxTrip = maxTripModel({ client });
-    return maxTrip.findAll();
+    // const maxTrip = maxTripModel({ client });
+    return MaxTrip.findAll();
   }
 
   function findAllFeaturesOpts() {
@@ -74,13 +85,13 @@ export default function makeCarBasicSettingsDb({ client }) {
   }
 
   async function insertCarImage(imageInfo) {
-    const { photoFile, uid, carId } = imageInfo;
+    const { photoFile, uid, carId, isMain } = imageInfo;
 
     const s3 = await uploadFileS3(photoFile, 'vehicles');
 
     if (!s3.success) throw new Error('Error uploading the image');
 
-    const carImageObj = { addedBy: uid, imagePath: s3.url };
+    const carImageObj = { addedBy: uid, imagePath: s3.url, isMain };
 
     if (carId) {
       carImageObj.carId = carId;
