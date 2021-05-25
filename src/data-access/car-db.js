@@ -156,24 +156,11 @@ export default function makeCarDb({ client }) {
   }
 
   function findCarFeatures(carId) {
-    // const carFeatures = carFeatureModel({ client });
     return CarFeature.findAll({
       attributes: ['featureId'],
       where: { carId },
       include: { model: Feature, attributes: ['name'] },
-      // raw: true,
     });
-
-    // features.forEach(async (feature) => {
-    //   Feature.findOne({ where: { featureId: feature.featureId } });
-    // });
-
-    // return CarFeature.findAll({
-    //   // attributes: ['featureId'],
-    //   where: { carId },
-    //   raw: true,
-    // }).then((features) => features.map((feature) => feature.featureId));
-    // return res;
   }
 
   async function findByAvailability(city, checkIn, checkOut) {

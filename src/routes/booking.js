@@ -42,6 +42,11 @@ function getBookingRoutes() {
     makeCallback(bookingControllers.getCountCompletedTrips)
   );
 
+  router.get(
+    '/count-completed-trips-by-car/:carId',
+    makeCallback(bookingControllers.getCountCompletedTripsByCar)
+  );
+
   router.post(
     '/',
     verifyToken,
