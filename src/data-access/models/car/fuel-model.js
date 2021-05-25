@@ -1,21 +1,21 @@
 import { DataTypes } from 'sequelize';
 
-export default function buildFeatureModel({ client }) {
+export default function buildFuelModel({ client }) {
   return client.define(
-    'feature',
+    'fuel',
     {
-      featureId: {
+      fuelId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false,
-        field: 'feature_id',
+        field: 'fuel_id',
       },
       name: {
         type: DataTypes.STRING(100),
         allowNull: false,
       },
     },
-    { timestamps: false, tableName: 'feature', freezeTableName: true }
+    { timestamps: false, freezeTableName: true }
   );
 }

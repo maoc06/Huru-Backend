@@ -15,6 +15,7 @@ export default function buildMakeCar() {
       advanceNoticeId,
       minTripDurationId,
       maxTripDurationId,
+      fuelId,
     } = { ...entity };
 
     if (!makerId) throw new Error('Car must have a maker');
@@ -33,6 +34,7 @@ export default function buildMakeCar() {
     if (!owner) throw new Error('Car must belong to a user');
     if (!price) throw new Error('Car must have a price');
     if (!advanceNoticeId) throw new Error('Car must have an advance notice');
+    if (!fuelId) throw new Error('Car must have an fuel type assigned');
     if (!minTripDurationId)
       throw new Error('Car must have an assigned min trip duration');
     if (!maxTripDurationId)

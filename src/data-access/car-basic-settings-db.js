@@ -1,15 +1,4 @@
-import {
-  // carModel,
-  // categoryModel,
-  // odometerRangeModel,
-  // trasmissionModel,
-  // advanceNoticeModel,
-  // minTripModel,
-  // maxTripModel,
-  featureOptsModel,
-  carFeatureModel,
-  carImageModel,
-} from './models/car';
+import { featureOptsModel, carFeatureModel, carImageModel } from './models/car';
 
 import { CarModels } from './models';
 
@@ -23,6 +12,7 @@ const {
   MinTrip,
   Odometer,
   Transmission,
+  Fuel,
 } = CarModels;
 
 export default function makeCarBasicSettingsDb({ client }) {
@@ -31,7 +21,6 @@ export default function makeCarBasicSettingsDb({ client }) {
   }
 
   function findAllCarCategories() {
-    // const category = categoryModel({ client });
     return Category.findAll();
   }
 
@@ -40,28 +29,27 @@ export default function makeCarBasicSettingsDb({ client }) {
   }
 
   function findAllOdometerRange() {
-    // const odometer = odometerRangeModel({ client });
     return Odometer.findAll();
   }
 
   function findAllTransmissions() {
-    // const transmission = trasmissionModel({ client });
     return Transmission.findAll();
   }
 
   function findAllAdvanceNotice() {
-    // const advanceNotice = advanceNoticeModel({ client });
     return AdvanceNotice.findAll();
   }
 
   function findAllMinTripDurations() {
-    // const minTrip = minTripModel({ client });
     return MinTrip.findAll();
   }
 
   function findAllMaxTripDurations() {
-    // const maxTrip = maxTripModel({ client });
     return MaxTrip.findAll();
+  }
+
+  function findAllFuel() {
+    return Fuel.findAll();
   }
 
   function findAllFeaturesOpts() {
@@ -128,6 +116,7 @@ export default function makeCarBasicSettingsDb({ client }) {
     findAllMaxTripDurations,
     findAllFeaturesOpts,
     findFeatureById,
+    findAllFuel,
     findFeatureByCarId,
     insertCarFeatures,
     insertCarImage,

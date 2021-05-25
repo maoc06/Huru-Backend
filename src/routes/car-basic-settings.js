@@ -48,6 +48,8 @@ function getCarBasicsRoutes() {
     makeCallback(carBasicsSettingsControllers.getMaxTrip)
   );
 
+  router.get('/fuel', makeCallback(carBasicsSettingsControllers.getFuel));
+
   router.get(
     '/features-opts',
     makeCallback(carBasicsSettingsControllers.getFeaturesOpts)

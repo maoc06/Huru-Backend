@@ -74,6 +74,11 @@ export default function buildCarModel({ client }) {
         allowNull: false,
         field: 'max_trip_duration_id',
       },
+      fuelId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        field: 'fuel_id',
+      },
       createdAt: {
         type: DataTypes.DATE,
         field: 'created',

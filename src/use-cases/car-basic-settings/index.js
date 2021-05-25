@@ -6,6 +6,7 @@ import makeListTransmissions from './list-transmissions';
 import makeListAdvanceNotice from './list-advance-notice';
 import makeListMinTrip from './list-min-trip';
 import makeListMaxTrip from './list-max-trip';
+import makeListFuel from './list-fuel';
 import makeListFeaturesOpts from './list-features-options';
 import makeAddCarFeatures from './add-car-features';
 import makeAddCarImage from './add-car-images';
@@ -26,6 +27,7 @@ const listAdvanceNotice = makeListAdvanceNotice({ carBasicSettingsDb });
 const listMinTrip = makeListMinTrip({ carBasicSettingsDb });
 const listMaxTrip = makeListMaxTrip({ carBasicSettingsDb });
 const listFeaturesOpts = makeListFeaturesOpts({ carBasicSettingsDb });
+const listFuel = makeListFuel({ carBasicSettingsDb });
 const addCarFeatures = makeAddCarFeatures({ carBasicSettingsDb, carDb });
 const addCarImage = makeAddCarImage({ carBasicSettingsDb, userDb });
 const updateOwnerCarImage = makeUpdateOwnerCarImage({ carBasicSettingsDb });
@@ -40,6 +42,7 @@ export default {
   listAdvanceNotice,
   listMinTrip,
   listMaxTrip,
+  listFuel,
   listFeaturesOpts,
   addCarFeatures,
   addCarImage,

@@ -9,6 +9,7 @@ import buildTransmissionModel from './transmission-model';
 import buildAdvanceNoticeModel from './advance-notice-model';
 import buildMinTripDurationModel from './min-trip-duration-model';
 import buildMaxTripDurationModel from './max-trip-duration-model';
+import buildFuelModel from './fuel-model';
 import buildFeatureModel from './feature-model';
 import buildCarFeatureModel from './car-feature-model';
 import buildCarImageModel from './car-image-model';
@@ -19,6 +20,7 @@ const Car = buildCarModel(client);
 const CarFeature = buildCarFeatureModel(client);
 const Category = buildCategoryModel(client);
 const Feature = buildFeatureModel(client);
+const Fuel = buildFuelModel(client);
 const Image = buildCarImageModel(client);
 const Maker = buildMakerModel(client);
 const MaxTrip = buildMaxTripDurationModel(client);
@@ -65,6 +67,7 @@ export default {
   CarFeature,
   Category,
   Feature,
+  Fuel,
   Image,
   Maker,
   MaxTrip,
