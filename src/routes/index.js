@@ -25,7 +25,7 @@ function getRoutes() {
 
   router.use('/car', getCarRoutes());
 
-  router.use('/city', verifyToken, getCityRoutes());
+  router.use('/city', getCityRoutes());
 
   router.use('/maker', getMakerRoutes());
 

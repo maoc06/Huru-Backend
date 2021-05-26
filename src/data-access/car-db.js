@@ -1,6 +1,6 @@
 import { QueryTypes, Op } from 'sequelize';
 
-import { CarModels, UserModels } from './models';
+import { CarModels, UserModels, SharedModels } from './models';
 
 import { carModel, carImageModel } from './models/car';
 
@@ -18,8 +18,10 @@ const {
   MinTrip,
   Model,
   CarReview,
+  Fuel,
 } = CarModels;
 const { User } = UserModels;
+const { City } = SharedModels;
 
 const CAR_ENABLED_ID = 1;
 const CAR_HIDDEN_ID = 3;
@@ -52,6 +54,8 @@ export default function makeCarDb({ client }) {
           'advanceNoticeId',
           'minTripDurationId',
           'maxTripDurationId',
+          'fuelId',
+          'cityId',
         ],
       },
       include: [
@@ -80,6 +84,8 @@ export default function makeCarDb({ client }) {
         { model: Maker },
         { model: MaxTrip, as: 'maxTrip' },
         { model: MinTrip, as: 'minTrip' },
+        { model: Fuel, as: 'fuel' },
+        { model: City, as: 'city' },
         {
           model: User,
           as: 'userOwner',

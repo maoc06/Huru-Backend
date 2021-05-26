@@ -37,6 +37,7 @@ Car.belongsTo(AdvanceNotice, {
   as: 'advanceNotice',
   foreignKey: 'advanceNoticeId',
 });
+Car.belongsTo(Fuel, { as: 'fuel', foreignKey: 'fuelId' });
 Car.belongsTo(Maker, { foreignKey: 'makerId' });
 Car.belongsTo(Model, { foreignKey: 'modelId' });
 Car.belongsTo(MaxTrip, { as: 'maxTrip', foreignKey: 'maxTripDurationId' });
@@ -49,6 +50,8 @@ CarFeature.belongsTo(Car, { foreignKey: 'carId' });
 CarFeature.belongsTo(Feature, { foreignKey: 'featureId' });
 
 Feature.hasMany(CarFeature, { foreignKey: 'featureId' });
+
+Fuel.hasMany(Car, { foreignKey: 'fuelId' });
 
 Image.belongsTo(Car, { foreignKey: 'carId' });
 

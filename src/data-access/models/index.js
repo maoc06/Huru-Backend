@@ -3,14 +3,17 @@ import BookingModels from './booking';
 import UserModels from './user';
 import FavoriteModels from './favorite';
 import OtherModels from './others';
+import SharedModels from './shared';
 
 const { Car, CarReview } = CarModels;
 const { Booking } = BookingModels;
 const { User } = UserModels;
 const { Favorite } = FavoriteModels;
+const { City } = SharedModels;
 
 // Associations between modules start
 Car.belongsTo(User, { as: 'userOwner', foreignKey: 'owner' });
+Car.belongsTo(City, { as: 'city', foreignKey: 'cityId' });
 
 Booking.belongsTo(Car, {
   foreignKey: { name: 'bookingCar', allowNull: false },
@@ -44,6 +47,15 @@ Favorite.belongsTo(Car, {
   foreignKey: { name: 'carId', allowNull: false },
   targetKey: 'carId',
 });
+
+City.hasMany(Car, { foreignKey: 'cityId' });
 // Associations between modules end
 
-export { CarModels, BookingModels, UserModels, FavoriteModels, OtherModels };
+export {
+  CarModels,
+  BookingModels,
+  UserModels,
+  FavoriteModels,
+  OtherModels,
+  SharedModels,
+};
