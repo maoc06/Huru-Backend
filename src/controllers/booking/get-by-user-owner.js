@@ -4,10 +4,10 @@ export default function makeGetByUserOwner({ listByUserOwner }) {
       'Content-Type': 'application/json',
     };
 
-    const { uuid } = httpRequest.params;
+    const { uuid, limit } = httpRequest.params;
 
     try {
-      const bookingRequests = await listByUserOwner({ uuid });
+      const bookingRequests = await listByUserOwner({ uuid, limit });
       return {
         headers,
         statusCode: 200,

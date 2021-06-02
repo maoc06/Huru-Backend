@@ -31,7 +31,7 @@ function getBookingRoutes() {
   );
 
   router.get(
-    '/by-owner/:uuid',
+    '/by-owner/:uuid/:limit',
     verifyToken,
     authorize([Normal, Admin]),
     makeCallback(bookingControllers.getByUserOwner)

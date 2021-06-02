@@ -17,11 +17,6 @@ export default function buildCarModelModel({ client }) {
         field: 'maker_id',
       },
       name: { type: DataTypes.STRING(150), allowNull: false, field: 'model' },
-      categoryId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        field: 'category_id',
-      },
       numOfSeats: {
         type: DataTypes.INTEGER,
         allowNull: false,

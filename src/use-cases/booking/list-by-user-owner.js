@@ -1,8 +1,8 @@
 export default function makeListByUserOwner({ bookingDb, userDb }) {
-  return async function listByUserOwner({ uuid } = {}) {
+  return async function listByUserOwner({ uuid, limit } = {}) {
     if (!uuid) throw new Error(`User with id ${uuid} does not exists`);
 
-    const bookingRequests = await bookingDb.findByUser(uuid);
+    const bookingRequests = await bookingDb.findByUser({ uuid, limit });
 
     await Promise.all(
       bookingRequests.map(async ({ dataValues }) => {

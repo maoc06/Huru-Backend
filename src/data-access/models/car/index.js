@@ -14,6 +14,7 @@ import buildFeatureModel from './feature-model';
 import buildCarFeatureModel from './car-feature-model';
 import buildCarImageModel from './car-image-model';
 import buildCarReviewModel from './car-review-model';
+import buildModelCategoryModel from './model-category-model';
 
 const AdvanceNotice = buildAdvanceNoticeModel(client);
 const Car = buildCarModel(client);
@@ -26,6 +27,7 @@ const Maker = buildMakerModel(client);
 const MaxTrip = buildMaxTripDurationModel(client);
 const MinTrip = buildMinTripDurationModel(client);
 const Model = buildCarModelModel(client);
+const ModelCategory = buildModelCategoryModel(client);
 const CarReview = buildCarReviewModel(client);
 const Odometer = buildOdometerRangeModel(client);
 const Transmission = buildTransmissionModel(client);
@@ -60,6 +62,10 @@ Maker.hasMany(Model, { foreignKey: 'makerId' });
 
 Model.belongsTo(Maker, { foreignKey: 'makerId' });
 Model.hasMany(Car, { foreignKey: 'modelId' });
+Model.hasMany(ModelCategory, { as: 'categories', foreignKey: 'modelId' });
+
+ModelCategory.belongsTo(Model, { foreignKey: 'modelId' });
+ModelCategory.belongsTo(Category, { foreignKey: 'categoryId' });
 
 CarReview.belongsTo(Car, { foreignKey: 'carId' });
 // Associations end
@@ -76,6 +82,7 @@ export default {
   MaxTrip,
   MinTrip,
   Model,
+  ModelCategory,
   CarReview,
   Odometer,
   Transmission,

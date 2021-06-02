@@ -1,7 +1,6 @@
 import { QueryTypes, Op } from 'sequelize';
 
 import { BookingModels, CarModels, UserModels } from './models';
-
 import { transaction } from './models/payment';
 
 const { Booking } = BookingModels;
@@ -114,8 +113,8 @@ export default function makeBookingDb({ client }) {
     });
   }
 
-  async function findByUser(uuid) {
-    return Booking.findAll({
+  async function findByUser({ uuid, limit }) {
+    const options = {
       attributes: ['id', 'checkin', 'checkout', 'bookingStatus'],
       include: [
         {
@@ -124,12 +123,6 @@ export default function makeBookingDb({ client }) {
           attributes: ['carId', 'year'],
           where: { owner: uuid },
           include: [
-            {
-              model: Image,
-              as: 'images',
-              attributes: ['imagePath'],
-              where: { isMain: true },
-            },
             { model: Maker, attributes: ['name'] },
             { model: Model, attributes: ['name'] },
           ],
@@ -141,7 +134,26 @@ export default function makeBookingDb({ client }) {
         },
       ],
       order: [['id', 'DESC']],
-    });
+    };
+
+    if (limit === 'true') options.limit = 3;
+
+    const bookings = await Booking.findAll(options);
+
+    Promise.all(
+      bookings.map(async (item) => {
+        const data = item.dataValues;
+        const car = data.bookedCar.dataValues;
+
+        const { dataValues } = await Image.findOne({
+          attributes: ['imagePath'],
+          where: { carId: car.carId, isMain: true },
+        });
+        car.images = [dataValues];
+      })
+    );
+
+    return bookings;
   }
 
   function countCompletedTrips(userId) {

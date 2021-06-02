@@ -17,6 +17,7 @@ const {
   MaxTrip,
   MinTrip,
   Model,
+  ModelCategory,
   CarReview,
   Fuel,
 } = CarModels;
@@ -76,9 +77,16 @@ export default function makeCarDb({ client }) {
           attributes: [
             'modelId',
             'name',
-            'categoryId',
+            // 'categoryId',
             'numOfSeats',
             'transmissionId',
+          ],
+          include: [
+            {
+              model: ModelCategory,
+              as: 'categories',
+              attributes: { exclude: ['modelId'] },
+            },
           ],
         },
         { model: Maker },
@@ -169,14 +177,21 @@ export default function makeCarDb({ client }) {
     });
   }
 
+  function findModelCategories(modelId) {
+    return ModelCategory.findAll({
+      attributes: { exclude: ['modelId'] },
+      where: { modelId },
+    });
+  }
+
   async function findByAvailability(city, checkIn, checkOut) {
     const cars = await client.query(
       `SELECT 
         car.car_id,  
         maker.name, 
-        model.model, 
+        model.model_id,
+        model.model,
         car.year, 
-        model.category_id, 
 	      model.number_of_seats, 
 	      model.transmission_id,
         car.description, 
@@ -229,11 +244,23 @@ export default function makeCarDb({ client }) {
       }
     );
 
-    const resImages = await findImages({
+    let res = await findImages({
       arr: cars,
       funcSeeker: findCarImages,
     });
-    const res = await findFeatures(resImages, findCarFeatures);
+
+    res = await findFeatures({
+      arr: res,
+      funcSeeker: findCarFeatures,
+      propName: 'features',
+    });
+
+    res = await findFeatures({
+      arr: res,
+      funcSeeker: findModelCategories,
+      propName: 'categories',
+      propKey: 'model_id',
+    });
 
     return res;
   }
@@ -268,6 +295,7 @@ export default function makeCarDb({ client }) {
     findByLicensePlate,
     findByOwner,
     findByVin,
+    findCarImages,
     insert,
     insertFeatures,
     update,

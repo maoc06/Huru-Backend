@@ -18,6 +18,7 @@ export default function makePostCarFeatures({ addCarFeatures }) {
         },
       };
     } catch (e) {
+      console.log(e);
       return {
         headers,
         statusCode: 400,
