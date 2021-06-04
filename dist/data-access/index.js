@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.cityDb = exports.carBasicSettingsDb = exports.makerDb = exports.carDb = exports.userDb = exports.authDb = exports.verificationApi = void 0;
+exports.disableDayDb = exports.favoriteDb = exports.carReviewDb = exports.paymentGateway = exports.paymentUserDb = exports.transactionDb = exports.bookingDb = exports.cityDb = exports.carBasicSettingsDb = exports.makerDb = exports.carDb = exports.userDb = exports.authDb = exports.verificationApi = exports.authGoogleClient = exports.client = void 0;
 
 var _sequelize = require("sequelize");
 
@@ -25,9 +25,28 @@ var _carBasicSettingsDb = _interopRequireDefault(require("./car-basic-settings-d
 
 var _cityDb = _interopRequireDefault(require("./city-db"));
 
+var _bookingDb = _interopRequireDefault(require("./booking-db"));
+
+var _transactionDb = _interopRequireDefault(require("./transaction-db"));
+
+var _paymentUser = _interopRequireDefault(require("./payment-user"));
+
+var _paymentGateway = _interopRequireDefault(require("./payment-gateway"));
+
+var _carReviewDb = _interopRequireDefault(require("./car-review-db"));
+
+var _favoriteDb = _interopRequireDefault(require("./favorite-db"));
+
+var _disableDayDb = _interopRequireDefault(require("./disable-day-db"));
+
+var _authGoogleClient = _interopRequireDefault(require("./auth-google-client"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+const authGoogleClient = _authGoogleClient.default.oAuth2Client;
+exports.authGoogleClient = authGoogleClient;
 const client = new _sequelize.Sequelize(_config.config.dbUri);
+exports.client = client;
 client.authenticate().then(() => {
   console.log('Connection to the database has been established successfully.');
 }).catch(err => {
@@ -40,9 +59,7 @@ const authDb = (0, _authDb.default)({
   client
 });
 exports.authDb = authDb;
-const userDb = (0, _userDb.default)({
-  client
-});
+const userDb = (0, _userDb.default)();
 exports.userDb = userDb;
 const carDb = (0, _carDb.default)({
   client
@@ -60,3 +77,25 @@ const cityDb = (0, _cityDb.default)({
   client
 });
 exports.cityDb = cityDb;
+const bookingDb = (0, _bookingDb.default)({
+  client
+});
+exports.bookingDb = bookingDb;
+const transactionDb = (0, _transactionDb.default)({
+  client
+});
+exports.transactionDb = transactionDb;
+const paymentUserDb = (0, _paymentUser.default)({
+  client
+});
+exports.paymentUserDb = paymentUserDb;
+const paymentGateway = (0, _paymentGateway.default)({
+  client
+});
+exports.paymentGateway = paymentGateway;
+const carReviewDb = (0, _carReviewDb.default)();
+exports.carReviewDb = carReviewDb;
+const favoriteDb = (0, _favoriteDb.default)();
+exports.favoriteDb = favoriteDb;
+const disableDayDb = (0, _disableDayDb.default)();
+exports.disableDayDb = disableDayDb;

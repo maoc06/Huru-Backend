@@ -10,7 +10,7 @@ var _sequelize = require("sequelize");
 function buildCarFeatureModel({
   client
 }) {
-  const CarFeature = client.define('CarFeature', {
+  return client.define('CarFeature', {
     carFeatureId: {
       type: _sequelize.DataTypes.INTEGER,
       primaryKey: true,
@@ -21,36 +21,15 @@ function buildCarFeatureModel({
     carId: {
       type: _sequelize.DataTypes.INTEGER,
       allowNull: false,
-      field: 'car_id',
-      references: {
-        model: 'Car',
-        // Car-Feature belongsTo Car 1:1
-        key: 'carId'
-      }
+      field: 'car_id'
     },
     featureId: {
       type: _sequelize.DataTypes.INTEGER,
       allowNull: false,
-      field: 'feature_id',
-      references: {
-        model: 'Feature',
-        // Car-Feature belongsTo Feature 1:1
-        key: 'featureId'
-      }
+      field: 'feature_id'
     }
   }, {
     tableName: 'car_feature',
     timestamps: false
   });
-
-  CarFeature.associate = models => {
-    CarFeature.belongsTo(models.Car, {
-      foreignKey: 'carId'
-    });
-    CarFeature.belongsTo(models.Feature, {
-      foreignKey: 'featureId'
-    });
-  };
-
-  return CarFeature;
 }

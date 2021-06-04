@@ -18,6 +18,9 @@ function getAuthRoutes() {
 
   router.post('/signup', (0, _expressCallback.default)(_controllers.authControllers.signUp));
   router.post('/signin', (0, _expressCallback.default)(_controllers.authControllers.singIn));
+  router.post('/signup-google', (0, _expressCallback.default)(_controllers.authControllers.signUpGoogle));
+  router.post('/signin-facebook', (0, _expressCallback.default)(_controllers.authControllers.signInFacebook));
+  router.post('/signin-google', (0, _expressCallback.default)(_controllers.authControllers.signInGoogle));
   router.get('/check-email/:email', (0, _expressCallback.default)(_controllers.authControllers.getUserByEmail));
   router.get('/check-document/:id', (0, _expressCallback.default)(_controllers.authControllers.getUserByDocument));
   router.get('/check-phone/:phone', (0, _expressCallback.default)(_controllers.authControllers.getUserByPhone));

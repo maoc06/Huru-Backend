@@ -20,7 +20,8 @@ function buildCityModel({
     },
     name: {
       type: _sequelize.DataTypes.STRING(150),
-      allowNull: false
+      allowNull: false,
+      field: 'city'
     }
   }, {
     tableName: 'city',

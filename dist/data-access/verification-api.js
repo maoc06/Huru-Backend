@@ -9,7 +9,6 @@ var _config = require("../../config");
 
 function makeVerifySmsApi(client) {
   function sendVerificationSms(phoneNumber) {
-    console.log('param', phoneNumber);
     return client.verify.services(_config.config.twilioVerifyServiceId).verifications.create({
       locale: 'es',
       to: `+${phoneNumber}`,

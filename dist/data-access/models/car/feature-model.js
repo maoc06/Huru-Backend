@@ -10,7 +10,7 @@ var _sequelize = require("sequelize");
 function buildFeatureModel({
   client
 }) {
-  const Feature = client.define('Feature', {
+  return client.define('feature', {
     featureId: {
       type: _sequelize.DataTypes.INTEGER,
       primaryKey: true,
@@ -21,20 +21,10 @@ function buildFeatureModel({
     name: {
       type: _sequelize.DataTypes.STRING(100),
       allowNull: false
-    },
-    icon: {
-      type: _sequelize.DataTypes.STRING(255),
-      allowNull: false,
-      field: 'icon_image'
     }
   }, {
+    timestamps: false,
     tableName: 'feature',
-    timestamps: false
+    freezeTableName: true
   });
-
-  Feature.associate = models => {
-    Feature.hasMany(models.CarFeature);
-  };
-
-  return Feature;
 }

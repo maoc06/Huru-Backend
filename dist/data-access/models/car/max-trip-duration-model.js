@@ -10,7 +10,7 @@ var _sequelize = require("sequelize");
 function buildMaxTripDurationModel({
   client
 }) {
-  const MaxTripDuration = client.define('MaxTripDuration', {
+  return client.define('MaxTripDuration', {
     id: {
       type: _sequelize.DataTypes.INTEGER,
       primaryKey: true,
@@ -26,10 +26,4 @@ function buildMaxTripDurationModel({
     tableName: 'max_trip_duration',
     timestamps: false
   });
-
-  MaxTripDuration.associate = models => {
-    MaxTripDuration.hasMany(models.Car);
-  };
-
-  return MaxTripDuration;
 }

@@ -11,6 +11,12 @@ var _signup = _interopRequireDefault(require("./signup"));
 
 var _signin = _interopRequireDefault(require("./signin"));
 
+var _signupGoogle = _interopRequireDefault(require("./signup-google"));
+
+var _signinGoogle = _interopRequireDefault(require("./signin-google"));
+
+var _singinFacebook = _interopRequireDefault(require("./singin-facebook"));
+
 var _getUserByEmail = _interopRequireDefault(require("./get-user-by-email"));
 
 var _getUserByDocument = _interopRequireDefault(require("./get-user-by-document"));
@@ -28,6 +34,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const {
   authRegister,
   authLogin,
+  authRegisterGoogle,
+  authLoginGoogle,
+  authLoginFacebook,
   listUserByEmail,
   listUserByDocument,
   listUserByPhone,
@@ -40,6 +49,15 @@ const signUp = (0, _signup.default)({
 });
 const singIn = (0, _signin.default)({
   authLogin
+});
+const signUpGoogle = (0, _signupGoogle.default)({
+  authRegisterGoogle
+});
+const signInGoogle = (0, _signinGoogle.default)({
+  authLoginGoogle
+});
+const signInFacebook = (0, _singinFacebook.default)({
+  authLoginFacebook
 });
 const getUserByEmail = (0, _getUserByEmail.default)({
   listUserByEmail
@@ -62,6 +80,9 @@ const getCheckEmail = (0, _getCheckEmail.default)({
 var _default = {
   signUp,
   singIn,
+  signUpGoogle,
+  signInGoogle,
+  signInFacebook,
   getUserByEmail,
   getUserByDocument,
   getUserByPhone,

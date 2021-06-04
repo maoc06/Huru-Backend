@@ -19,12 +19,12 @@ function makeAddCar({
 
   async function validate(car) {
     const {
-      ownerUUID,
+      owner,
       vin,
       licensePlate
     } = car; // Verificar que el usuario exista
 
-    let existing = await userDb.findByUUID(ownerUUID);
+    let existing = await userDb.findByUUID(owner);
     if (!existing) throw new Error('car/owner-uuid-not-found'); // Verificar que el VIN no este registrado
 
     existing = await carDb.findByVin(vin);

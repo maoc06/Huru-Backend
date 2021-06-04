@@ -10,7 +10,7 @@ var _sequelize = require("sequelize");
 function buildMinTripDurationModel({
   client
 }) {
-  const MinTripDuration = client.define('MinTripDuration', {
+  return client.define('MinTripDuration', {
     id: {
       type: _sequelize.DataTypes.INTEGER,
       primaryKey: true,
@@ -26,10 +26,4 @@ function buildMinTripDurationModel({
     tableName: 'min_trip_duration',
     timestamps: false
   });
-
-  MinTripDuration.associate = models => {
-    MinTripDuration.hasMany(models.Car);
-  };
-
-  return MinTripDuration;
 }

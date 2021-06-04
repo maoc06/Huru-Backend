@@ -10,7 +10,7 @@ var _sequelize = require("sequelize");
 function buildCarModelModel({
   client
 }) {
-  const CarModel = client.define('CarModel', {
+  return client.define('model', {
     modelId: {
       type: _sequelize.DataTypes.INTEGER,
       primaryKey: true,
@@ -21,54 +21,25 @@ function buildCarModelModel({
     makerId: {
       type: _sequelize.DataTypes.INTEGER,
       allowNull: false,
-      field: 'maker_id',
-      references: {
-        model: 'Maker',
-        // Model belongsTo Maker 1:1
-        key: 'makerId'
-      }
+      field: 'maker_id'
     },
     name: {
       type: _sequelize.DataTypes.STRING(150),
-      allowNull: false
+      allowNull: false,
+      field: 'model'
     },
-    categoryId: {
+    numOfSeats: {
       type: _sequelize.DataTypes.INTEGER,
       allowNull: false,
-      field: 'category_id',
-      references: {
-        model: 'Category',
-        // Model belongsTo Category 1:1
-        key: 'categoryId'
-      }
+      field: 'number_of_seats'
     },
     transmissionId: {
       type: _sequelize.DataTypes.INTEGER,
       allowNull: false,
-      field: 'transmission_id',
-      references: {
-        model: 'Transmission',
-        // Model belongsTo Transmission 1:1
-        key: 'transmissionId'
-      }
+      field: 'transmission_id'
     }
   }, {
-    tableName: 'model',
-    timestamps: false
+    timestamps: false,
+    freezeTableName: true
   });
-
-  CarModel.associate = models => {
-    CarModel.belongsTo(models.Maker, {
-      foreign: 'makerId'
-    });
-    CarModel.belongsTo(models.Category, {
-      foreign: 'categoryId'
-    });
-    CarModel.belongsTo(models.Transmission, {
-      foreign: 'transmissionId'
-    });
-    CarModel.hasmany(models.Car);
-  };
-
-  return CarModel;
 }

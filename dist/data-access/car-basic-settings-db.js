@@ -1,143 +1,165 @@
-'use strict';
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
-  value: true,
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
 exports.default = makeCarBasicSettingsDb;
 
-var _car = require('./models/car');
+var _car = require("./models/car");
 
-var _uploadFileS = _interopRequireDefault(require('../utils/upload-file-s3'));
+var _models = require("./models");
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+var _actionsS = require("../utils/actions-s3");
 
-function makeCarBasicSettingsDb({ client }) {
+const {
+  Category,
+  Model,
+  AdvanceNotice,
+  MaxTrip,
+  MinTrip,
+  Odometer,
+  Transmission,
+  Fuel
+} = _models.CarModels;
+
+function makeCarBasicSettingsDb({
+  client
+}) {
   function findAllModels() {
-    const car = (0, _car.carModel)({
-      client,
-    });
-    return car.findAll();
+    return Model.findAll();
+  }
+
+  function findAllCarCategories() {
+    return Category.findAll();
   }
 
   function findModelsByMaker(makerId) {
-    const car = (0, _car.carModel)({
-      client,
-    });
-    return car.findAll({
+    return Model.findAll({
       where: {
-        makerId,
-      },
+        makerId
+      }
     });
   }
 
   function findAllOdometerRange() {
-    const odometer = (0, _car.odometerRangeModel)({
-      client,
-    });
-    return odometer.findAll();
+    return Odometer.findAll();
   }
 
   function findAllTransmissions() {
-    const transmission = (0, _car.trasmissionModel)({
-      client,
-    });
-    return transmission.findAll();
+    return Transmission.findAll();
   }
 
   function findAllAdvanceNotice() {
-    const advanceNotice = (0, _car.advanceNoticeModel)({
-      client,
-    });
-    return advanceNotice.findAll();
+    return AdvanceNotice.findAll();
   }
 
   function findAllMinTripDurations() {
-    const minTrip = (0, _car.minTripModel)({
-      client,
-    });
-    return minTrip.findAll();
+    return MinTrip.findAll();
   }
 
   function findAllMaxTripDurations() {
-    const maxTrip = (0, _car.maxTripModel)({
-      client,
-    });
-    return maxTrip.findAll();
+    return MaxTrip.findAll();
+  }
+
+  function findAllFuel() {
+    return Fuel.findAll();
   }
 
   function findAllFeaturesOpts() {
     const features = (0, _car.featureOptsModel)({
-      client,
+      client
     });
     return features.findAll();
   }
 
   function findFeatureById(featureId) {
     const feature = (0, _car.featureOptsModel)({
-      client,
+      client
     });
     return feature.findAll({
       where: {
-        featureId,
-      },
+        featureId
+      }
     });
   }
 
   function findFeatureByCarId(carId) {
     const carFetures = (0, _car.carFeatureModel)({
-      client,
+      client
     });
     return carFetures.findAll({
       where: {
-        carId,
-      },
+        carId
+      }
     });
   }
 
   function insertCarFeatures(selectedFeatures) {
     const carFetures = (0, _car.carFeatureModel)({
-      client,
+      client
     });
     return carFetures.bulkCreate(selectedFeatures);
   }
 
   async function insertCarImage(imageInfo) {
-    const { photoFile, uid } = imageInfo;
-    const s3 = await (0, _uploadFileS.default)(photoFile);
+    const {
+      photoFile,
+      uid,
+      carId,
+      isMain
+    } = imageInfo;
+    const s3 = await (0, _actionsS.uploadFileS3)(photoFile, 'vehicles');
     if (!s3.success) throw new Error('Error uploading the image');
     const carImageObj = {
       addedBy: uid,
       imagePath: s3.url,
+      isMain
     };
+
+    if (carId) {
+      carImageObj.carId = carId;
+    }
+
     const carImage = (0, _car.carImageModel)({
-      client,
+      client
     });
     return carImage.create(carImageObj);
   }
 
+  function deleteCarImage(carImageId) {
+    const carImage = (0, _car.carImageModel)({
+      client
+    });
+    return carImage.destroy({
+      where: {
+        carImageId
+      }
+    });
+  }
+
   function setOwnerCarImage(arrImages) {
     const carImage = (0, _car.carImageModel)({
-      client,
+      client
     }); // update where carImageId = $1
 
-    arrImages.forEach((image) => {
-      const { carImageId } = { ...image };
-      carImage.update(
-        { ...image },
-        {
-          where: {
-            car_image_id: carImageId,
-          },
+    arrImages.forEach(image => {
+      const {
+        carImageId
+      } = { ...image
+      };
+      carImage.update({ ...image
+      }, {
+        where: {
+          car_image_id: carImageId
         }
-      );
+      });
     });
     return {};
   }
 
   return Object.freeze({
     findAllModels,
+    findAllCarCategories,
     findModelsByMaker,
     findAllOdometerRange,
     findAllTransmissions,
@@ -146,9 +168,11 @@ function makeCarBasicSettingsDb({ client }) {
     findAllMaxTripDurations,
     findAllFeaturesOpts,
     findFeatureById,
+    findAllFuel,
     findFeatureByCarId,
     insertCarFeatures,
     insertCarImage,
-    setOwnerCarImage,
+    deleteCarImage,
+    setOwnerCarImage
   });
 }

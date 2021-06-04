@@ -10,7 +10,7 @@ var _sequelize = require("sequelize");
 function buildMakerModel({
   client
 }) {
-  const Maker = client.define('Maker', {
+  return client.define('maker', {
     makerId: {
       type: _sequelize.DataTypes.INTEGER,
       primaryKey: true,
@@ -23,14 +23,7 @@ function buildMakerModel({
       allowNull: false
     }
   }, {
-    tableName: 'maker',
-    timestamps: false
+    timestamps: false,
+    freezeTableName: true
   });
-
-  Maker.associate = models => {
-    Maker.hasMany(models.Car);
-    Maker.hasMany(models.CarModel);
-  };
-
-  return Maker;
 }

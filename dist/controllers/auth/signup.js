@@ -12,7 +12,7 @@ function makeSignUp({
     try {
       const { ...userInfo
       } = httpRequest.body;
-      const user = await authRegister({ ...userInfo
+      const accessToken = await authRegister({ ...userInfo
       });
       return {
         headers: {
@@ -21,10 +21,11 @@ function makeSignUp({
         statusCode: 201,
         body: {
           message: 'User successfully register',
-          data: user
+          accessToken
         }
       };
     } catch (e) {
+      console.log(e);
       return {
         headers: {
           'Content-Type': 'application/json'

@@ -7,6 +7,8 @@ exports.default = void 0;
 
 var _listModels = _interopRequireDefault(require("./list-models"));
 
+var _listCarCategories = _interopRequireDefault(require("./list-car-categories"));
+
 var _listCarModelsByMaker = _interopRequireDefault(require("./list-car-models-by-maker"));
 
 var _listOdometers = _interopRequireDefault(require("./list-odometers"));
@@ -19,6 +21,8 @@ var _listMinTrip = _interopRequireDefault(require("./list-min-trip"));
 
 var _listMaxTrip = _interopRequireDefault(require("./list-max-trip"));
 
+var _listFuel = _interopRequireDefault(require("./list-fuel"));
+
 var _listFeaturesOptions = _interopRequireDefault(require("./list-features-options"));
 
 var _addCarFeatures = _interopRequireDefault(require("./add-car-features"));
@@ -26,6 +30,8 @@ var _addCarFeatures = _interopRequireDefault(require("./add-car-features"));
 var _addCarImages = _interopRequireDefault(require("./add-car-images"));
 
 var _updateOwnerCarImage = _interopRequireDefault(require("./update-owner-car-image"));
+
+var _removeCarImage = _interopRequireDefault(require("./remove-car-image"));
 
 var _dataAccess = require("../../data-access");
 
@@ -37,6 +43,9 @@ const listModels = (0, _listModels.default)({
 const listCarModelsByMaker = (0, _listCarModelsByMaker.default)({
   carBasicSettingsDb: _dataAccess.carBasicSettingsDb,
   makerDb: _dataAccess.makerDb
+});
+const listCarCategories = (0, _listCarCategories.default)({
+  carBasicSettingsDb: _dataAccess.carBasicSettingsDb
 });
 const listOdometer = (0, _listOdometers.default)({
   carBasicSettingsDb: _dataAccess.carBasicSettingsDb
@@ -56,6 +65,9 @@ const listMaxTrip = (0, _listMaxTrip.default)({
 const listFeaturesOpts = (0, _listFeaturesOptions.default)({
   carBasicSettingsDb: _dataAccess.carBasicSettingsDb
 });
+const listFuel = (0, _listFuel.default)({
+  carBasicSettingsDb: _dataAccess.carBasicSettingsDb
+});
 const addCarFeatures = (0, _addCarFeatures.default)({
   carBasicSettingsDb: _dataAccess.carBasicSettingsDb,
   carDb: _dataAccess.carDb
@@ -67,17 +79,23 @@ const addCarImage = (0, _addCarImages.default)({
 const updateOwnerCarImage = (0, _updateOwnerCarImage.default)({
   carBasicSettingsDb: _dataAccess.carBasicSettingsDb
 });
+const removeCarImage = (0, _removeCarImage.default)({
+  carBasicSettingsDb: _dataAccess.carBasicSettingsDb
+});
 var _default = {
   listModels,
   listCarModelsByMaker,
+  listCarCategories,
   listOdometer,
   listTransmissions,
   listAdvanceNotice,
   listMinTrip,
   listMaxTrip,
+  listFuel,
   listFeaturesOpts,
   addCarFeatures,
   addCarImage,
-  updateOwnerCarImage
+  updateOwnerCarImage,
+  removeCarImage
 };
 exports.default = _default;

@@ -1,49 +1,88 @@
-import bcrypt from 'bcryptjs';
+"use strict";
 
-import { makeUser } from '../../entities';
-import { config } from '../../../config';
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = makeRegister;
 
-export default function makeRegister({ authDb, handleToken, sendWelcomeMail }) {
+var _bcryptjs = _interopRequireDefault(require("bcryptjs"));
+
+var _entities = require("../../entities");
+
+var _config = require("../../../config");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function makeRegister({
+  authDb,
+  handleToken,
+  sendWelcomeMail
+}) {
   return async function register(userInfo) {
     await validate(userInfo);
-    const user = (0, makeUser)(userInfo);
+    const user = (0, _entities.makeUser)(userInfo);
+    const userTmp = { ...user
+    }; // Hash password
 
-    // Hash password
-    const salt = await bcrypt.genSalt(10);
-    const hashPassword = await bcrypt.hash(userInfo.password, salt);
-    const userTmp = { ...user };
-    userTmp.password = hashPassword;
+    if (userInfo.password) {
+      const salt = await _bcryptjs.default.genSalt(10);
+      const hashPassword = await _bcryptjs.default.hash(userInfo.password, salt);
+      userTmp.password = hashPassword;
+    }
 
-    const verifyEmailToken = handleToken(
-      {
-        email: userTmp.email,
-      },
-      config.emailPrivateKey,
-      '1d'
-    );
-
+    const verifyEmailToken = handleToken({
+      email: userTmp.email
+    }, _config.config.emailPrivateKey, '1d');
     sendWelcomeMail({
       emailToSend: userTmp.email,
       firstname: userTmp.firstName,
-      url: `http://${config.webAppServerBaseUrl}/verify-email/${verifyEmailToken}`,
+      url: `http://${_config.config.webAppServerBaseUrl}/verify-email/${verifyEmailToken}`
     });
 
-    return authDb.insert(userTmp);
+    if (userTmp.phone) {
+      userTmp.phone = `+${userTmp.phone.replace(/\D/g, '')}`;
+    }
+
+    await authDb.insert(userTmp);
+    const accessToken = initialAccessToken(userTmp.email);
+    return accessToken;
   };
 
   async function validate(user) {
-    const { email, phone, identityDocument } = user; // Verificar que el email no este registrado
+    const {
+      email,
+      phone,
+      identityDocument
+    } = user; // Verificar que el email no este registrado
 
     let existing = await authDb.findByEmail(email);
-    if (existing.email !== undefined)
-      throw new Error('auth/user-email-already-exists'); // // Verificar que el numero de telefono que se intenta agregar no exista
+    if (existing.email !== undefined) throw new Error('auth/user-email-already-exists'); // // Verificar que el numero de telefono que se intenta agregar no exista
 
     existing = await authDb.findByPhone(phone);
-    if (existing.phone !== undefined)
-      throw new Error('auth/user-phone-already-exists'); // // Verificar que el numero de documento de identidad que se intenta agregar no exista
+    if (existing.phone !== undefined) throw new Error('auth/user-phone-already-exists'); // // Verificar que el numero de documento de identidad que se intenta agregar no exista
 
     existing = await authDb.findByDocumetID(identityDocument);
-    if (existing.document_id)
-      throw new Error('auth/user-document-already-exists');
+    if (existing.document_id) throw new Error('auth/user-document-already-exists');
+  }
+
+  async function initialAccessToken(email) {
+    const {
+      dataValues: user
+    } = await authDb.getInfoUser(email);
+    const info = {
+      uid: user.uuid,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      userType: user.userType,
+      profilePicture: user.profilePhoto,
+      phone: user.phone,
+      createdAt: user.createdAt,
+      modifiedAt: user.modifiedAt,
+      status: user.status,
+      isEmailVerified: user.isEmailVerified,
+      isPhoneVerified: user.isPhoneVerified
+    };
+    return handleToken(info, _config.config.privateKey);
   }
 }

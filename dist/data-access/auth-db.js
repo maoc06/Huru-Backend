@@ -20,7 +20,7 @@ function makeAuthDb({
   }) {
     const res = await user.create({ ...userInfo
     }, {
-      fields: ['firstName', 'lastName', 'email', 'password', 'phone', 'identityDocument', 'dateOfBirth', 'isPhoneVerified']
+      fields: ['firstName', 'lastName', 'email', 'password', 'phone', 'about', 'identityDocument', 'dateOfBirth', 'isPhoneVerified', 'profilePhoto']
     });
     delete res.dataValues.password;
     return res;
@@ -38,7 +38,7 @@ function makeAuthDb({
   }
 
   function getInfoUser(email) {
-    return user.findAll({
+    return user.findOne({
       where: {
         email
       }

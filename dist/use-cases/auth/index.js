@@ -9,6 +9,12 @@ var _authRegister = _interopRequireDefault(require("./auth-register"));
 
 var _authLogin = _interopRequireDefault(require("./auth-login"));
 
+var _authRegisterGoogle = _interopRequireDefault(require("./auth-register-google"));
+
+var _authLoginFacebook = _interopRequireDefault(require("./auth-login-facebook"));
+
+var _authLoginGoogle = _interopRequireDefault(require("./auth-login-google"));
+
 var _listUserByEmail = _interopRequireDefault(require("./list-user-by-email"));
 
 var _listUserByPhone = _interopRequireDefault(require("./list-user-by-phone"));
@@ -42,6 +48,18 @@ const authLogin = (0, _authLogin.default)({
   authDb: _dataAccess.authDb,
   handleToken
 });
+const authRegisterGoogle = (0, _authRegisterGoogle.default)({
+  authGoogleClient: _dataAccess.authGoogleClient
+});
+const authLoginFacebook = (0, _authLoginFacebook.default)({
+  authDb: _dataAccess.authDb,
+  handleToken
+});
+const authLoginGoogle = (0, _authLoginGoogle.default)({
+  authGoogleClient: _dataAccess.authGoogleClient,
+  authDb: _dataAccess.authDb,
+  handleToken
+});
 const listUserByEmail = (0, _listUserByEmail.default)({
   authDb: _dataAccess.authDb
 });
@@ -63,6 +81,9 @@ const checkEmail = (0, _checkEmail.default)({
 var _default = {
   authRegister,
   authLogin,
+  authRegisterGoogle,
+  authLoginFacebook,
+  authLoginGoogle,
   listUserByEmail,
   listUserByDocument,
   listUserByPhone,

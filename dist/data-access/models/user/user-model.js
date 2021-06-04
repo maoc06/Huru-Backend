@@ -10,7 +10,7 @@ var _sequelize = require("sequelize");
 function buildUserModel({
   client
 }) {
-  const User = client.define('User', {
+  return client.define('User', {
     uuid: {
       type: _sequelize.DataTypes.UUIDV4,
       primaryKey: true,
@@ -36,7 +36,7 @@ function buildUserModel({
     },
     password: {
       type: _sequelize.DataTypes.STRING(255),
-      allowNull: false,
+      allowNull: true,
       field: 'password'
     },
     phone: {
@@ -52,12 +52,11 @@ function buildUserModel({
     userType: {
       type: _sequelize.DataTypes.STRING,
       allowNull: false,
-      field: 'user_type_id',
-      references: {
-        model: 'UserType',
-        // User belongsTo UserType 1:1
-        key: 'typeId'
-      }
+      field: 'user_type_id' // references: {
+      //   model: 'UserType', // User belongsTo UserType 1:1
+      //   key: 'typeId',
+      // },
+
     },
     dateOfBirth: {
       type: _sequelize.DataTypes.DATE,
@@ -81,12 +80,11 @@ function buildUserModel({
     status: {
       type: _sequelize.DataTypes.INTEGER,
       allowNull: false,
-      field: 'status_id',
-      references: {
-        model: 'Status',
-        // User belongsTo Status 1:1
-        key: 'statusId'
-      }
+      field: 'status_id' // references: {
+      //   model: 'Status', // User belongsTo Status 1:1
+      //   key: 'statusId',
+      // },
+
     },
     profilePhoto: {
       type: _sequelize.DataTypes.STRING,
@@ -105,18 +103,11 @@ function buildUserModel({
   }, {
     tableName: 'huru_user',
     timestamps: false
-  });
-
-  User.associate = models => {
-    User.belongsTo(models.UserType, {
-      foreignKey: 'userType'
-    });
-    User.belongsTo(models.Status, {
-      foreignKey: 'status'
-    });
-    User.hasMany(models.Car);
-    User.hasMany(models.CarImage);
-  };
-
-  return User;
+  }); // User.associate = (models) => {
+  //   User.belongsTo(models.UserType, { foreignKey: 'userType' });
+  //   User.belongsTo(models.Status, { foreignKey: 'status' });
+  //   User.hasMany(models.Car);
+  //   User.hasMany(models.CarImage);
+  // };
+  // return User;
 }

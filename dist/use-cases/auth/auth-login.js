@@ -39,7 +39,6 @@ function makeAuthCredentials({
       message: 'auth/invalid-password'
     }; // SI las validaciones son ejecutadas con exito:
     // Entonces => generar el token y retornarlo
-    // const userAuth = makeUser(validatedUser);
 
     const info = {
       uid: validatedUser.uuid,
@@ -47,6 +46,8 @@ function makeAuthCredentials({
       lastName: validatedUser.lastName,
       email: validatedUser.email,
       userType: validatedUser.userType,
+      profilePicture: validatedUser.profilePhoto,
+      phone: validatedUser.phone,
       createdAt: validatedUser.createdAt,
       modifiedAt: validatedUser.modifiedAt,
       status: validatedUser.status,
@@ -65,6 +66,6 @@ function makeAuthCredentials({
       message: 'auth/user-not-found'
     };
     const user = await authDb.getInfoUser(email);
-    return user[0].dataValues;
+    return user.dataValues;
   }
 }

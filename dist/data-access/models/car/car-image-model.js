@@ -10,7 +10,7 @@ var _sequelize = require("sequelize");
 function buildCarImageModel({
   client
 }) {
-  const CarImage = client.define('CarImage', {
+  return client.define('CarImage', {
     carImageId: {
       type: _sequelize.DataTypes.INTEGER,
       primaryKey: true,
@@ -21,22 +21,12 @@ function buildCarImageModel({
     carId: {
       type: _sequelize.DataTypes.INTEGER,
       allowNull: true,
-      field: 'car_id',
-      references: {
-        model: 'Car',
-        // CarImage belongsTo Car 1:1
-        key: 'carId'
-      }
+      field: 'car_id'
     },
     addedBy: {
       type: _sequelize.DataTypes.UUIDV4,
       allowNull: false,
-      field: 'added_by_user',
-      references: {
-        model: 'UserType',
-        // CarImage belongsTo User 1:1
-        key: 'uuid'
-      }
+      field: 'added_by_user'
     },
     imagePath: {
       type: _sequelize.DataTypes.STRING(255),
@@ -45,20 +35,13 @@ function buildCarImageModel({
       validate: {
         isUrl: true
       }
+    },
+    isMain: {
+      type: _sequelize.DataTypes.BOOLEAN,
+      field: 'is_main_image'
     }
   }, {
     tableName: 'car_image',
     timestamps: false
   });
-
-  CarImage.associate = models => {
-    CarImage.belongsTo(models.Car, {
-      foreignKey: 'carId'
-    });
-    CarImage.belongsTo(models.User, {
-      foreignKey: 'addedBy'
-    });
-  };
-
-  return CarImage;
 }

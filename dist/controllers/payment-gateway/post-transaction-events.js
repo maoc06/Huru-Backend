@@ -1,0 +1,39 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = makePostTransactionEvents;
+
+function makePostTransactionEvents({
+  listenTransactionEvents
+}) {
+  return async function postTransactionEvents(httpRequest) {
+    const headers = {
+      'Content-Type': 'application/json'
+    };
+
+    try {
+      const { ...eventInfo
+      } = httpRequest.body;
+      const event = await listenTransactionEvents({ ...eventInfo
+      });
+      return {
+        headers,
+        statusCode: 200,
+        body: {
+          data: event
+        }
+      };
+    } catch (e) {
+      console.log(e);
+      return {
+        headers,
+        statusCode: 400,
+        body: {
+          error: e.message
+        }
+      };
+    }
+  };
+}

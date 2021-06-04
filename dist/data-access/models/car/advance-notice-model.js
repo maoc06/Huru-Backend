@@ -10,7 +10,7 @@ var _sequelize = require("sequelize");
 function buildAdvanceNoticeModel({
   client
 }) {
-  const AdvanceNotice = client.define('AdvanceNotice', {
+  return client.define('AdvanceNotice', {
     id: {
       type: _sequelize.DataTypes.INTEGER,
       primaryKey: true,
@@ -26,10 +26,4 @@ function buildAdvanceNoticeModel({
     tableName: 'advance_notice',
     timestamps: false
   });
-
-  AdvanceNotice.associate = models => {
-    AdvanceNotice.hasMany(models.Car);
-  };
-
-  return AdvanceNotice;
 }

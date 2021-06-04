@@ -16,11 +16,15 @@ function makePostCarImage({
     try {
       const photoFile = httpRequest.file;
       const {
-        uid
+        uid,
+        carId,
+        isMain
       } = httpRequest.body;
       const carImage = await addCarImage({
         photoFile,
-        uid
+        uid,
+        carId,
+        isMain
       });
       return {
         headers,
