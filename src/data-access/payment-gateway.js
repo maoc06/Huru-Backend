@@ -90,6 +90,14 @@ export default function makePaymentGateway({ client }) {
       status: 1,
     };
 
+    // but...first decide if default or not
+    const paymentMethodByUser = await paymentUserModel.findAll({
+      where: { addedBy: sourceInfo.uid },
+    });
+    if (paymentMethodByUser.length === 0) {
+      paymentUserRecord.isDefault = true;
+    }
+
     const response = await paymentUserModel.create(paymentUserRecord);
 
     return response.dataValues;
@@ -130,6 +138,14 @@ export default function makePaymentGateway({ client }) {
       phone: sourceInfo.phone,
       status: 1,
     };
+
+    // but...first decide if default or not
+    const paymentMethodByUser = await paymentUserModel.findByUser(
+      sourceInfo.uid
+    );
+    if (paymentMethodByUser.length === 0) {
+      paymentUserRecord.isDefault = true;
+    }
 
     const response = await paymentUserModel.create(paymentUserRecord);
 
