@@ -2,6 +2,7 @@ import { carUseCases } from '../../use-cases';
 
 import makePostCity from './post-car';
 import makeGetCar from './get-car';
+import makeGetCarByQuery from './get-car-by-query';
 import makeGetCarByUserOwner from './get-car-by-user-owner';
 import makeGetCarByVin from './get-car-by-vin';
 import makeGetCarByLicensePlate from './get-car-by-license-plate';
@@ -11,10 +12,12 @@ import makePatchVisibility from './patch-visibility';
 import makePatchDisable from './patch-disable';
 import makePatchBookingTerms from './patch-booking-terms';
 import makePutFeatures from './put-features';
+import makePutCarData from './put-car-data';
 
 const {
   addCar,
   listCar,
+  listQuery,
   listByUserOwner,
   listByVin,
   listByLicensePlate,
@@ -24,10 +27,12 @@ const {
   updateDisable,
   updateBookingTerms,
   updateFeatures,
+  updateData,
 } = carUseCases;
 
 const postCar = makePostCity({ addCar });
 const getCar = makeGetCar({ listCar });
+const getCarByQuery = makeGetCarByQuery({ listQuery });
 const getCarByUserOwner = makeGetCarByUserOwner({ listByUserOwner });
 const getCarByVin = makeGetCarByVin({ listByVin });
 const getCarByLicensePlate = makeGetCarByLicensePlate({ listByLicensePlate });
@@ -37,10 +42,12 @@ const patchVisibility = makePatchVisibility({ updateVisibility });
 const patchDisable = makePatchDisable({ updateDisable });
 const patchBookingTerms = makePatchBookingTerms({ updateBookingTerms });
 const putFeatures = makePutFeatures({ updateFeatures });
+const putCarData = makePutCarData({ updateData });
 
 export default {
   postCar,
   getCar,
+  getCarByQuery,
   getCarByUserOwner,
   getCarByVin,
   getCarByLicensePlate,
@@ -50,4 +57,5 @@ export default {
   patchDisable,
   patchBookingTerms,
   putFeatures,
+  putCarData,
 };

@@ -18,6 +18,7 @@ export default function makeAuthDb({ client }) {
           'dateOfBirth',
           'isPhoneVerified',
           'profilePhoto',
+          'status',
         ],
       }
     );

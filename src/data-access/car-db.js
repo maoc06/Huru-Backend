@@ -7,6 +7,8 @@ import { carModel, carImageModel } from './models/car';
 import findImages from '../utils/findImages';
 import findFeatures from '../utils/findFeatures';
 
+const DISABLED_ID = 2;
+
 const {
   AdvanceNotice,
   Car,
@@ -199,6 +201,7 @@ export default function makeCarDb({ client }) {
         car.advance_notice_id,
         car.min_trip_duration_id,
         car.max_trip_duration_id,
+        car.fuel_id,
         city.city
       FROM 
         car 
@@ -266,7 +269,7 @@ export default function makeCarDb({ client }) {
   }
 
   function insert({ ...carInfo }) {
-    return car.create({ ...carInfo });
+    return car.create({ ...carInfo, status: DISABLED_ID });
   }
 
   function insertFeatures(carFeatures) {
@@ -286,6 +289,45 @@ export default function makeCarDb({ client }) {
     return CarFeature.destroy({ where: { carId } });
   }
 
+  function queryCar(query) {
+    return Car.findAll({
+      where: {
+        [Op.or]: [
+          // {
+          //   vin: { [Op.substring]: query },
+          // },
+          {
+            licensePlate: { [Op.substring]: query },
+          },
+        ],
+      },
+      attributes: [
+        'carId',
+        'vin',
+        'licensePlate',
+        'year',
+        'createdAt',
+        'status',
+        'odometerRangeId',
+      ],
+      include: [
+        {
+          model: User,
+          as: 'userOwner',
+          attributes: ['uuid', 'firstName', 'lastName'],
+        },
+        {
+          model: Image,
+          as: 'images',
+          attributes: ['carImageId', 'imagePath'],
+          where: { isMain: true },
+        },
+        { model: Model, attributes: ['name'] },
+        Maker,
+      ],
+    });
+  }
+
   return Object.freeze({
     findAll,
     findCarFeatures,
@@ -300,5 +342,6 @@ export default function makeCarDb({ client }) {
     insertFeatures,
     update,
     deleteFeatures,
+    queryCar,
   });
 }

@@ -9,12 +9,14 @@ import makePatchPassword from './patch-password';
 import makePatchPhone from './patch-phone';
 import makePatchProfilePic from './patch-profile-pic';
 import makePutUserData from './put-user-data';
+import makeGetUserByQuery from './get-by-query';
 
 const {
   addUserReview,
   listUser,
   listReviews,
   listIfAlreadyReviewed,
+  listQuery,
   updateData,
   updatePassword,
   updatePhone,
@@ -24,6 +26,7 @@ const {
 
 const getUser = makeGetUser({ listUser });
 const getUserReviews = makeGetUserReviews({ listReviews });
+const getUserByQuery = makeGetUserByQuery({ listQuery });
 const getIfAlreadyReviewed = makeGetIfAlreadyReviewed({
   listIfAlreadyReviewed,
 });
@@ -37,6 +40,7 @@ const putUserData = makePutUserData({ updateData });
 export default {
   getUser,
   getUserReviews,
+  getUserByQuery,
   getIfAlreadyReviewed,
   postUserReview,
   postProfilePic,

@@ -12,6 +12,8 @@ function getCarRoutes() {
 
   router.get('/:carId', makeCallback(carControllers.getCar));
 
+  router.get('/query/:query', makeCallback(carControllers.getCarByQuery));
+
   router.get('/by-user/:id', makeCallback(carControllers.getCarByUserOwner));
 
   router.get(
@@ -40,7 +42,6 @@ function getCarRoutes() {
   router.patch(
     '/visibility',
     verifyToken,
-    authorize([Normal, Admin]),
     makeCallback(carControllers.patchVisibility)
   );
 
@@ -64,6 +65,8 @@ function getCarRoutes() {
     authorize([Normal, Admin]),
     makeCallback(carControllers.putFeatures)
   );
+
+  router.put('/', verifyToken, makeCallback(carControllers.putCarData));
 
   return router;
 }

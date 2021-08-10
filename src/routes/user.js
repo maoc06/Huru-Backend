@@ -29,6 +29,8 @@ function getUserRoutes() {
     makeCallback(userControllers.getIfAlreadyReviewed)
   );
 
+  router.get('/query/:query', makeCallback(userControllers.getUserByQuery));
+
   router.post(
     '/review',
     verifyToken,
@@ -64,12 +66,7 @@ function getUserRoutes() {
     makeCallback(userControllers.patchProfilePic)
   );
 
-  router.put(
-    '/',
-    verifyToken,
-    authorize([Normal]),
-    makeCallback(userControllers.putUserData)
-  );
+  router.put('/', verifyToken, makeCallback(userControllers.putUserData));
 
   return router;
 }

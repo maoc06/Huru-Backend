@@ -1,3 +1,4 @@
+import { Op } from 'sequelize';
 import { UserModels } from './models';
 import { uploadFileS3 } from '../utils/actions-s3';
 
@@ -60,6 +61,22 @@ export default function makeUserDb() {
     return s3.url;
   }
 
+  function queryUser(query) {
+    return User.findAll({
+      attributes: { exclude: ['password'] },
+      where: {
+        [Op.or]: [
+          {
+            firstName: { [Op.substring]: query },
+          },
+          {
+            lastName: { [Op.substring]: query },
+          },
+        ],
+      },
+    });
+  }
+
   return Object.freeze({
     findByUUID,
     findByEmail,
@@ -69,5 +86,6 @@ export default function makeUserDb() {
     updateEmailVerification,
     insertReview,
     insertProfileImage,
+    queryUser,
   });
 }

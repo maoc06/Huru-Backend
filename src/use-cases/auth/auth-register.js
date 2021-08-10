@@ -2,6 +2,8 @@ import bcrypt from 'bcryptjs';
 import { makeUser } from '../../entities';
 import { config } from '../../../config';
 
+const DISABLE_STATUS_ID = 2;
+
 export default function makeRegister({ authDb, handleToken, sendWelcomeMail }) {
   return async function register(userInfo) {
     await validate(userInfo);
@@ -33,7 +35,7 @@ export default function makeRegister({ authDb, handleToken, sendWelcomeMail }) {
       userTmp.phone = `+${userTmp.phone.replace(/\D/g, '')}`;
     }
 
-    await authDb.insert(userTmp);
+    await authDb.insert({ ...userTmp, status: DISABLE_STATUS_ID });
 
     const accessToken = initialAccessToken(userTmp.email);
 
@@ -73,6 +75,8 @@ export default function makeRegister({ authDb, handleToken, sendWelcomeMail }) {
       createdAt: user.createdAt,
       modifiedAt: user.modifiedAt,
       status: user.status,
+      identityDocument: user.identityDocument,
+      dateOfBirth: user.dateOfBirth,
       isEmailVerified: user.isEmailVerified,
       isPhoneVerified: user.isPhoneVerified,
     };
