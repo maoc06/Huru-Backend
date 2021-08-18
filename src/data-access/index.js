@@ -22,7 +22,7 @@ import google from './auth-google-client';
 
 const authGoogleClient = google.oAuth2Client;
 const client = new Sequelize(config.dbUri, {
-  // dialectOptions: { ssl: { require: true, rejectUnauthorized: false } },
+  dialectOptions: { ssl: { require: true, rejectUnauthorized: false } },
   timezone: '-5:00',
 });
 
