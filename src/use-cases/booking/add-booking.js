@@ -43,7 +43,7 @@ export default function makeAddBooking({
       startDate: formatFullDate({ date: booking.checkin, type: 'SQL' }),
       endDate: formatFullDate({ date: booking.checkout, type: 'SQL' }),
       applicant: `${applicantUser.firstName} ${applicantUser.lastName}`,
-      url: `http://${config.webAppServerBaseUrl}/host/request-details/${response.dataValues.id}`,
+      url: `https://${config.webAppServerBaseUrl}/host/request-details/${response.dataValues.id}`,
     });
 
     return response;

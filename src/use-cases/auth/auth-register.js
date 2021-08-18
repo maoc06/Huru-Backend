@@ -28,7 +28,7 @@ export default function makeRegister({ authDb, handleToken, sendWelcomeMail }) {
     sendWelcomeMail({
       emailToSend: userTmp.email,
       firstname: userTmp.firstName,
-      url: `http://${config.webAppServerBaseUrl}/verify-email/${verifyEmailToken}`,
+      url: `https://${config.webAppServerBaseUrl}/verify-email/${verifyEmailToken}`,
     });
 
     if (userTmp.phone) {
