@@ -1,5 +1,10 @@
 import generateReference from '../../utils/generate-reference';
-import { diffDays, formatFullDate, nowFormatDate } from '../../utils/dates';
+import {
+  diffDays,
+  formatFullDate,
+  cancelationDate,
+  nowFormatDate,
+} from '../../utils/dates';
 import { paymentMethodsIcons } from '../../utils/enums';
 
 export default function makeUpdateConfirmBooking({
@@ -75,7 +80,7 @@ export default function makeUpdateConfirmBooking({
         // 10. Obtener la informacion del dueño del carro
 
         // const userOwner = await carDb.findById(bookingCar);
-        console.log(ownerId);
+        // console.log(ownerId);
 
         const { dataValues: owner } = await userDb.findByUUID(ownerId);
         // 11. Obtener la informacion del metodo de pago
@@ -83,12 +88,14 @@ export default function makeUpdateConfirmBooking({
           dataValues: { type, brand, lastFour, phone: nequiPhone },
         } = await paymentUserDb.findById(paymentId);
         // 12. Prepara la informacion basica para enviar los emails
+
         const basicInfo = {
           emailToSend: email,
           carInfo: `${maker.name} ${model.name} ${year}`,
-          carImage: images[0].imagePath,
           startDate: formatFullDate({ date: checkin, type: 'JS' }),
           endDate: formatFullDate({ date: checkout, type: 'JS' }),
+          freeCancellationDate: cancelationDate({ date: checkin }),
+          parcialCancellationDate: cancelationDate({ date: checkin, days: 0 }),
           typePayment: type,
           brandLogo: brand
             ? paymentMethodsIcons[brand]
@@ -102,6 +109,7 @@ export default function makeUpdateConfirmBooking({
           bookingNumber,
           owner: `${owner.firstName}`,
           phone: owner.phone,
+          carImage: images[0].imagePath,
           paid: totalPaidInCents / 100,
           paidOn: nowFormatDate({ withYear: true }),
         });
@@ -118,7 +126,7 @@ export default function makeUpdateConfirmBooking({
         } = await bookingDb.confirmBooking(bookingId, confirm);
 
         // Obtener la informacion del carro
-        const { name, model, year, images } = await carDb.findById(bookingCar);
+        const { maker, model, year, images } = await carDb.findById(bookingCar);
 
         const response = await transactionDb.updateRejectBooking(transactionId);
 
@@ -126,10 +134,10 @@ export default function makeUpdateConfirmBooking({
 
         sendBookingRejectedMail({
           emailToSend: email,
-          carInfo: `${name} ${model} ${year}`,
+          carInfo: `${maker.name} ${model.name} ${year}`,
           carImage: images[0].imagePath,
-          startDate: formatFullDate(checkin),
-          endDate: formatFullDate(checkout),
+          startDate: formatFullDate({ date: checkin, type: 'JS' }),
+          endDate: formatFullDate({ date: checkout, type: 'JS' }),
         });
 
         return response;

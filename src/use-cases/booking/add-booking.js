@@ -39,11 +39,11 @@ export default function makeAddBooking({
     sendBookingRequestMail({
       emailToSend: carOwner.email,
       carInfo: `${car.maker.name} ${car.model.name} ${car.year}`,
-      carImage: car.images[0].imagePath,
-      startDate: formatFullDate({ date: booking.checkin, type: 'ISO' }),
-      endDate: formatFullDate({ date: booking.checkout, type: 'ISO' }),
+      carImage: `${car.images[0].imagePath}`,
+      startDate: formatFullDate({ date: booking.checkin, type: 'SQL' }),
+      endDate: formatFullDate({ date: booking.checkout, type: 'SQL' }),
       applicant: `${applicantUser.firstName} ${applicantUser.lastName}`,
-      url: `http://${config.webAppServerBaseUrl}/host/request-details/${19}`,
+      url: `http://${config.webAppServerBaseUrl}/host/request-details/${response.dataValues.id}`,
     });
 
     return response;

@@ -8,7 +8,7 @@ Date.shortMonths = [
   'May',
   'Jun',
   'Jul',
-  'Aug',
+  'Ago',
   'Sep',
   'Oct',
   'Nov',
@@ -89,8 +89,21 @@ const validateMin = (date, min) => {
   return true;
 };
 
+const cancelationDate = ({ date, days = 1, type = 'JS' }) => {
+  const time = formatTime({ date, type });
+  const rawDate = convertTo({ date, type });
+
+  const dayDate = rawDate.toFormat('d');
+  const day = dayDate - days;
+
+  const month = rawDate.toLocaleString({ month: 'numeric' });
+
+  return `${time} del ${day} de ${Date.shortMonths[month - 1]}`;
+};
+
 export {
   convertTo,
+  cancelationDate,
   diffDays,
   formatDate,
   formatFullDate,
