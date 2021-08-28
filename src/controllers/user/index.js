@@ -11,6 +11,7 @@ import makePatchProfilePic from './patch-profile-pic';
 import makePatchStatus from './patch-status';
 import makePutUserData from './put-user-data';
 import makeGetUserByQuery from './get-by-query';
+import makeDeleteUser from './delete-user';
 
 const {
   addUserReview,
@@ -24,6 +25,7 @@ const {
   updateProfilePic,
   uploadProfilePic,
   updateStatus,
+  destroyUser,
 } = userUseCases;
 
 const getUser = makeGetUser({ listUser });
@@ -39,6 +41,7 @@ const patchPhone = makePatchPhone({ updatePhone });
 const patchProfilePic = makePatchProfilePic({ updateProfilePic });
 const patchStatus = makePatchStatus({ updateStatus });
 const putUserData = makePutUserData({ updateData });
+const deleteUser = makeDeleteUser({ destroyUser });
 
 export default {
   getUser,
@@ -52,4 +55,5 @@ export default {
   patchProfilePic,
   patchStatus,
   putUserData,
+  deleteUser,
 };

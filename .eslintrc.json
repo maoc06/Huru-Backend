@@ -16,6 +16,8 @@
     "no-unused-vars": "warn",
     "no-console": "off",
     "no-use-before-define": "off",
-    "node/no-unsupported-features/es-syntax": "off"
+    "node/no-unsupported-features/es-syntax": "off",
+    "no-unused-expressions": "off",
+    "node/no-unpublished-require": 0
   }
 }

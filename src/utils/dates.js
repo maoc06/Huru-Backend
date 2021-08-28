@@ -71,8 +71,7 @@ const formatFullDate = ({ date, type = 'SQL', withYear = false }) =>
   `${formatDate({ date, type, withYear })} - ${formatTime({ date, type })}`;
 
 const validateMax = (date, max) => {
-  const years = diffNowYears(date);
-
+  const years = parseInt(new Date().getFullYear(), 10) - parseInt(date, 10);
   if (years > max) return false;
   return true;
 };

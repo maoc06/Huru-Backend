@@ -33,6 +33,8 @@ export default function buildMakeCar() {
     if (!cityId) throw new Error('Car must be located within a city');
     if (!owner) throw new Error('Car must belong to a user');
     if (!price) throw new Error('Car must have a price');
+    if (price < 50000 || price > 1000000)
+      throw new Error('Car must have a price between $50,000 - $1,000,000 COP');
     if (!advanceNoticeId) throw new Error('Car must have an advance notice');
     if (!fuelId) throw new Error('Car must have an fuel type assigned');
     if (!minTripDurationId)

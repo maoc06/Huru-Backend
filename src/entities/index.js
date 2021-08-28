@@ -7,6 +7,8 @@ import buildMakeBooking from './booking';
 import buildMakeCarReview from './car-review';
 import buildMakeFavorite from './favorite';
 import buildMakeDisableDay from './disable-day';
+import buildMakePaymentCard from './payment-card';
+import buildMakePaymentNequi from './payment-nequi';
 
 const makeUser = buildMakeUser({});
 const makeUserReview = buildMakeUserReview({});
@@ -17,6 +19,8 @@ const makeBooking = buildMakeBooking({});
 const makeCarReview = buildMakeCarReview({});
 const makeFavorite = buildMakeFavorite({});
 const makeDisableDay = buildMakeDisableDay({});
+const makePaymentCard = buildMakePaymentCard({});
+const makePaymentNequi = buildMakePaymentNequi({});
 
 export {
   makeUser,
@@ -28,4 +32,6 @@ export {
   makeCarReview,
   makeFavorite,
   makeDisableDay,
+  makePaymentCard,
+  makePaymentNequi,
 };

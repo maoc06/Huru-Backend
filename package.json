@@ -12,7 +12,14 @@
         "start": "node .",
         "build": "babel --delete-dir-on-start --out-dir dist --copy-files --ignore \"**/__tests__/**,**/__mocks__/**\" --no-copy-ignored src",
         "lint": "eslint ./",
-        "lint:fix": "eslint ./ --fix"
+        "lint:fix": "eslint ./ --fix",
+        "test": "mocha test/index.test.js --timeout 15000"
+    },
+    "husky": {
+        "hooks": {
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+            "pre-commit": "npm test && npm run lint:fix"
+        }
     },
     "dependencies": {
         "aws-sdk": "^2.853.0",
@@ -39,11 +46,15 @@
         "twilio": "^3.57.0"
     },
     "devDependencies": {
-        "@babel/cli": "^7.13.0",
+        "@babel/cli": "^7.12.1",
         "@babel/core": "^7.13.1",
         "@babel/preset-env": "^7.13.5",
         "@babel/register": "^7.13.0",
+        "@commitlint/cli": "^13.1.0",
+        "@commitlint/config-conventional": "^13.1.0",
         "babel-eslint": "^10.1.0",
+        "chai": "^4.3.4",
+        "chai-http": "^4.3.0",
         "eslint": "^7.20.0",
         "eslint-config-airbnb": "^18.2.1",
         "eslint-config-node": "^4.1.0",
@@ -54,7 +65,10 @@
         "eslint-plugin-prettier": "^3.3.1",
         "eslint-plugin-react": "^7.22.0",
         "eslint-plugin-react-hooks": "^4.2.0",
+        "husky": "^7.0.2",
+        "mocha": "^9.1.0",
         "nodemon": "^2.0.7",
-        "prettier": "^2.2.1"
+        "prettier": "^2.2.1",
+        "should": "^13.2.3"
     }
 }

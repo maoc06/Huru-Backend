@@ -11,6 +11,7 @@ import makeUpdateDisable from './update-disable';
 import makeUpdateBookingTerms from './update-booking-terms';
 import makeUpdateFeatures from './update-features';
 import makeUpdateData from './update-data';
+import makeDestroyCar from './destroy-car';
 
 import { carDb, userDb } from '../../data-access';
 
@@ -27,6 +28,7 @@ const updateDisable = makeUpdateDisable({ carDb });
 const updateBookingTerms = makeUpdateBookingTerms({ carDb });
 const updateFeatures = makeUpdateFeatures({ carDb });
 const updateData = makeUpdateData({ carDb });
+const destroyCar = makeDestroyCar({ carDb });
 
 export default {
   addCar,
@@ -42,4 +44,5 @@ export default {
   updateBookingTerms,
   updateFeatures,
   updateData,
+  destroyCar,
 };

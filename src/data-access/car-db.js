@@ -328,6 +328,10 @@ export default function makeCarDb({ client }) {
     });
   }
 
+  function deleteCar(carId) {
+    return Car.destroy({ where: { carId } });
+  }
+
   return Object.freeze({
     findAll,
     findCarFeatures,
@@ -343,5 +347,6 @@ export default function makeCarDb({ client }) {
     update,
     deleteFeatures,
     queryCar,
+    deleteCar,
   });
 }

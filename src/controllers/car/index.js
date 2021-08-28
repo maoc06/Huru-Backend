@@ -13,6 +13,7 @@ import makePatchDisable from './patch-disable';
 import makePatchBookingTerms from './patch-booking-terms';
 import makePutFeatures from './put-features';
 import makePutCarData from './put-car-data';
+import makeDeleteCar from './delete-car';
 
 const {
   addCar,
@@ -28,6 +29,7 @@ const {
   updateBookingTerms,
   updateFeatures,
   updateData,
+  destroyCar,
 } = carUseCases;
 
 const postCar = makePostCity({ addCar });
@@ -43,6 +45,7 @@ const patchDisable = makePatchDisable({ updateDisable });
 const patchBookingTerms = makePatchBookingTerms({ updateBookingTerms });
 const putFeatures = makePutFeatures({ updateFeatures });
 const putCarData = makePutCarData({ updateData });
+const deleteCar = makeDeleteCar({ destroyCar });
 
 export default {
   postCar,
@@ -58,4 +61,5 @@ export default {
   patchBookingTerms,
   putFeatures,
   putCarData,
+  deleteCar,
 };

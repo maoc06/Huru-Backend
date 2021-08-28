@@ -53,10 +53,10 @@ export default function makePaymentGateway({ client }) {
   async function insertSourceCard(sourceInfo) {
     const cardSourceInfo = {
       number: sourceInfo.number,
-      exp_month: sourceInfo.exp_month,
-      exp_year: sourceInfo.exp_year,
+      exp_month: sourceInfo.expMonth,
+      exp_year: sourceInfo.expYear,
       cvc: sourceInfo.cvc,
-      card_holder: sourceInfo.card_holder,
+      card_holder: sourceInfo.cardHolder,
     };
 
     // First get the acceptance token
@@ -140,9 +140,9 @@ export default function makePaymentGateway({ client }) {
     };
 
     // but...first decide if default or not
-    const paymentMethodByUser = await paymentUserModel.findByUser(
-      sourceInfo.uid
-    );
+    const paymentMethodByUser = await paymentUserModel.findAll({
+      where: { addedBy: sourceInfo.uid },
+    });
     if (paymentMethodByUser.length === 0) {
       paymentUserRecord.isDefault = true;
     }

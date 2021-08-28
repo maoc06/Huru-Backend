@@ -3,6 +3,9 @@ export default function makeUpdateFeatures({ carDb }) {
     const bulkFeatures = [];
     const { carId, features } = data;
 
+    const existing = await carDb.findByIdSimple(carId);
+    if (!existing) throw new Error('Car not found');
+
     await carDb.deleteFeatures(carId);
 
     features.forEach((feature) => {

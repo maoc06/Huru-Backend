@@ -1,19 +1,18 @@
-export default function makePostPaymentSourceNequi({ addPaymentSourceNequi }) {
-  return async function postPaymentSourceNequi(httpRequest) {
+export default function makeDeleteUser({ destroyUser }) {
+  return async function deleteUser(httpRequest) {
     const headers = {
       'Content-Type': 'application/json',
     };
 
     try {
-      const { ...sourceInfo } = httpRequest.body;
-      const source = await addPaymentSourceNequi({ ...sourceInfo });
+      const { email } = httpRequest.params;
+      await destroyUser({ email });
 
       return {
         headers,
         statusCode: 201,
         body: {
-          message: 'Payment source Nequi successfully added',
-          data: source,
+          message: 'User successfully deleted',
         },
       };
     } catch (e) {

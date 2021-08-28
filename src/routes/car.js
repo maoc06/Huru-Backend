@@ -68,6 +68,8 @@ function getCarRoutes() {
 
   router.put('/', verifyToken, makeCallback(carControllers.putCarData));
 
+  router.delete('/:carId', verifyToken, makeCallback(carControllers.deleteCar));
+
   return router;
 }
 

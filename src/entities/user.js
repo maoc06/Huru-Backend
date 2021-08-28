@@ -7,6 +7,7 @@ export default function buildMakeUser() {
       lastName,
       email,
       phone,
+      password,
       identityDocument,
       dateOfBirth,
       isPhoneVerified,
@@ -17,6 +18,8 @@ export default function buildMakeUser() {
     if (!email) throw new Error('User must have an email');
     if (!phone) throw new Error('User must have a phone number');
     if (!dateOfBirth) throw new Error('User must have a date of birth');
+    if (password.length < 6)
+      throw new Error('Password must contain 6 characters');
     if (!identityDocument)
       throw new Error('User must have a identity document number');
     // Validete minimum age (19 year old)

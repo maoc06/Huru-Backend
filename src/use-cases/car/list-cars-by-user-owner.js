@@ -6,7 +6,6 @@ export default function makeListByUserOwner({ carDb, userDb }) {
     if (!existing) throw new Error('Owner uuid not found');
 
     const cars = await carDb.findByOwner(ownerUUID);
-
     return cars;
   };
 }

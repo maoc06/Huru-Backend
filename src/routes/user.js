@@ -74,6 +74,12 @@ function getUserRoutes() {
 
   router.put('/', verifyToken, makeCallback(userControllers.putUserData));
 
+  router.delete(
+    '/:email',
+    verifyToken,
+    makeCallback(userControllers.deleteUser)
+  );
+
   return router;
 }
 

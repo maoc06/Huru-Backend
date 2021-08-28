@@ -77,6 +77,10 @@ export default function makeUserDb() {
     });
   }
 
+  function deleteUser(email) {
+    return User.destroy({ where: { email } });
+  }
+
   return Object.freeze({
     findByUUID,
     findByEmail,
@@ -87,5 +91,6 @@ export default function makeUserDb() {
     insertReview,
     insertProfileImage,
     queryUser,
+    deleteUser,
   });
 }
