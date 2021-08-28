@@ -46,6 +46,18 @@ const diffNowYears = (date) => {
   return Math.abs(calcDiff.years);
 };
 
+const diffNowDefault = (date) => {
+  const i1 = DateTime.fromSQL(date);
+  return i1.diffNow().toObject().milliseconds;
+};
+
+const isLowDate = (dateIn, dateOut) => {
+  const i1 = DateTime.fromSQL(dateIn);
+  const i2 = DateTime.fromSQL(dateOut);
+
+  return i2 < i1;
+};
+
 const formatDate = ({ date, type = 'SQL', withYear = false }) => {
   const rawDate = convertTo({ date, type });
 
@@ -106,8 +118,10 @@ export {
   diffDays,
   formatDate,
   formatFullDate,
+  isLowDate,
   formatTime,
   nowFormatDate,
+  diffNowDefault,
   validateMax,
   validateMin,
 };

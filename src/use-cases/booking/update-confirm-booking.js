@@ -18,6 +18,9 @@ export default function makeUpdateConfirmBooking({
   sendBookingRejectedMail,
 }) {
   return async function updateConfirmBooking({ bookingId, confirm, email }) {
+    const existing = await bookingDb.findByIdSimple(bookingId);
+    if (!existing) throw new RangeError('Booking not exist');
+
     switch (confirm) {
       case 5: {
         // booking approved
@@ -109,7 +112,10 @@ export default function makeUpdateConfirmBooking({
           bookingNumber,
           owner: `${owner.firstName}`,
           phone: owner.phone,
-          carImage: images[0].imagePath,
+          carImage:
+            images.length === 0
+              ? 'https://huru-bucket-maja.s3.sa-east-1.amazonaws.com/assets/default-car.png'
+              : images[0].imagePath,
           paid: totalPaidInCents / 100,
           paidOn: nowFormatDate({ withYear: true }),
         });
@@ -135,7 +141,10 @@ export default function makeUpdateConfirmBooking({
         sendBookingRejectedMail({
           emailToSend: email,
           carInfo: `${maker.name} ${model.name} ${year}`,
-          carImage: images[0].imagePath,
+          carImage:
+            images.length === 0
+              ? 'https://huru-bucket-maja.s3.sa-east-1.amazonaws.com/assets/default-car.png'
+              : images[0].imagePath,
           startDate: formatFullDate({ date: checkin, type: 'JS' }),
           endDate: formatFullDate({ date: checkout, type: 'JS' }),
         });

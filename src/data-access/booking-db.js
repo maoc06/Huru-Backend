@@ -18,6 +18,10 @@ export default function makeBookingDb({ client }) {
     return Booking.findOne({ where: { transactionId } });
   }
 
+  function findByIdSimple(bookingId) {
+    return Booking.findOne({ where: { id: bookingId } });
+  }
+
   function findById(bookingId) {
     return Booking.findOne({
       attributes: { exclude: ['bookingCar', 'bookingBy'] },
@@ -243,10 +247,15 @@ export default function makeBookingDb({ client }) {
     return Booking.update({ bookingStatus }, { where: { id } });
   }
 
+  function deleteBooking(bookingId) {
+    return Booking.destroy({ where: { id: bookingId } });
+  }
+
   return Object.freeze({
     findByTransaction,
     findByUser,
     findById,
+    findByIdSimple,
     findUpcomingBookings,
     findBookingsHistory,
     countCompletedTrips,
@@ -255,5 +264,6 @@ export default function makeBookingDb({ client }) {
     confirmBooking,
     update,
     updateBookingStatus,
+    deleteBooking,
   });
 }

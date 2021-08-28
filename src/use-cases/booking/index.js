@@ -7,6 +7,7 @@ import makeCountCompletedTripsByCar from './count-completed-trips-by-car';
 import makeAddBooking from './add-booking';
 import makeCancelBooking from './cancel-booking';
 import makeUpdateConfirmBooking from './update-confirm-booking';
+import makeDestroyBooking from './destroy-booking';
 
 import mailer from '../../mails';
 
@@ -57,6 +58,7 @@ const addBooking = makeAddBooking({
   bookingDb,
   userDb,
   carDb,
+  paymentUserDb,
   sendBookingRequestMail,
 });
 
@@ -71,6 +73,10 @@ const updateConfirmBooking = makeUpdateConfirmBooking({
   sendBookingRejectedMail,
 });
 
+const destroyBooking = makeDestroyBooking({
+  bookingDb,
+});
+
 export default {
   listByUserOwner,
   listBooking,
@@ -81,4 +87,5 @@ export default {
   cancelBooking,
   addBooking,
   updateConfirmBooking,
+  destroyBooking,
 };

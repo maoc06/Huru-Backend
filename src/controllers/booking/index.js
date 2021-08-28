@@ -9,6 +9,7 @@ import makeGetCountCompletedTripsByCar from './get-count-completed-trips-by-car'
 import makePostBooking from './post-booking';
 import makePutConfirmBooking from './put-confirm-booking';
 import makePutCancelBooking from './put-cancel-booking';
+import makeDeleteBooking from './delete-booking';
 
 const {
   listBooking,
@@ -20,6 +21,7 @@ const {
   cancelBooking,
   addBooking,
   updateConfirmBooking,
+  destroyBooking,
 } = bookingUseCases;
 
 const getBooking = makeBooking({ listBooking });
@@ -35,6 +37,7 @@ const getCountCompletedTripsByCar = makeGetCountCompletedTripsByCar({
 const postBooking = makePostBooking({ addBooking });
 const putConfirmBooking = makePutConfirmBooking({ updateConfirmBooking });
 const putCancelBooking = makePutCancelBooking({ cancelBooking });
+const deleteBooking = makeDeleteBooking({ destroyBooking });
 
 export default {
   getBooking,
@@ -46,4 +49,5 @@ export default {
   postBooking,
   putConfirmBooking,
   putCancelBooking,
+  deleteBooking,
 };

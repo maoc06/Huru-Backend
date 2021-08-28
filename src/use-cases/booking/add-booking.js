@@ -6,19 +6,26 @@ export default function makeAddBooking({
   bookingDb,
   userDb,
   carDb,
+  paymentUserDb,
   sendBookingRequestMail,
 }) {
   return async function addBooking(bookingInfo) {
     const booking = makeBooking(bookingInfo);
 
-    const { dataValues: applicantUser } = await userDb.findByUUID(
-      booking.bookingBy
-    );
-    if (!applicantUser) {
+    const payExisting = await paymentUserDb.findById(booking.paymentId);
+    if (!payExisting)
+      throw new RangeError(
+        'The payment method to be used for the transaction does not exist'
+      );
+
+    const userExisting = await userDb.findByUUID(booking.bookingBy);
+    if (!userExisting) {
       throw new Error(
         'The user trying to assign to the reservation does not exist'
       );
     }
+
+    const { dataValues: applicantUser } = userExisting;
 
     const car = await carDb.findById(booking.bookingCar);
     if (!car) {
@@ -39,7 +46,11 @@ export default function makeAddBooking({
     sendBookingRequestMail({
       emailToSend: carOwner.email,
       carInfo: `${car.maker.name} ${car.model.name} ${car.year}`,
-      carImage: `${car.images[0].imagePath}`,
+      carImage: `${
+        car.images.length === 0
+          ? 'https://huru-bucket-maja.s3.sa-east-1.amazonaws.com/assets/default-car.png'
+          : car.images[0].imagePath
+      }`,
       startDate: formatFullDate({ date: booking.checkin, type: 'SQL' }),
       endDate: formatFullDate({ date: booking.checkout, type: 'SQL' }),
       applicant: `${applicantUser.firstName} ${applicantUser.lastName}`,

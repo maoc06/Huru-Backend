@@ -68,6 +68,13 @@ function getBookingRoutes() {
     makeCallback(bookingControllers.putCancelBooking)
   );
 
+  router.delete(
+    '/:id',
+    verifyToken,
+    authorize([Normal, Admin]),
+    makeCallback(bookingControllers.deleteBooking)
+  );
+
   return router;
 }
 
