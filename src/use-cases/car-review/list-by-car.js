@@ -4,9 +4,7 @@ export default function makeListByCar({ carReviewDb, carDb, userDb }) {
 
     const existing = await carDb.findById(carId);
     if (!existing) {
-      throw new Error(
-        'The cart you are trying to add a review to does not exist'
-      );
+      throw new Error('car not found');
     }
 
     const reviews = await carReviewDb.findByCar(carId);

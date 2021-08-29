@@ -28,6 +28,13 @@ function getCarReviewRoutes() {
     makeCallback(carReviewControllers.postReview)
   );
 
+  router.delete(
+    '/:id',
+    verifyToken,
+    authorize([Normal]),
+    makeCallback(carReviewControllers.deleteCarReview)
+  );
+
   return router;
 }
 

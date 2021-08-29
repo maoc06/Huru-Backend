@@ -48,6 +48,12 @@ const removeRegistrationTestBooking = ({ accessToken, bookingId }) =>
     .delete(`/booking/${bookingId}`)
     .set({ Authorization: `Bearer ${accessToken}` });
 
+const removeTestCarReview = ({ accessToken, reviewId }) =>
+  chai
+    .request(config.apiUrl)
+    .delete(`/car-review/${reviewId}`)
+    .set({ Authorization: `Bearer ${accessToken}` });
+
 const notValidAccessToken = () => testUser.getNotValidToken();
 
 module.exports = {
@@ -58,5 +64,6 @@ module.exports = {
   removeRegistrationTestUser,
   removeRegistrationTestCar,
   removeRegistrationTestBooking,
+  removeTestCarReview,
   notValidAccessToken,
 };

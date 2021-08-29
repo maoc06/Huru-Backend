@@ -26,11 +26,16 @@ export default function makeCarReviewDb() {
     return CarReview.create(review);
   }
 
+  function deleteReview(reviewId) {
+    return CarReview.destroy({ where: { id: reviewId } });
+  }
+
   return Object.freeze({
     findById,
     findByCar,
     findByBooking,
     findByUser,
     insert,
+    deleteReview,
   });
 }

@@ -17,6 +17,7 @@ export default function makePostReview({ addCarReview }) {
         },
       };
     } catch (e) {
+      console.log(e);
       return {
         headers,
         statusCode: 400,
