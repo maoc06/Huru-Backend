@@ -1,23 +1,21 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
+Object.defineProperty(exports, '__esModule', {
+  value: true,
 });
 exports.default = void 0;
 
-var _useCases = require("../../use-cases");
+const _useCases = require('../../use-cases');
 
-var _getMakers = _interopRequireDefault(require("./get-makers"));
+const _getMakers = _interopRequireDefault(require('./get-makers'));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
 
-const {
-  listMakers
-} = _useCases.makerUseCases;
+const { listMakers } = _useCases.makerUseCases;
 const getMakers = (0, _getMakers.default)({
-  listMakers
+  listMakers,
 });
-var _default = {
-  getMakers
+const _default = {
+  getMakers,
 };
 exports.default = _default;

@@ -1,13 +1,9 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
+Object.defineProperty(exports, '__esModule', {
+  value: true,
 });
 exports.default = makeListTransmissions;
 
-function makeListTransmissions({
-  carBasicSettingsDb
-}) {
+function makeListTransmissions({ carBasicSettingsDb }) {
   return function listTransmissions() {
     return carBasicSettingsDb.findAllTransmissions();
   };

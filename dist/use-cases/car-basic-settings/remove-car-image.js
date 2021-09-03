@@ -1,13 +1,9 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
+Object.defineProperty(exports, '__esModule', {
+  value: true,
 });
 exports.default = makeRemoveCarImage;
 
-function makeRemoveCarImage({
-  carBasicSettingsDb
-}) {
+function makeRemoveCarImage({ carBasicSettingsDb }) {
   return async function removeCarImage(carImageId) {
     return carBasicSettingsDb.deleteCarImage(carImageId);
   };

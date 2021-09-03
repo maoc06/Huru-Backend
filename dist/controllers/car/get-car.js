@@ -1,32 +1,26 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
+Object.defineProperty(exports, '__esModule', {
+  value: true,
 });
 exports.default = makeGetCar;
 
-function makeGetCar({
-  listCar
-}) {
+function makeGetCar({ listCar }) {
   return async function getCar(httpRequest) {
     const headers = {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     };
-    const {
-      carId
-    } = httpRequest.params;
+    const { carId } = httpRequest.params;
 
     try {
       const car = await listCar({
-        carId
+        carId,
       });
       return {
         headers,
         statusCode: 200,
         body: {
           message: 'Retrieve Car by ID',
-          data: car
-        }
+          data: car,
+        },
       };
     } catch (e) {
       console.log(e);
@@ -34,8 +28,8 @@ function makeGetCar({
         headers,
         statusCode: 400,
         body: {
-          error: e.message
-        }
+          error: e.message,
+        },
       };
     }
   };

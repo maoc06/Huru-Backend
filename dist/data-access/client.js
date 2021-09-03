@@ -1,17 +1,15 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
+Object.defineProperty(exports, '__esModule', {
+  value: true,
 });
 exports.default = void 0;
 
-var _sequelize = require("sequelize");
+const _sequelize = require('sequelize');
 
-var _config = require("../../config");
+const _config = require('../../config');
 
 // import twilio from 'twilio';
 const client = new _sequelize.Sequelize(_config.config.dbUri, {
-  timezone: '-5:00'
+  timezone: '-5:00',
 }); // client
 //   .authenticate()
 //   .then(() => {
@@ -24,7 +22,7 @@ const client = new _sequelize.Sequelize(_config.config.dbUri, {
 //   });
 // const twilioClient = twilio(config.twilioAccountSID, config.twilioToken);
 
-var _default = {
-  client
+const _default = {
+  client,
 };
 exports.default = _default;

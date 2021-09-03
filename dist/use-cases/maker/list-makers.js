@@ -1,16 +1,10 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
+Object.defineProperty(exports, '__esModule', {
+  value: true,
 });
 exports.default = makeListMakers;
 
-function makeListMakers({
-  makerDb
-}) {
-  return async function listMakers({
-    makerId
-  } = {}) {
+function makeListMakers({ makerDb }) {
+  return async function listMakers({ makerId } = {}) {
     if (makerId) {
       const maker = await makerDb.findById(makerId);
       if (!maker) throw new Error(`Maker with id ${makerId} not found`);

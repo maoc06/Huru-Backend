@@ -1,29 +1,29 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
+Object.defineProperty(exports, '__esModule', {
+  value: true,
 });
 exports.default = buildMakerModel;
 
-var _sequelize = require("sequelize");
+const _sequelize = require('sequelize');
 
-function buildMakerModel({
-  client
-}) {
-  return client.define('maker', {
-    makerId: {
-      type: _sequelize.DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-      allowNull: false,
-      field: 'maker_id'
+function buildMakerModel({ client }) {
+  return client.define(
+    'maker',
+    {
+      makerId: {
+        type: _sequelize.DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false,
+        field: 'maker_id',
+      },
+      name: {
+        type: _sequelize.DataTypes.STRING(75),
+        allowNull: false,
+      },
     },
-    name: {
-      type: _sequelize.DataTypes.STRING(75),
-      allowNull: false
+    {
+      timestamps: false,
+      freezeTableName: true,
     }
-  }, {
-    timestamps: false,
-    freezeTableName: true
-  });
+  );
 }

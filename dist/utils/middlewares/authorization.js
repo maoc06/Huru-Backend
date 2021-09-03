@@ -1,7 +1,5 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
+Object.defineProperty(exports, '__esModule', {
+  value: true,
 });
 exports.default = authorize;
 
@@ -13,13 +11,18 @@ function authorize(roles = []) {
     autorizeRoles = [roles];
   }
 
-  return [(req, res, next) => {
-    if (autorizeRoles.length && !autorizeRoles.includes(req.user.info.userType)) {
-      return res.status(401).json({
-        error: 'Unauthorized'
-      });
-    }
+  return [
+    (req, res, next) => {
+      if (
+        autorizeRoles.length &&
+        !autorizeRoles.includes(req.user.info.userType)
+      ) {
+        return res.status(401).json({
+          error: 'Unauthorized',
+        });
+      }
 
-    next();
-  }];
+      next();
+    },
+  ];
 }

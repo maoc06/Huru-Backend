@@ -1,19 +1,11 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
+Object.defineProperty(exports, '__esModule', {
+  value: true,
 });
 exports.default = makeAddCarFeatures;
 
-function makeAddCarFeatures({
-  carBasicSettingsDb,
-  carDb
-}) {
+function makeAddCarFeatures({ carBasicSettingsDb, carDb }) {
   return async function addCarFeatures(data) {
-    const {
-      carId,
-      selected
-    } = data;
+    const { carId, selected } = data;
     await validate(carId);
     return carBasicSettingsDb.insertCarFeatures(selected);
   };

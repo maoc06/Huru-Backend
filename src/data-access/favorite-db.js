@@ -12,7 +12,12 @@ export default function makeFavoriteDb() {
         model: Car,
         attributes: ['carId', 'year'],
         include: [
-          { model: Image, as: 'images', where: { isMain: true } },
+          {
+            model: Image,
+            as: 'images',
+            where: { isMain: true },
+            required: false,
+          },
           { model: Model, attributes: ['modelId', 'name'] },
           { model: Maker },
         ],

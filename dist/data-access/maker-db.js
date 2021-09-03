@@ -1,19 +1,17 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
+Object.defineProperty(exports, '__esModule', {
+  value: true,
 });
 exports.default = makeMakerDb;
 
-var _makerModel = _interopRequireDefault(require("./models/car/maker-model"));
+const _makerModel = _interopRequireDefault(require('./models/car/maker-model'));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
 
-function makeMakerDb({
-  client
-}) {
+function makeMakerDb({ client }) {
   const maker = (0, _makerModel.default)({
-    client
+    client,
   });
 
   function findAll() {
@@ -26,6 +24,6 @@ function makeMakerDb({
 
   return Object.freeze({
     findAll,
-    findById
+    findById,
   });
 }

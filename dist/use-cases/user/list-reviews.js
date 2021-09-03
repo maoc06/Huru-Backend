@@ -1,16 +1,10 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
+Object.defineProperty(exports, '__esModule', {
+  value: true,
 });
 exports.default = makeListReviews;
 
-function makeListReviews({
-  userDb
-}) {
-  return async function listReviews({
-    userId
-  } = {}) {
+function makeListReviews({ userDb }) {
+  return async function listReviews({ userId } = {}) {
     if (!userId) throw new Error('user id null');
     const existing = await userDb.findByUUID(userId);
 

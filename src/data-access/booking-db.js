@@ -39,6 +39,18 @@ export default function makeBookingDb({ client }) {
             },
             { model: Maker, attributes: ['name'] },
             { model: Model, attributes: ['name'] },
+            {
+              model: User,
+              as: 'userOwner',
+              attributes: [
+                'uuid',
+                'firstName',
+                'lastName',
+                'email',
+                'profilePhoto',
+                'createdAt',
+              ],
+            },
           ],
         },
         {
@@ -70,6 +82,7 @@ export default function makeBookingDb({ client }) {
             as: 'images',
             attributes: ['imagePath'],
             where: { isMain: true },
+            required: false,
           },
           { model: Maker, attributes: ['name'] },
           { model: Model, attributes: ['name'] },
@@ -108,6 +121,7 @@ export default function makeBookingDb({ client }) {
             as: 'images',
             attributes: ['imagePath'],
             where: { isMain: true },
+            required: false,
           },
           { model: Maker, attributes: ['name'] },
           { model: Model, attributes: ['name'] },
@@ -149,11 +163,14 @@ export default function makeBookingDb({ client }) {
         const data = item.dataValues;
         const car = data.bookedCar.dataValues;
 
-        const { dataValues } = await Image.findOne({
+        const imageRes = await Image.findOne({
           attributes: ['imagePath'],
           where: { carId: car.carId, isMain: true },
         });
-        car.images = [dataValues];
+
+        imageRes === null
+          ? (car.images = [])
+          : (car.images = [imageRes.dataValues]);
       })
     );
 

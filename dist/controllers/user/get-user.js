@@ -1,32 +1,26 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
+Object.defineProperty(exports, '__esModule', {
+  value: true,
 });
 exports.default = makeGetUser;
 
-function makeGetUser({
-  listUser
-}) {
+function makeGetUser({ listUser }) {
   return async function getUser(httpRequest) {
     const headers = {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     };
-    const {
-      uuid
-    } = httpRequest.params;
+    const { uuid } = httpRequest.params;
 
     try {
       const user = await listUser({
-        uuid
+        uuid,
       });
       return {
         headers,
         statusCode: 200,
         body: {
           message: 'Retrieve a user',
-          data: user
-        }
+          data: user,
+        },
       };
     } catch (e) {
       console.log(e);
@@ -34,8 +28,8 @@ function makeGetUser({
         headers,
         statusCode: 400,
         body: {
-          error: e.message
-        }
+          error: e.message,
+        },
       };
     }
   };

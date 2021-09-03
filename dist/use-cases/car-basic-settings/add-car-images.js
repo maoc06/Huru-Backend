@@ -1,18 +1,11 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
+Object.defineProperty(exports, '__esModule', {
+  value: true,
 });
 exports.default = makeAddCarImage;
 
-function makeAddCarImage({
-  carBasicSettingsDb,
-  userDb
-}) {
+function makeAddCarImage({ carBasicSettingsDb, userDb }) {
   return async function addCarImage(imageInfo) {
-    const {
-      uid
-    } = imageInfo;
+    const { uid } = imageInfo;
     await validate(uid);
     return carBasicSettingsDb.insertCarImage(imageInfo);
   };

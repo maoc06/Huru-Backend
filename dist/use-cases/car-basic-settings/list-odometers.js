@@ -1,13 +1,9 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
+Object.defineProperty(exports, '__esModule', {
+  value: true,
 });
 exports.default = makeListOdometer;
 
-function makeListOdometer({
-  carBasicSettingsDb
-}) {
+function makeListOdometer({ carBasicSettingsDb }) {
   return function listOdometer() {
     return carBasicSettingsDb.findAllOdometerRange();
   };
