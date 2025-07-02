@@ -1,7 +1,7 @@
 import { QueryTypes, Op } from 'sequelize';
 
 import { BookingModels, CarModels, UserModels } from './models';
-import { transaction } from './models/payment';
+import { transaction, paymentUser } from './models/payment';
 
 const { Booking } = BookingModels;
 const { Car, Image, Maker, Model } = CarModels;
@@ -180,6 +180,21 @@ export default function makeBookingDb({ client }) {
 
   async function insert(bookingInfo) {
     const transactionModel = transaction({ client });
+    const paymentUserModel = paymentUser({ client });
+    
+    // First verify the payment method exists
+    const paymentMethod = await paymentUserModel.findOne({
+      where: { 
+        id: bookingInfo.paymentId,
+        status: 1 // Ensure payment method is active
+      }
+    });
+    
+    if (!paymentMethod) {
+      throw new Error('The selected payment method does not exist or is inactive');
+    }
+
+    // Then create the transaction
     const {
       dataValues: { transactionId },
     } = await transactionModel.create({

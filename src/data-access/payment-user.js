@@ -6,6 +6,7 @@ export default function makePaymentUserDb({ client }) {
   const paymentUserModel = paymentUser({ client });
 
   function findById(paymentId) {
+    console.log('paymentId', paymentId);
     return paymentUserModel.findByPk(paymentId);
   }
 

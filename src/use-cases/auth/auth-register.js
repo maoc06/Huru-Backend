@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import { makeUser } from '../../entities';
 import { config } from '../../../config';
+import { Normal } from '../../utils/role';
 
 export default function makeRegister({ authDb, handleToken, sendWelcomeMail }) {
   return async function register(userInfo) {
@@ -8,6 +9,11 @@ export default function makeRegister({ authDb, handleToken, sendWelcomeMail }) {
 
     const user = makeUser(userInfo);
     const userTmp = { ...user };
+
+    // Set default userType for new users (Normal role)
+    if (!userTmp.userType) {
+      userTmp.userType = Normal;
+    }
 
     // Hash password
     if (userInfo.password) {

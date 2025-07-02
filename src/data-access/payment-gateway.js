@@ -51,13 +51,16 @@ export default function makePaymentGateway({ client }) {
   }
 
   async function insertSourceCard(sourceInfo) {
+    console.log('sourceInfo', sourceInfo);
     const cardSourceInfo = {
       number: sourceInfo.number,
-      exp_month: sourceInfo.exp_month,
-      exp_year: sourceInfo.exp_year,
+      exp_month: sourceInfo.expMonth,
+      exp_year: sourceInfo.expYear,
       cvc: sourceInfo.cvc,
-      card_holder: sourceInfo.card_holder,
+      card_holder: sourceInfo.cardHolder,
     };
+    
+    console.log('Card info being sent to API:', cardSourceInfo);
 
     // First get the acceptance token
     const {
@@ -65,9 +68,26 @@ export default function makePaymentGateway({ client }) {
     } = await generateAcceptanceToken();
 
     // Second tokenizate card info
-    const {
-      data: { id: token, brand, last_four: lastFour },
-    } = await tokenizationSourceCard(cardSourceInfo);
+    const tokenizationResponse = await tokenizationSourceCard(cardSourceInfo);
+    console.log('tokenizationResponse', tokenizationResponse);
+    
+    // Check if tokenization was successful
+    if (!tokenizationResponse.data) {
+      console.error('Tokenization failed:', tokenizationResponse);
+      
+      // Handle validation errors specifically
+      if (tokenizationResponse.error?.type === 'INPUT_VALIDATION_ERROR') {
+        const validationErrors = tokenizationResponse.error.messages;
+        const errorMessages = Object.entries(validationErrors)
+          .map(([field, errors]) => `${field}: ${errors.join(', ')}`)
+          .join('; ');
+        throw new Error(`Card validation failed: ${errorMessages}`);
+      }
+      
+      throw new Error(`Card tokenization failed: ${tokenizationResponse.error?.message || 'Unknown error'}`);
+    }
+    
+    const { id: token, brand, last_four: lastFour } = tokenizationResponse.data;
 
     // Then create a payment source
     const paymentSource = await createPaymentSource(
@@ -79,6 +99,12 @@ export default function makePaymentGateway({ client }) {
 
     // Finally save the record in the database
     const paymentUserModel = paymentUser({ client });
+    
+    // Check if this is the user's first payment method
+    const existingPayments = await paymentUserModel.findAll({
+      where: { addedBy: sourceInfo.uid }
+    });
+
     const paymentUserRecord = {
       id: paymentSource.data.id,
       addedBy: sourceInfo.uid,
@@ -88,6 +114,7 @@ export default function makePaymentGateway({ client }) {
       customerEmail: sourceInfo.email,
       phone: null,
       status: 1,
+      isDefault: existingPayments.length === 0 // Set as default if it's the first payment method
     };
 
     const response = await paymentUserModel.create(paymentUserRecord);
@@ -120,6 +147,12 @@ export default function makePaymentGateway({ client }) {
 
     // Finally save the record in the database
     const paymentUserModel = paymentUser({ client });
+    
+    // Check if this is the user's first payment method
+    const existingPayments = await paymentUserModel.findAll({
+      where: { addedBy: sourceInfo.uid }
+    });
+
     const paymentUserRecord = {
       id: paymentSource.data.id,
       addedBy: sourceInfo.uid,
@@ -129,6 +162,7 @@ export default function makePaymentGateway({ client }) {
       customerEmail: sourceInfo.email,
       phone: sourceInfo.phone,
       status: 1,
+      isDefault: existingPayments.length === 0 // Set as default if it's the first payment method
     };
 
     const response = await paymentUserModel.create(paymentUserRecord);

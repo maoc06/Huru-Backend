@@ -1,8 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 // eslint-disable-next-line node/no-unpublished-require
-const dotenv = require('dotenv');
-
-dotenv.config();
+require('dotenv').config();
 
 const config = {
   dev: process.env.NODE_ENV !== 'production',
@@ -12,6 +10,9 @@ const config = {
   privateKey: process.env.PRIVATE_KEY,
   webAppServerBaseUrl: process.env.WEB_APP_SERVER_BASE_URL,
   googleClientId: process.env.GOOGLE_CLIENT_ID,
+  awsAccessKey: process.env.AWS_ACCESS_KEY_ID,
+  awsSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  awsRegion: process.env.AWS_REGION,
   awsBucketName: process.env.AWS_BUCKET_NAME,
   twilioToken: process.env.TWILIO_AUTH_TOKEN,
   twilioAccountSID: process.env.TWILIO_ACCOUNT_SID,

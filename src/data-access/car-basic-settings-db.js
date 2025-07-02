@@ -76,10 +76,11 @@ export default function makeCarBasicSettingsDb({ client }) {
     const { photoFile, uid, carId, isMain } = imageInfo;
 
     const s3 = await uploadFileS3(photoFile, 'vehicles');
+    console.log('s3 upload - vehicles', s3);
 
-    if (!s3.success) throw new Error('Error uploading the image');
+    if (!s3.Location) throw new Error('Error uploading the image');
 
-    const carImageObj = { addedBy: uid, imagePath: s3.url, isMain };
+    const carImageObj = { addedBy: uid, imagePath: s3.Location, isMain };
 
     if (carId) {
       carImageObj.carId = carId;

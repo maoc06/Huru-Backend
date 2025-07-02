@@ -1,80 +1,68 @@
-import AWS from 'aws-sdk';
-import imagemin from 'imagemin';
-import imageminPngquant from 'imagemin-pngquant';
-import imageminMozjpeg from 'imagemin-mozjpeg';
+const AWS = require('aws-sdk');
+const imagemin = require('imagemin');
+const imageminPngquant = require('imagemin-pngquant');
+const imageminMozjpeg = require('imagemin-mozjpeg');
+const { config } = require('../../config');
+const validateMimeTypeImages = require('./validate-mime-type-images').default;
+const validateFileSize = require('./validate-file-size').default;
 
-import { config } from '../../config';
-import validateMimeTypeImages from './validate-mime-type-images';
-import validateFileSize from './validate-file-size';
+AWS.config.update({
+  accessKeyId: config.awsAccessKey,
+  secretAccessKey: config.awsSecretAccessKey,
+  region: config.awsRegion,
+});
 
-const credentialsAWS = () => {
-  AWS.config.getCredentials((err) => {
-    if (err) throw new Error('Error with the storage server');
-    else console.log('AWS SDk is correctly configured');
-  });
-};
+const s3 = new AWS.S3({
+  apiVersion: '2006-03-01',
+});
+
+const bucket = config.awsBucketName;
 
 const uploadFileS3 = async (file, subfolder) => {
-  const stateObj = { success: false, url: '' };
-  const { originalname, mimetype } = file;
-  let { buffer } = file;
+  if (!file) {
+    return {
+      location:
+        'https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg',
+    };
+  }
 
-  if (!file) throw new Error('File null');
+  let { originalname, mimetype, buffer } = file;
 
   validateMimeTypeImages(mimetype);
-
   if (validateFileSize(2000000, buffer)) {
-    // Si el tamaño sobre pasa el limite:
-    // Comprimir con imagemin
     const compressFile = await imagemin.buffer(buffer, {
       plugins: [
-        imageminPngquant({ quality: [0.65, 0.7] }),
-        imageminMozjpeg({ quality: 70 }),
+        imageminMozjpeg({ quality: 50 }),
+        imageminPngquant({
+          quality: [0.5, 0.6],
+        }),
       ],
     });
     buffer = compressFile;
   }
 
-  credentialsAWS();
-
-  const s3 = new AWS.S3({ apiVersion: '2006-03-01' });
-
-  // setting up S3 upload parameters
   const params = {
-    Bucket: config.awsBucketName,
+    Bucket: bucket,
     Key: `${subfolder}/${originalname}`,
     Body: buffer,
-    ContentType: mimetype,
     ACL: 'public-read',
+    ContentType: mimetype,
   };
 
-  await (async () => {
-    try {
-      const uploadedFile = await s3.upload(params).promise();
-      stateObj.success = true;
-      stateObj.url = uploadedFile.Location;
-    } catch (err) {
-      throw new Error(err);
-    }
-  })();
-
-  return stateObj;
+  const stored = await s3.upload(params).promise();
+  return stored;
 };
 
 const deletFileS3 = async ({ subfolder = 'users', key }) => {
-  credentialsAWS();
-
-  const s3 = new AWS.S3({ apiVersion: '2006-03-01' });
-
-  // setting up S3 upload parameters
   const params = {
-    Bucket: config.awsBucketName,
+    Bucket: bucket,
     Key: `${subfolder}/${key}`,
   };
 
-  s3.deleteObject(params, (err) => {
-    if (err) console.log(err, err.stack);
-  });
+  await s3.deleteObject(params).promise();
 };
 
-export { uploadFileS3, deletFileS3 };
+module.exports = {
+  uploadFileS3,
+  deletFileS3,
+};

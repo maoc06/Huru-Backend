@@ -55,9 +55,11 @@ export default function makeUserDb() {
     const { photoFile } = imageInfo;
 
     const s3 = await uploadFileS3(photoFile, 'users');
-    if (!s3.success) throw new Error('Error uploading the profile user image');
+    console.log('s3 upload', s3);
+    if (!s3.Location)
+      throw new Error('Error uploading the profile user image');
 
-    return s3.url;
+    return s3.Location;
   }
 
   return Object.freeze({

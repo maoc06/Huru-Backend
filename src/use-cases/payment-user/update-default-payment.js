@@ -3,7 +3,10 @@ export default function makeUpdateDefaultPayment({ paymentUserDb }) {
     const oldDefaultId = paymentData.id;
     const newDefaultId = paymentData.newDefault;
 
+    console.log('paymentData', paymentData);
+
     let existing = await paymentUserDb.findById(oldDefaultId);
+    console.log('existing', existing);
     if (!existing)
       throw new Error(
         'The payment method that was supposed to be assigned by default does not exist'
