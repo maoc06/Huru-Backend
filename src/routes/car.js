@@ -16,15 +16,11 @@ function getCarRoutes() {
 
   router.get(
     '/by-vin/:vin',
-    verifyToken,
-    authorize([Normal, Admin]),
     makeCallback(carControllers.getCarByVin)
   );
 
   router.get(
     '/by-license/:license',
-    verifyToken,
-    authorize([Normal, Admin]),
     makeCallback(carControllers.getCarByLicensePlate)
   );
 

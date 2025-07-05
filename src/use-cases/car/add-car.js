@@ -4,7 +4,9 @@ export default function makeAddCar({ carDb, userDb }) {
   return async function addCar(carInfo) {
     await validate(carInfo);
 
-    const car = makeCar(carInfo);
+    // Set status to 1 for new car registration
+    const carWithStatus = { ...carInfo, status: 1 };
+    const car = makeCar(carWithStatus);
 
     return carDb.insert(car);
   };

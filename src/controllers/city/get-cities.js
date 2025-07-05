@@ -1,5 +1,6 @@
 export default function makeGetCities({ listCities }) {
   return async function getCities(httpRequest) {
+    console.log('httpRequest', httpRequest);
     const headers = {
       'Content-Type': 'application/json',
     };
